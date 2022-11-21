@@ -34,4 +34,3 @@ const editableData = computed({
   },
 })
 </script>
-<style scoped></style>

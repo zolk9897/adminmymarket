@@ -1,32 +1,32 @@
 <template>
   <a-input
     v-if="item.format === 'text'"
-    v-model:value="value"
-    v-maska="item.mask?.toString()"
-    :placeholder="item.description.substring(0, 40)"
+    v-model:value="store.sendData[pageName][item.name]"
+    v-mask="item.mask?.toString()"
+    :placeholder="item.description ? item.description.substring(0, 40) : null"
     :style="item.style"
-    :class="item.cssClass"
-    size="large"
+    :class="[item.cssClass, errors && 'error']"
+    :size="item.size || 'large'"
     allow-clear
-    @blur="change"
+    @press-enter="callHandler(item.handlers)"
   />
   <a-input-password
     v-if="item.format === 'password'"
-    v-model:value="value"
-    :placeholder="item.description.substring(0, 40)"
+    v-model:value="store.sendData[pageName][item.name]"
+    :placeholder="item.description ? item.description.substring(0, 40) : null"
     :style="item.style"
-    :class="item.cssClass"
-    size="large"
-    @blur="change"
+    :class="[item.cssClass, errors && 'error']"
+    :size="item.size || 'large'"
+    @press-enter="callHandler(item.handlers)"
   />
   <a-input-number
     v-if="item.format === 'number'"
-    v-model:value="value"
-    size="large"
-    :placeholder="item.description.substring(0, 40)"
+    v-model:value="store.sendData[pageName][item.name]"
+    :size="item.size || 'large'"
+    :placeholder="item.description ? item.description.substring(0, 40) : null"
     :style="item.style"
-    :class="item.cssClass"
-    @blur="change"
+    :class="[item.cssClass, errors && 'error']"
+    @press-enter="callHandler(item.handlers)"
   />
   <span
     v-if="item.subtitle"
@@ -37,23 +37,45 @@
   </span>
 </template>
 <script setup>
-import { onMounted, ref, unref } from 'vue'
+import { useGlobalJsonDataStore } from '@/stores/global-json.js'
+import { computed, onMounted } from 'vue'
+import { VueMaskDirective } from 'v-mask'
+
+const { callHandler } = useGlobalJsonDataStore()
 
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
+  pageName: {
+    type: String,
+    required: true,
+  },
 })
-const emits = defineEmits(['change'])
 
-const value = ref()
+const store = useGlobalJsonDataStore()
+
+const errors = computed(() => store.validationErrors[props.item.name])
 
 onMounted(() => {
-  if (props.item.value) value.value = props.item.value
+  //Default value
+  store.sendData[props.pageName][props.item.name] = props.item.value || ''
 })
 
-const change = () => {
-  emits('change', props.item.name, unref(value))
+const vMask = {
+  beforeMount: VueMaskDirective.bind,
+  updated: VueMaskDirective.componentUpdated,
+  unmounted: VueMaskDirective.unbind,
 }
 </script>
+
+<style lang="scss" scoped>
+.ant-input-affix-wrapper.error {
+  border-color: var(--errorRed);
+}
+
+.ant-input-affix-wrapper-focused.error {
+  box-shadow: 0 0 2px var(--red);
+}
+</style>

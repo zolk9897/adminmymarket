@@ -1,13 +1,27 @@
 import about_company from './about_company'
+import analytics from './analytics'
+import banner_groups from './banner_groups'
+import base_settings from './base_settings'
+import catalog_edit from './catalog_edit'
+import complaint_form_edit from './complaint_form_edit'
 import delivery_and_payment from './delivery_and_payment'
+import edit_banner from './edit_banner'
 import global_settings from './global_settings'
+import groups_users from './groups_users'
+import mailing from './mailing'
+import mail_templates from './mail_templates'
+import offer from './offer'
 import price_list from './price_list'
 import profile from './profile'
 import rates from './rates'
 import representatives from './representatives'
 import requisites from './requisites'
+import settings_logs from './settings_logs'
+import tabs_test from './tab_test'
 import test_table from './test_table'
-import analytics from './analytics'
+import users_edit from './users_edit'
+import users_list_table from './users_list_table'
+import user_roles from './user_roles'
 
 export default {
   data: [
@@ -15,6 +29,16 @@ export default {
       name: 'about_company',
       title: 'О компании',
       data: about_company,
+    },
+    {
+      name: 'catalog_edit',
+      title: 'Каталог',
+      data: catalog_edit,
+    },
+    {
+      name: 'offer',
+      title: 'Офферы',
+      data: offer,
     },
     {
       name: 'analytics',
@@ -47,7 +71,11 @@ export default {
       title: 'Профиль',
       data: profile,
     },
-
+    {
+      name: 'complaint_form_edit',
+      title: 'Редактирование результата заполнения веб-формы',
+      data: complaint_form_edit,
+    },
     {
       name: 'delivery_and_payment',
       title: 'Доставка и оплата',
@@ -63,6 +91,61 @@ export default {
       title: 'Реквизиты',
       data: requisites,
     },
+    {
+      name: 'users_edit',
+      title: 'Список пользователей Редактирование',
+      data: users_edit,
+    },
+    {
+      name: 'users_list_table',
+      title: 'Список пользователей',
+      data: users_list_table,
+    },
+    {
+      name: 'mailing',
+      title: 'Рассылки',
+      data: mailing,
+    },
+    {
+      name: 'mail_templates',
+      title: 'Почтовые шаблоны',
+      data: mail_templates,
+    },
+    {
+      name: 'tabs_test',
+      title: 'Табы тестирование',
+      data: tabs_test,
+    },
+    {
+      name: 'groups_users',
+      title: 'Группы пользователей',
+      data: groups_users,
+    },
+    {
+      name: 'settings_logs',
+      title: 'Логирование',
+      data: settings_logs,
+    },
+    {
+      name: 'base_settings',
+      title: 'Базовые настройки',
+      data: base_settings,
+    },
+    {
+      name: 'edit_banner',
+      title: 'Редактирование банера',
+      data: edit_banner,
+    },
+    {
+      name: 'banner_groups',
+      title: 'Баннеров',
+      data: banner_groups,
+    },
+    {
+      name: 'user_roles',
+      title: 'Настройка ролей',
+      data: user_roles,
+    },
   ],
   menu: [
     {
@@ -70,6 +153,25 @@ export default {
       title: 'Ставки',
       icon: 'fa-solid fa-arrow-pointer',
       main: true,
+    },
+    {
+      name: 'catalog',
+      title: 'Каталог',
+      icon: 'fa-solid fa-file-lines',
+      subMenu: [
+        {
+          name: 'catalog_edit',
+          title: 'Основной',
+          main: true,
+          subMenuParents: ['catalog'],
+        },
+        {
+          name: 'offer',
+          title: 'Офферы',
+          subMenuParents: ['catalog'],
+          main: true,
+        },
+      ],
     },
     {
       name: 'content',
@@ -83,16 +185,10 @@ export default {
           subMenuParents: ['content'],
         },
         {
-          name: 'aee',
-          title: 'Проверка ',
-          subMenu: [
-            {
-              name: 'about_company',
-              title: 'О компании',
-              subMenuParents: ['aee', 'content'],
-              main: true,
-            },
-          ],
+          name: 'about_company',
+          title: 'О компании',
+          subMenuParents: ['content'],
+          main: true,
         },
         {
           name: 'price_list',
@@ -106,6 +202,18 @@ export default {
           main: true,
           subMenuParents: ['content'],
         },
+        {
+          name: 'banner_groups',
+          title: 'Баннеры',
+          main: true,
+          subMenuParents: ['content'],
+        },
+        {
+          name: 'edit_banner',
+          title: 'Редактирование банера',
+          main: true,
+          subMenuParents: ['content'],
+        },
       ],
     },
     {
@@ -113,6 +221,44 @@ export default {
       title: 'Настройки',
       icon: 'fa-sliders',
       subMenu: [
+        {
+          name: 'users',
+          title: 'Пользователи',
+          main: true,
+          subMenuParents: ['settings'],
+          subMenu: [
+            {
+              name: 'users_list_table',
+              title: 'Список пользователей',
+              main: true,
+              subMenuParents: ['users'],
+            },
+            {
+              name: 'groups_users',
+              title: 'Группы пользователей',
+              main: true,
+              subMenuParents: ['users'],
+            },
+            {
+              name: 'user_roles',
+              title: 'Роли',
+              main: true,
+              subMenuParents: ['users'],
+            },
+          ],
+        },
+        {
+          name: 'base_settings',
+          title: 'Базовые настройки',
+          main: true,
+          subMenuParents: ['settings'],
+        },
+        {
+          name: 'settings_logs',
+          title: 'Логирование',
+          main: true,
+          subMenuParents: ['settings'],
+        },
         {
           name: 'global_settings',
           title: 'Общие настройки',
@@ -136,6 +282,25 @@ export default {
           title: 'Реквизиты',
           main: true,
           subMenuParents: ['settings'],
+        },
+      ],
+    },
+    {
+      name: 'services',
+      title: 'Сервисы',
+      icon: 'fa-envelope',
+      subMenu: [
+        {
+          name: 'mailing',
+          title: 'Рассылки',
+          main: true,
+          subMenuParents: ['services'],
+        },
+        {
+          name: 'mail_templates',
+          title: 'Почтовые шаблоны',
+          main: true,
+          subMenuParents: ['services'],
         },
       ],
     },

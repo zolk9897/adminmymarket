@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
   parserOptions: {
-    extraFileExtensions: [".vue"],
-    sourceType: "module", // Allows for the use of imports
-    ecmaVersion: "latest",
+    extraFileExtensions: ['.vue'],
+    sourceType: 'module', // Allows for the use of imports
+    ecmaVersion: 'latest',
   },
 
   env: {
@@ -13,34 +13,30 @@ module.exports = {
   },
 
   extends: [
-    "eslint:recommended",
-    "plugin:vue/vue3-essential",
-    "plugin:vue/vue3-recommended",
-    "prettier",
-    "plugin:prettier/recommended"
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-recommended',
+    'prettier',
+    'plugin:prettier/recommended',
   ],
 
-  plugins: [
-    "vue",
-  ],
+  plugins: ['vue'],
 
   globals: {
-    process: "readonly",
-    chrome: "readonly",
-    defineProps: "readonly",
-    defineEmits: "readonly",
-    defineExpose: "readonly",
+    process: 'readonly',
+    chrome: 'readonly',
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
   },
 
   // add your custom rules here
   rules: {
-    indent: ['error', 2],
     'vue/require-default-prop': 0,
     'vue/html-indent': ['error', 2],
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
     'vue/multi-word-component-names': 0,
     'vue/singleline-html-element-content-newline': 0,
-    'linebreak-style': ['error', 'windows'],
     'no-unused-vars': 'off',
     'vue/no-v-model-argument': 'off',
     'vue/no-v-for-template-key': 'off',
@@ -48,4 +44,4 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
   },
-};
+}

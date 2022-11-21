@@ -4,7 +4,6 @@ export default {
   groups: [
     {
       name: 'rates',
-      layoutForm: 'vertical',
       fields: ['title_block', 'body_block'],
     },
   ],
@@ -12,57 +11,45 @@ export default {
     {
       name: 'title_block',
       type: 'div',
-      cssClass: ['p-6', 'bg-white', 'flex', 'gap-2', 'items-end'],
-      style: {
-        borderBottom: '2px solid #f5f5f5',
-      },
+      cssClass: [
+        'p-6',
+        'bg-white',
+        'flex',
+        'gap-2',
+        'items-end',
+        'border-b-solid',
+        'border-b-2',
+        'border-b-#f5f5f5',
+      ],
       fields: ['title', 'link'],
     },
     {
       text: 'Ставки',
       name: 'title',
       type: 'label',
-      style: {
-        fontWeight: '500',
-        fontSize: '20px',
-        lineHeight: '24px',
-      },
+      cssClass: ['font-medium', 'text-xl', 'leading-5'],
     },
     {
       text: 'Ставки по умолчанию',
       name: 'link',
       type: 'link',
-      style: {
-        fontWeight: '400',
-        fontSize: '14px',
-        lineHeight: '22px',
-      },
+      cssClass: ['font-normal', 'text-sm', 'leading-5'],
     },
     {
       name: 'body_block',
       type: 'div',
       cssClass: ['bg-white'],
-      style: {
-        borderBottom: '2px solid #f5f5f5',
-      },
       fields: ['table_block'],
     },
     {
       name: 'table_block',
       type: 'div',
-      cssClass: ['p-6', 'bg-white'],
-      style: {
-        borderBottom: '2px solid #f5f5f5',
-      },
+      cssClass: ['p-6'],
       fields: ['table'],
     },
     {
       name: 'table',
       type: 'table',
-      cssClass: ['bg-white'],
-      style: {
-        borderBottom: '2px solid #f5f5f5',
-      },
       config: {
         pagination: false,
         size: 'small',

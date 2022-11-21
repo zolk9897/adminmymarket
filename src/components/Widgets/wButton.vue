@@ -5,10 +5,10 @@
     :style="item.style"
     :disabled="item.disabled"
     :size="item.size"
-    @click="callHandler(item.handler)"
+    @click="callHandler(item.handlers)"
   >
     <template v-if="isIcon" #icon>
-      <component :is="antIcons[item.icon.name]" :style="item.icon.style" />
+      <fa class="mr-2" :icon="item.icon.name" />
     </template>
     {{ item.value }}
   </a-button>
@@ -16,7 +16,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useGlobalJsonDataStore } from '../../stores/global-json.js'
-import * as antIcons from '@ant-design/icons-vue'
+
 const { callHandler } = useGlobalJsonDataStore()
 
 const props = defineProps({

@@ -3,7 +3,6 @@ export default {
   groups: [
     {
       name: 'profile',
-      layoutForm: 'vertical',
       fields: ['main_block'],
     },
   ],
@@ -18,7 +17,6 @@ export default {
       name: 'title_block',
       type: 'div',
       cssClass: ['bg-white', 'p-6'],
-      style: {},
       fields: ['title'],
     },
     {
@@ -26,7 +24,6 @@ export default {
       name: 'title',
       type: 'label',
       cssClass: ['font-medium', 'text-xl'],
-      style: {},
     },
     {
       name: 'body_block',
@@ -43,14 +40,12 @@ export default {
         'grid',
         'justify-end',
       ],
-      style: {},
       fields: ['profile_block', 'history_block'],
     },
     {
       name: 'profile_block',
       type: 'div',
       cssClass: ['bg-white'],
-      style: {},
       fields: ['profile_header', 'profile_body'],
     },
     {
@@ -64,7 +59,6 @@ export default {
         'border-borderColor',
         'h-18',
       ],
-      style: {},
       fields: ['profile_label'],
     },
     {
@@ -72,7 +66,6 @@ export default {
       name: 'profile_label',
       type: 'label',
       cssClass: ['font-medium', 'text-base'],
-      style: {},
     },
     {
       name: 'profile_body',
@@ -83,7 +76,6 @@ export default {
       name: 'profile_data',
       type: 'div',
       cssClass: ['flex', 'p-6', 'gap-10'],
-      style: {},
       fields: ['labels', 'data'],
     },
     {
@@ -102,35 +94,30 @@ export default {
       name: 'fio_label',
       type: 'label',
       cssClass: ['text-textSecondary', 'leading-9'],
-      style: {},
     },
     {
       text: 'Email',
       name: 'mail_label',
       type: 'label',
       cssClass: ['text-textSecondary', 'leading-9'],
-      style: {},
     },
     {
       text: 'Роль',
       name: 'role_label',
       type: 'label',
       cssClass: ['text-textSecondary', 'leading-9'],
-      style: {},
     },
     {
       text: 'Профиль создан',
       name: 'date_create_label',
       type: 'label',
       cssClass: ['text-textSecondary', 'leading-9'],
-      style: {},
     },
     {
       text: 'Последний логин',
       name: 'last_login_label',
       type: 'label',
       cssClass: ['text-textSecondary', 'leading-9'],
-      style: {},
     },
     {
       name: 'data',
@@ -148,41 +135,35 @@ export default {
       name: 'fio_data',
       type: 'label',
       cssClass: ['leading-9'],
-      style: {},
     },
     {
       text: 'admin@mail.ru',
       name: 'mail_data',
       type: 'label',
       cssClass: ['leading-9'],
-      style: {},
     },
     {
       text: 'Админ',
       name: 'role_data',
       type: 'label',
       cssClass: ['leading-9'],
-      style: {},
     },
     {
       text: '14.10.2022',
       name: 'date_create_data',
       type: 'label',
       cssClass: ['leading-9'],
-      style: {},
     },
     {
       text: '14.10.2022',
       name: 'last_login_data',
       type: 'label',
       cssClass: ['leading-9'],
-      style: {},
     },
     {
       name: 'history_block',
       type: 'div',
       cssClass: ['bg-white'],
-      style: {},
       fields: ['history_header', 'history_body'],
     },
     {
@@ -199,18 +180,15 @@ export default {
         'flex',
         'justify-between',
       ],
-      style: {},
     },
     {
       text: 'История',
       name: 'history_label',
       type: 'label',
       cssClass: ['font-medium', 'text-base'],
-      style: {},
     },
     {
       name: 'history_date',
-      required: false,
       value: [],
       type: 'datetime',
       range: true,
@@ -223,7 +201,6 @@ export default {
       type: 'div',
       fields: ['history'],
       cssClass: ['p-6'],
-      style: {},
     },
     {
       name: 'history',

@@ -2,31 +2,35 @@
   <div class="relative">
     <p class="mb-1">{{ item.label }}</p>
     <ckeditor
-      v-model="editorData"
+      v-model="sendData[pageName][item.name]"
       tag-name="textarea"
       :editor="editor"
       :class="item.cssClass"
-      @input="onEditorInput"
     ></ckeditor>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, unref } from 'vue'
+import { onMounted } from 'vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
+  pageName: {
+    type: String,
+    required: true,
+  },
 })
 const editor = ClassicEditor
-const editorData = ref()
+
+const { sendData } = useGlobalJsonDataStore()
 
 onMounted(() => {
-  if (props.item.value) editorData.value = props.item.value
+  //Default value
+  sendData[props.pageName][props.item.name] = props.item.value || ''
 })
-
-const onEditorInput = function () {}
 </script>

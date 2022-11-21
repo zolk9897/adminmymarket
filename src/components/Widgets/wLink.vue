@@ -1,20 +1,19 @@
 <template>
-  <a :href="item.link" :style="item.style" :class="item.cssClass">
+  <router-link
+    v-if="item.mode === 'router'"
+    :to="item.link"
+    :style="item.style"
+    :class="item.cssClass"
+  />
+  <a v-else :href="item.link" :style="item.style" :class="item.cssClass">
     {{ item.text }}
   </a>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue'
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
-})
-
-const value = ref()
-
-onMounted(() => {
-  if (props.item.value) value.value = props.item.value
 })
 </script>

@@ -1,5 +1,5 @@
 import { createPinia } from 'pinia'
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import App from './App.vue'
 import './assets/scss/main.scss'
 import { setupRouter } from './config/router.js'
@@ -14,16 +14,17 @@ library.add(far)
 
 //Editor
 import ckeditor from '@ckeditor/ckeditor5-vue'
-//Mask
-import Maska from 'maska'
 
 const pinia = createPinia()
 const app = createApp(App)
 const router = setupRouter()
 
+pinia.use(({ store }) => {
+  store.router = markRaw(router)
+})
+
 app.use(pinia)
 app.use(router)
-app.use(Maska)
 app.use(ckeditor)
 app.component('Fa', FontAwesomeIcon)
 

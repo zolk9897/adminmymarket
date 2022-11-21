@@ -4,7 +4,6 @@ export default {
   groups: [
     {
       name: 'requisites',
-      layoutForm: 'vertical',
       fields: ['requisites_title', 'requisites_form'],
     },
   ],
@@ -19,7 +18,6 @@ export default {
         'border-solid',
         'border-borderColor',
       ],
-      style: {},
       fields: ['title'],
     },
     {
@@ -27,15 +25,12 @@ export default {
       name: 'title',
       type: 'label',
       cssClass: ['font-medium', 'text-xl'],
-      style: {},
     },
     {
       description: 'Requisites form',
       name: 'requisites_form',
       type: 'div',
       cssClass: ['bg-white', 'p-6', 'flex', 'flex-col', 'gap-4'],
-      style: {},
-      positionStyle: {},
       fields: [
         'name_organization',
         'ogrn_field',
@@ -47,37 +42,27 @@ export default {
       ],
     },
     {
-      title: '',
       label:
         'Отправлять бумажные копии счетов и закрывающих документов в начале каждого месяца',
-      required: false,
       name: 'checks_copy',
       value: false,
       type: 'boolean',
       viewType: 'switch',
-      style: {},
       cssClass: ['mb-10'],
     },
     {
       title: 'Название организации',
-      description: '',
       subtitle: {
         text: 'Напр. OOO «Интернет-магазин шин»',
         cssClass: ['text-xs', 'text-textSecondary'],
-        style: {},
       },
-      required: false,
       name: 'name_organization',
       format: 'text',
       value: '',
       type: 'input',
-      cssClass: [],
-      style: {},
     },
     {
       title: 'ОГРН',
-      description: '',
-      required: false,
       name: 'ogrn_field',
       format: 'text',
       value: '',
@@ -85,8 +70,6 @@ export default {
     },
     {
       title: 'ИНН',
-      description: '',
-      required: false,
       name: 'inn_field',
       format: 'text',
       value: '',
@@ -94,8 +77,6 @@ export default {
     },
     {
       title: 'КПП',
-      description: '',
-      required: false,
       name: 'kpp_field',
       format: 'text',
       value: '',
@@ -103,8 +84,6 @@ export default {
     },
     {
       title: 'Юридический адрес',
-      description: '',
-      required: false,
       name: 'juristic_address',
       format: 'text',
       value: '',
@@ -117,16 +96,17 @@ export default {
       buttonType: 'primary',
       disabled: false,
       cssClass: ['my-12'],
-      icon: {},
-      handler: {
-        name: 'editField',
-        params: {
-          pageName: 'requisites',
-          blockName: 'save_button',
-          fieldName: 'cssClass',
-          value: { add: [], remove: [] },
+      handler: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'requisites',
+            blockName: 'save_button',
+            fieldName: 'cssClass',
+            value: { add: [], remove: [] },
+          },
         },
-      },
+      ],
     },
   ],
 }

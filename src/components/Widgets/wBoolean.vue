@@ -1,49 +1,52 @@
 <template>
-  <a-switch
-    v-if="item.viewType === 'switch'"
-    v-model:checked="value"
-    :style="item.style"
-    :class="item.cssClass"
-    @change="change"
-  />
-  <span v-if="item.viewType === 'switch'" class="ml-3">{{ item.label }}</span>
+  <template v-if="item.viewType === 'switch'">
+    <span v-if="item.labelBefore" class="mr-3">{{ item.label }}</span>
+    <a-switch
+      v-if="item.viewType === 'switch'"
+      v-model:checked="sendData[pageName][item.name]"
+      :style="item.style"
+      :class="item.cssClass"
+    />
+    <span v-if="!item.labelBefore" class="ml-3">{{ item.label }}</span>
+  </template>
   <a-checkbox-group
     v-if="item.viewType === 'groupСheckbox'"
-    v-model:value="value"
+    v-model:value="sendData[pageName][item.name]"
     :options="item.options"
     :style="item.style"
     :class="item.cssClass"
-    @change="change"
   />
   <a-checkbox
     v-if="item.viewType === 'checkbox'"
-    v-model:checked="value"
+    v-model:checked="sendData[pageName][item.name]"
     :style="item.style"
     :class="item.cssClass"
-    @change="change"
   >
     {{ item.label }}
   </a-checkbox>
 </template>
 <script setup>
-import { onMounted, ref, unref } from 'vue'
+import { onMounted } from 'vue'
+import { useGlobalJsonDataStore } from '@/stores/global-json.js'
+
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
+  pageName: {
+    type: String,
+    required: true,
+  },
 })
-const emits = defineEmits(['change'])
-
-const value = ref()
-
+const { sendData } = useGlobalJsonDataStore()
 onMounted(() => {
-  if (props.item.value) value.value = props.item.value
+  //Default value
+  sendData[props.pageName][props.item.name] =
+    props.item.viewType === 'groupСheckbox'
+      ? props.item.value
+      : !!props.item.value
 })
-
-const change = () => {
-  emits('change', props.item.name, unref(value))
-}
 </script>
 
 <style scoped></style>

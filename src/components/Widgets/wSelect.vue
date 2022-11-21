@@ -1,14 +1,13 @@
 <template>
   <a-select
-    v-model:value="value"
-    :mode="mode"
-    :placeholder="item.description.substring(0, 40)"
+    v-model:value="store.sendData[pageName][item.name]"
+    :mode="item.mode"
+    :placeholder="item.description ? item.description.substring(0, 40) : null"
     :style="item.style"
-    :class="item.cssClass"
+    :class="[item.cssClass, errors && 'error']"
     :size="item.size"
     not-found-content="Нет данных"
     allow-clear
-    @change="change"
   >
     <a-select-option
       v-for="(el, index) in item.options"
@@ -27,36 +26,35 @@
   </span>
 </template>
 <script setup>
-import { ref, unref, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
+import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
+  pageName: {
+    type: String,
+    required: true,
+  },
 })
-const emits = defineEmits(['change'])
 
-const value = ref()
-const mode = props.item.mode ? props.item.mode : ''
-
-const change = () => {
-  emits('change', props.item.name, unref(value))
-}
+const store = useGlobalJsonDataStore()
+const errors = computed(() => store.validationErrors[props.item.name])
 
 onMounted(() => {
-  if (props.item.value) value.value = props.item.value
+  //Default value
+  store.sendData[props.pageName][props.item.name] = props.item.value || ''
 })
 </script>
 
-<style scoped>
-.required:before {
-  display: inline-block;
-  margin-right: 4px;
-  color: #f5222d;
-  font-size: 14px;
-  font-family: SimSun, sans-serif;
-  line-height: 1;
-  content: '*';
+<style lang="scss">
+.ant-select.error .ant-select-selector {
+  border-color: var(--errorRed) !important;
+}
+
+.ant-select-focused.error {
+  box-shadow: 0 0 2px var(--red) !important;
 }
 </style>

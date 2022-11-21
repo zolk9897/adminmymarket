@@ -3,7 +3,7 @@
     v-if="editableData[item.key]"
     v-model:checked="editableData[item.key][column.dataIndex]"
   />
-  <a-checkbox v-else v-model:checked="text" :disabled="true" />
+  <a-checkbox v-else v-model:checked="value" :disabled="true" />
 </template>
 
 <script setup>
@@ -15,20 +15,13 @@ const props = defineProps({
     default: () => {},
   },
   column: Object,
-  widget: Object,
   text: Boolean,
   editData: Object,
 })
 
 const emits = defineEmits(['update:editData'])
 
-const editableData = computed({
-  get() {
-    return props.editData
-  },
-  set(newValue) {
-    emits('update:editData', newValue)
-  },
-})
+const value = computed(() => props.text)
+
+const editableData = computed(() => props.editData)
 </script>
-<style scoped></style>

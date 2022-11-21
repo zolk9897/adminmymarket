@@ -14,7 +14,7 @@
     </span>
     <a-dropdown v-else>
       <a class="ant-dropdown-link" @click.prevent>
-        <MenuOutlined />
+        <fa icon="fa-solid fa-ellipsis" />
       </a>
       <template #overlay>
         <a-menu>
@@ -48,7 +48,6 @@ const props = defineProps({
     type: Object,
     default: () => {},
   },
-  widget: Object,
   column: Object,
   text: [Object, String, Number],
   editData: [Object, String],
@@ -100,5 +99,8 @@ const onDelete = (key) => {
   dataSource.value = dataSource.value.filter((item) => item.key !== key)
 }
 </script>
-
-<style scoped></style>
+<style scoped>
+.ant-dropdown-open {
+  color: #000;
+}
+</style>

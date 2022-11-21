@@ -4,7 +4,6 @@ export default {
   groups: [
     {
       name: 'global_settings',
-      tabName: 'Общие настройки',
       fields: ['title_block', 'body_block'],
     },
   ],
@@ -41,30 +40,22 @@ export default {
     },
     {
       title: 'Ссылка на сайт',
-      description: '',
-      required: false,
       name: 'site_link',
       format: 'text',
       value: '',
       type: 'input',
-      cssClass: [],
       parentClass: ['pb-9'],
     },
     {
       title: 'Название',
-      description: '',
-      required: false,
       name: 'site_name',
       format: 'text',
       value: '',
       type: 'input',
-      cssClass: [],
       parentClass: ['pb-9'],
     },
     {
       title: 'Лого',
-      description: '',
-      required: false,
       name: 'site_logo',
       value: '',
       type: 'file',
@@ -78,7 +69,6 @@ export default {
       buttonType: 'primary',
       disabled: false,
       cssClass: ['my-12'],
-      icon: {},
       handler: {
         name: 'editField',
         params: {

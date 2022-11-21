@@ -1,31 +1,30 @@
 <template>
   <a-slider
-    id="test"
-    v-model:value="value"
+    v-model:value="sendData[pageName][item.name]"
     :style="item.style"
     :class="item.cssClass"
-    @change="change"
   />
 </template>
 
 <script setup>
-import { onMounted, ref, unref } from 'vue'
+import { onMounted } from 'vue'
+import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
+  pageName: {
+    type: String,
+    required: true,
+  },
 })
 
-const value = ref()
+const { sendData } = useGlobalJsonDataStore()
 
 onMounted(() => {
-  if (props.item.value) value.value = props.item.value
+  //Default value
+  sendData[props.pageName][props.item.name] = props.item.value || null
 })
-
-const emits = defineEmits(['change'])
-const change = () => {
-  emits('change', props.item.name, unref(value))
-}
 </script>

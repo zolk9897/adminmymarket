@@ -61,5 +61,3 @@ const handleOk = () => {
   visibleModal.value = false
 }
 </script>
-
-<style scoped></style>

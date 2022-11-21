@@ -1,6 +1,6 @@
 <template>
   <a-radio-group
-    v-model:value="value"
+    v-model:value="sendData[pageName][item.name]"
     :size="item.size"
     :style="item.style"
     :class="item.cssClass"
@@ -29,26 +29,30 @@
 </template>
 <script setup>
 import { onMounted, ref, unref } from 'vue'
+import { useGlobalJsonDataStore } from '../../stores/global-json.js'
+const { callHandler } = useGlobalJsonDataStore()
+
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
+  pageName: {
+    type: String,
+    required: true,
+  },
 })
-const emits = defineEmits(['change'])
 
-const value = ref()
+const { sendData } = useGlobalJsonDataStore()
 
 onMounted(() => {
-  if (props.item.value) value.value = props.item.value
+  //Default value
+  sendData[props.pageName][props.item.name] = props.item.value || ''
 })
 
 const change = () => {
-  emits('change', props.item.name, unref(value))
+  callHandler(props.item.handlers, sendData[props.pageName][props.item.name])
 }
 </script>
 
-<style scoped>
-.some-class input {
-}
-</style>
+<style scoped></style>

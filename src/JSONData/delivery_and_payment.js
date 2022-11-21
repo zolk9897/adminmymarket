@@ -19,7 +19,6 @@ export default {
         'border-solid',
         'border-neutral-100',
       ],
-      style: {},
       fields: ['title'],
     },
     {
@@ -32,7 +31,6 @@ export default {
         'border-solid',
         'border-neutral-100',
       ],
-      style: {},
       fields: [
         'notification_block',
         'delivery_switch',
@@ -45,7 +43,6 @@ export default {
       name: 'title',
       type: 'label',
       cssClass: ['font-medium', 'text-xl'],
-      style: {},
     },
     {
       name: 'notification_block',
@@ -61,16 +58,12 @@ export default {
         'justify-between',
         'items-center',
       ],
-      style: {},
       fields: ['notification_text', 'notification_close'],
     },
     {
       name: 'notification_text',
       type: 'label',
       text: 'Вы также можете детально настроить условия доставки и самовывоза для каждого отдельного прайс-листа',
-      cssClass: [],
-      style: {},
-      fields: [],
     },
     {
       type: 'button',
@@ -79,9 +72,8 @@ export default {
       buttonType: 'text',
       disabled: false,
       cssClass: ['text-xl'],
-      style: {},
       icon: {
-        name: 'CloseOutlined',
+        name: 'fa-solid fa-xmark',
       },
       handler: {
         name: 'editField',
@@ -98,13 +90,10 @@ export default {
       name: 'delivery_switch',
       type: 'boolean',
       viewType: 'switch',
-      cssClass: [],
       parentClass: ['pb-9'],
     },
     {
       title: 'Доступные способы оплаты',
-      label: '',
-      required: false,
       name: 'payment_methods',
       value: [],
       type: 'boolean',
@@ -131,7 +120,6 @@ export default {
         },
       ],
       viewType: 'groupСheckbox',
-      parentClass: [],
     },
     {
       type: 'button',
@@ -140,8 +128,6 @@ export default {
       buttonType: 'primary',
       disabled: false,
       cssClass: ['my-12'],
-      style: {},
-      icon: {},
       handler: {
         name: 'save',
         params: {},

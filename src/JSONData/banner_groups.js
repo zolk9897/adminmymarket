@@ -1,0 +1,255 @@
+export default {
+  page: 'banner_groups',
+  title: 'Группы баннеров',
+  groups: [
+    {
+      name: 'main',
+      fields: ['main__title_block', 'main__container_block'],
+    },
+  ],
+  fields: [
+    {
+      name: 'main__title_block',
+      type: 'div',
+      cssClass: [
+        'bg-white',
+        'p-6',
+        'flex',
+        'justify-between',
+        'items-center',
+        'border-b',
+        'border-borderColor',
+      ],
+      fields: ['main__title', 'main__buttons_block'],
+    },
+    {
+      text: 'Баннеры',
+      name: 'main__title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-base'],
+    },
+    {
+      name: 'main__container_block',
+      type: 'div',
+      cssClass: ['bg-white'],
+      fields: ['main_table_block', 'block_modal_add_to_table'],
+    },
+    {
+      name: 'main_table_block',
+      type: 'div',
+      parentClass: ['p-6'],
+      fields: ['main_table'],
+    },
+    {
+      name: 'main_table',
+      type: 'table',
+      config: {
+        pagination: false,
+        size: 'small',
+        align: 'center',
+        bordered: true,
+        selection: true,
+      },
+      data: [
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        {
+          name: 'Купить PlayStation 5!',
+          active: 'Да',
+          sort: 500,
+          updated_at: '23.09.2022 12:33:11',
+          id: 123,
+          type: 'На главной, баннеры сверху',
+          mobile_image:
+            'https://s3-alpha-sig.figma.com/img/5914/0db1/2b2c845d0b45ab421450d03365d99a76?Expires=1669593600&Signature=dvFUTLX38xKdsUB2xXv-CrjQX~OZxF9Ez2RHYFO8ZbzG~j8D0m5vYZ0oASi3ByQg~FRaRSrDLM9-kiYE524KpQdjWRC8z2-cJ~VNQ2o1eyHgMCXwXFJmjECE8LoCgdeHa~LTTMuqi7GXbKXA9RlCMFZoYmO7wHU9DLSiL90l1MNF2mZnrOc9oQP4UVPYqIH5VN7DKu9Q9fvj~AfEHI9riDwY6qvtVDqyA7qO6g01g4yE46xintkpFu0XXhVpVuP1mz1Rgzdp2bSbKfpBRavS1WyxH3RkWpEShDSGimC9aOfjAy84SJa0iIqHEK-bzydyi1-sCpPQnsT-QTQlpkB-Gw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+      ],
+      columns: [
+        {
+          dataIndex: 'actions',
+          widget: {
+            name: 'actions',
+          },
+          width: 1,
+          hide: false,
+          delete: true,
+          edit: true,
+          copy: true,
+        },
+        {
+          title: 'Название',
+          dataIndex: 'name',
+          key: 'name',
+          resizable: true,
+          widget: {
+            name: 'text',
+          },
+          width: 200,
+          render: 'name',
+        },
+        {
+          title: 'Активность',
+          dataIndex: 'active',
+          key: 'active',
+          sort: true,
+          widget: {
+            name: 'text',
+            class: 'font-normal',
+          },
+          resizable: true,
+          width: 40,
+        },
+        {
+          title: 'Сорт.',
+          dataIndex: 'sort',
+          key: 'sort',
+          sort: true,
+          widget: {
+            name: 'text',
+            class: 'font-normal',
+          },
+          resizable: true,
+          width: 20,
+        },
+        {
+          title: 'Дата изменение',
+          dataIndex: 'updated_at',
+          key: 'updated_at',
+          sort: true,
+          widget: {
+            name: 'text',
+            class: 'font-normal',
+          },
+          resizable: true,
+          width: 100,
+        },
+        {
+          title: 'ID',
+          dataIndex: 'id',
+          key: 'id',
+          sort: true,
+          widget: {
+            name: 'text',
+            class: 'font-normal',
+          },
+          resizable: true,
+          width: 20,
+        },
+        {
+          title: 'Изображение для мобилки',
+          dataIndex: 'mobile_image',
+          key: 'mobile_image',
+          sort: true,
+          widget: {
+            name: 'image',
+            width: 60,
+          },
+          width: 50,
+        },
+        {
+          title: 'Тип банера',
+          dataIndex: 'type',
+          key: 'type',
+          sort: true,
+          widget: {
+            name: 'text',
+            class: 'font-normal',
+          },
+          resizable: true,
+          width: 100,
+        },
+      ],
+    },
+    {
+      name: 'legal_entities__buttons_block',
+      type: 'div',
+      cssClass: ['flex', 'gap-2'],
+      fields: ['main__add_button'],
+    },
+    {
+      type: 'button',
+      value: 'Добавить баннер',
+      name: 'main__add_button',
+      buttonType: 'primary',
+      handlers: [],
+    },
+  ],
+}

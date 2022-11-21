@@ -12,6 +12,7 @@
     >
       {{ tag.upperCase ? tag.title.toUpperCase() : tag.title }}
     </a-tag>
+    <EditOutlined class="ml-2" />
   </div>
   <a-modal
     v-model:visible="visibleModal"
@@ -55,6 +56,8 @@
 import { computed, ref } from 'vue'
 import { uid } from 'uid'
 import { ColorPicker } from 'vue3-colorpicker'
+import { EditOutlined } from '@ant-design/icons-vue'
+
 import 'vue3-colorpicker/style.css'
 const props = defineProps({
   item: {

@@ -67,14 +67,12 @@ export default {
       ],
       value: 'today',
       parentClass: ['mr-6', 'mb-6'],
-      fields: [],
     },
     {
       name: 'date_filter',
       type: 'datetime',
       cssClass: ['w-40'],
       parentClass: ['mr-6', 'mb-6'],
-      fields: [],
     },
     {
       name: 'city_filter',
@@ -89,8 +87,6 @@ export default {
       size: 'medium',
       cssClass: ['w-full'],
       parentClass: ['w-40', 'mr-6', 'mb-6'],
-      style: {},
-      fields: [],
     },
     {
       name: 'product_filter',
@@ -105,8 +101,6 @@ export default {
       size: 'medium',
       cssClass: ['w-full'],
       parentClass: ['w-60', 'mr-6', 'mb-6'],
-      style: {},
-      fields: [],
     },
     {
       name: 'statistics_wrapper',
@@ -122,7 +116,6 @@ export default {
     {
       name: 'statistics_block1',
       type: 'div',
-      cssClass: [],
       fields: ['statistics_block1_title', 'statistics_block1_subtitle'],
     },
     {
@@ -130,19 +123,16 @@ export default {
       type: 'label',
       text: '0',
       cssClass: ['text-3xl'],
-      fields: [],
     },
     {
       name: 'statistics_block1_subtitle',
       type: 'label',
       text: 'Кликов',
       cssClass: ['text-xs', 'text-textSecondary'],
-      fields: [],
     },
     {
       name: 'statistics_block2',
       type: 'div',
-      cssClass: [],
       fields: ['statistics_block2_title', 'statistics_block2_subtitle'],
     },
     {
@@ -150,19 +140,16 @@ export default {
       type: 'label',
       text: '0',
       cssClass: ['text-3xl'],
-      fields: [],
     },
     {
       name: 'statistics_block2_subtitle',
       type: 'label',
       text: 'Платных кликов',
       cssClass: ['text-xs', 'text-textSecondary'],
-      fields: [],
     },
     {
       name: 'statistics_block3',
       type: 'div',
-      cssClass: [],
       fields: ['statistics_block3_title', 'statistics_block3_subtitle'],
     },
     {
@@ -170,14 +157,12 @@ export default {
       type: 'label',
       text: '0',
       cssClass: ['text-3xl'],
-      fields: [],
     },
     {
       name: 'statistics_block3_subtitle',
       type: 'label',
       text: 'Расход бюджета',
       cssClass: ['text-xs', 'text-textSecondary'],
-      fields: [],
     },
     {
       name: 'statistics_block4',
@@ -190,14 +175,12 @@ export default {
       type: 'label',
       text: '0',
       cssClass: ['text-3xl'],
-      fields: [],
     },
     {
       name: 'statistics_block4_subtitle',
       type: 'label',
       text: 'заказов ожидается при конверсии в 3%',
       cssClass: ['text-xs', 'text-textSecondary'],
-      fields: [],
     },
     {
       name: 'analytics_table',
@@ -216,8 +199,6 @@ export default {
           key: 'offer',
           widget: {
             name: 'text',
-            class: '',
-            style: {},
           },
         },
         {
@@ -226,8 +207,6 @@ export default {
           key: 'city',
           widget: {
             name: 'text',
-            class: '',
-            style: {},
           },
         },
         {
@@ -236,8 +215,6 @@ export default {
           key: 'clicks',
           widget: {
             name: 'text',
-            class: '',
-            style: {},
           },
         },
         {
@@ -246,8 +223,6 @@ export default {
           key: 'expense',
           widget: {
             name: 'text',
-            class: '',
-            style: {},
           },
         },
       ],

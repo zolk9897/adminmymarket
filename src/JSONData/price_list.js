@@ -4,9 +4,6 @@ export default {
   groups: [
     {
       name: 'price_list',
-
-      layoutForm: 'vertical',
-
       fields: ['main_block'],
     },
   ],
@@ -14,9 +11,7 @@ export default {
   fields: [
     {
       name: 'main_block',
-
       type: 'div',
-
       fields: ['title_block', 'body_block'],
     },
 
@@ -33,8 +28,6 @@ export default {
         'border-borderColor',
       ],
 
-      style: {},
-
       fields: ['title'],
     },
 
@@ -45,9 +38,16 @@ export default {
 
       type: 'label',
 
-      cssClass: ['font-medium', 'text-xl'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'left',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Текст тултипа',
+        trigger: 'hover',
+        color: 'green',
+      },
 
-      style: {},
+      cssClass: ['font-medium', 'text-xl'],
     },
 
     {
@@ -56,8 +56,6 @@ export default {
       type: 'div',
 
       cssClass: ['bg-white', 'p-6'],
-
-      style: {},
 
       fields: ['info_block', 'file', 'data_block'],
     },
@@ -76,8 +74,6 @@ export default {
       name: 'info1',
 
       type: 'label',
-
-      style: {},
     },
 
     {
@@ -88,8 +84,6 @@ export default {
       fields: ['info2', 'info_link'],
 
       cssClass: ['flex', 'pb-5'],
-
-      style: {},
     },
 
     {
@@ -98,8 +92,6 @@ export default {
       name: 'info2',
 
       type: 'label',
-
-      style: {},
     },
 
     {
@@ -112,8 +104,6 @@ export default {
       link: '/EditData',
 
       parentClass: ['pl-1.5'],
-
-      style: {},
     },
 
     {
@@ -124,15 +114,9 @@ export default {
       fields: ['file_input'],
 
       cssClass: ['pb-5'],
-
-      style: {},
     },
 
     {
-      title: '',
-
-      required: true,
-
       name: 'file_input',
 
       value: '',
@@ -162,8 +146,6 @@ export default {
       ],
 
       cssClass: ['pb-8'],
-
-      style: {},
     },
 
     {
@@ -174,8 +156,6 @@ export default {
       fields: ['settings_text', 'settings_content'],
 
       cssClass: ['flex'],
-
-      style: {},
     },
 
     {
@@ -186,8 +166,6 @@ export default {
       type: 'label',
 
       cssClass: ['font-bold', 'pr-1.5'],
-
-      style: {},
     },
 
     {
@@ -198,8 +176,6 @@ export default {
       type: 'link',
 
       link: '/EditData',
-
-      style: {},
     },
 
     {
@@ -210,8 +186,6 @@ export default {
       fields: ['create_text', 'create_content'],
 
       cssClass: ['flex'],
-
-      style: {},
     },
 
     {
@@ -222,8 +196,6 @@ export default {
       type: 'label',
 
       cssClass: ['font-bold', 'pr-1.5'],
-
-      style: {},
     },
 
     {
@@ -234,8 +206,6 @@ export default {
       type: 'label',
 
       link: '/EditData',
-
-      style: {},
     },
 
     {
@@ -246,8 +216,6 @@ export default {
       fields: ['load_text', 'load_content'],
 
       cssClass: ['flex'],
-
-      style: {},
     },
 
     {
@@ -258,8 +226,6 @@ export default {
       type: 'label',
 
       cssClass: ['font-bold', 'pr-1.5'],
-
-      style: {},
     },
 
     {
@@ -270,8 +236,6 @@ export default {
       type: 'label',
 
       link: '/EditData',
-
-      style: {},
     },
 
     {
@@ -282,8 +246,6 @@ export default {
       fields: ['category_text', 'category_content'],
 
       cssClass: ['flex'],
-
-      style: {},
     },
 
     {
@@ -294,8 +256,6 @@ export default {
       type: 'label',
 
       cssClass: ['font-bold', 'pr-1.5'],
-
-      style: {},
     },
 
     {
@@ -306,8 +266,6 @@ export default {
       type: 'link',
 
       link: '/EditData',
-
-      style: {},
     },
 
     {
@@ -318,8 +276,6 @@ export default {
       fields: ['offer_text', 'offer_content'],
 
       cssClass: ['flex'],
-
-      style: {},
     },
 
     {
@@ -330,8 +286,6 @@ export default {
       type: 'label',
 
       cssClass: ['font-bold', 'pr-1.5'],
-
-      style: {},
     },
 
     {
@@ -342,8 +296,6 @@ export default {
       type: 'label',
 
       link: '/EditData',
-
-      style: {},
     },
   ],
 }

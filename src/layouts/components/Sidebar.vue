@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import SubMenuItem from './SubMenuItem.vue'
 import mainJSON from '@/JSONData/MainJSON'
 
@@ -34,13 +34,7 @@ const route = useRoute()
 const menu = ref([])
 
 const mainData = ref(mainJSON)
-const defaultRoutes = [
-  {
-    name: 'edit-data',
-    title: 'Редактирование данных',
-    icon: 'fa-pen',
-  },
-]
+const defaultRoutes = []
 
 const selectedKeys = ref([])
 const openedKeys = ref([])
