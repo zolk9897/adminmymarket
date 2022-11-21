@@ -194,8 +194,9 @@ const getFormattedFilterData = () => {
   border-radius: 4px;
 }
 ::v-deep(.ant-btn) {
-  border-radius: 0px 4px 4px 0 !important;
+  border-radius: 0px 2px 2px 0 !important;
 }
+
 ::v-deep(.ant-select-selector) {
   border-radius: 4px !important;
 }
@@ -206,6 +207,9 @@ const getFormattedFilterData = () => {
   width: 400px;
 }
 .filters {
+  ::v-deep(.ant-btn) {
+    border-radius: 4px !important;
+  }
   input {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
