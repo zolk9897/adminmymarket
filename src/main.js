@@ -3,6 +3,9 @@ import { createApp, markRaw } from 'vue'
 import App from './App.vue'
 import './assets/scss/main.scss'
 import { setupRouter } from './config/router.js'
+import { notification, message } from 'ant-design-vue'
+import 'ant-design-vue/es/message/style/css'
+import 'ant-design-vue/es/notification/style/css'
 
 //FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -21,6 +24,8 @@ const router = setupRouter()
 
 pinia.use(({ store }) => {
   store.router = markRaw(router)
+  store.notification = markRaw(notification)
+  store.message = markRaw(message)
 })
 
 app.use(pinia)

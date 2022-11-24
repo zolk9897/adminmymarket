@@ -1,43 +1,30 @@
 export default {
   title: 'Рассылки',
   page: 'offer',
+  useTitle: {
+    title: 'Список офферов',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Каталог',
+      },
+      {
+        title: 'Офферы',
+        path: '/main/offer',
+      },
+    ],
+  },
+
   groups: [
     {
       name: 'offer',
-      fields: ['title_block', 'body_block'],
+      fields: ['body_block'],
     },
   ],
   fields: [
-    {
-      name: 'title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'mb-6', 'flex-col'],
-      fields: ['breadcrumbs', 'title'],
-    },
-    {
-      name: 'breadcrumbs',
-      type: 'breadcrumbs',
-      options: [
-        {
-          title: 'Главная',
-          path: '/',
-        },
-        {
-          title: 'Каталог',
-        },
-        {
-          title: 'Офферы',
-          path: '/main/offer',
-        },
-      ],
-    },
-    {
-      text: 'Список офферов',
-      name: 'title',
-      type: 'label',
-      parentClass: ['mt-4'],
-      cssClass: ['font-medium', 'text-xl'],
-    },
     {
       name: 'body_block',
       type: 'div',
@@ -156,8 +143,8 @@ export default {
           key: 'offer',
           resizable: true,
           widget: {
-            name: 'offer',
-            type: 'external', // external || router
+            name: 'popover',
+            type: 'columns',
             filterParam: 'title',
           },
           width: 150,

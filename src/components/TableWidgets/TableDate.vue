@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import locale from 'ant-design-vue/es/date-picker/locale/ru_RU'
 import dayjs from 'dayjs'
 
@@ -31,22 +31,23 @@ const props = defineProps({
   editData: [Object, String],
 })
 
-const emits = defineEmits(['update:editData'])
+const emits = defineEmits(['change'])
 
 const editableData = computed(() => props.editData)
 
 const textDateFormat = computed(() =>
-  new Date(props.text * 1000).toLocaleDateString('ru-RU')
+  dayjs(props.text * 1000).format(props.widget.format)
 )
 
 const editableDateFormat = computed(() =>
-  new Date(
+  dayjs(
     editableData.value[props.item.key][props.column.dataIndex] * 1000
-  ).toLocaleDateString('ru-RU')
+  ).format(props.widget.format)
 )
 
 const change = (value) => {
   const date = dayjs(value, props.widget.format)
   editableData.value[props.item.key][props.column.dataIndex] = date.unix()
+  emits('change')
 }
 </script>

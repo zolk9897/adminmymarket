@@ -19,7 +19,6 @@ import Header from './components/Header.vue'
 
 <style lang="scss" scoped>
 .main_layout {
-  padding: 30px;
   width: 100%;
   height: 100vh;
   width: 100%;

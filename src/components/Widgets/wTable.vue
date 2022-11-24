@@ -50,6 +50,13 @@
             :item="record"
             :column="column"
             :text="text"
+            :set-data="setData"
+            @change="
+              store.callHandler(column.changeHandlers, null, {
+                key: column.key,
+                rowItem: record,
+              })
+            "
           />
         </template>
 
@@ -70,6 +77,12 @@
             :item="record"
             :column="column"
             :text="text"
+            @change="
+              store.callHandler(column.changeHandlers, null, {
+                key: column.key,
+                rowItem: record,
+              })
+            "
           />
         </template>
 
@@ -81,11 +94,17 @@
             :column="column"
             :widget="column.widget"
             :text="text"
+            @change="
+              store.callHandler(column.changeHandlers, null, {
+                key: column.key,
+                rowItem: record,
+              })
+            "
           />
         </template>
 
-        <template v-if="column.widget.name === 'offer'">
-          <TableOffer
+        <template v-if="column.widget.name === 'popover'">
+          <TablePopover
             v-model:editData="editableData"
             :item="record"
             :widget="column.widget"
@@ -156,7 +175,7 @@
       <a-dropdown-button
         v-if="item.config.selection.refuse"
         :disabled="!hasSelected"
-        class="refuse-button"
+        class="refuse-button mr-3"
         @click="refuseSelected"
       >
         <template #icon><DownOutlined /></template>
@@ -178,6 +197,30 @@
           </a-menu>
         </template>
       </a-dropdown-button>
+      <template
+        v-for="(colName, index) in item.config.selection.setStatusColumn"
+        :key="colName + index"
+      >
+        <a-dropdown class="mr-3" :disabled="!hasSelected">
+          <a class="set-status" @click.prevent>
+            {{ columns.find((col) => col.dataIndex === colName).title }}
+            <DownOutlined />
+          </a>
+
+          <template #overlay>
+            <a-menu @click="setStatus">
+              <a-menu-item
+                v-for="param in columns.find((col) => col.dataIndex === colName)
+                  .widget.params"
+                :key="param.id"
+                :param="colName"
+              >
+                {{ param.value }}
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
+      </template>
       <span class="ml-2">
         <template v-if="hasSelected">
           {{ `Выбрано ${state.selectedRowKeys.length} записей` }}
@@ -195,7 +238,6 @@ import {
   CloseOutlined,
   CheckOutlined,
 } from '@ant-design/icons-vue'
-import axios from '@/config/axios.js'
 import dayjs from 'dayjs'
 import ru_RU from 'ant-design-vue/es/locale/ru_RU'
 
@@ -207,8 +249,7 @@ import TableText from '../TableWidgets/TableText.vue'
 import TableDate from '../TableWidgets/TableDate.vue'
 import TableCheckbox from '../TableWidgets/TableCheckbox.vue'
 import TableSelect from '../TableWidgets/TableSelect.vue'
-import TableOffer from '../TableWidgets/TableOffer.vue'
-import TableImage from '../TableWidgets/TableImage.vue'
+import TablePopover from '../TableWidgets/TablePopover.vue'
 import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 
 const props = defineProps({
@@ -365,6 +406,11 @@ const save = (key) => {
   delete editableData.value[key]
 }
 
+//Изменение данных любой ячейки по индексу и ключу объекта
+const setData = (index, key, value) => {
+  dataSource.value[index][key] = value
+}
+
 const editSelected = () => {
   state.selectedRowKeys.map((item) => edit(item))
 }
@@ -420,6 +466,14 @@ const searchField = (row, colName) => {
     .toLowerCase()
     .includes(searchData.value.text.toLowerCase())
 }
+
+const setStatus = (value) => {
+  state.selectedRowKeys.map(
+    (id) =>
+      (dataSource.value.filter((item) => id === item.key)[0][value.item.param] =
+        value.key)
+  )
+}
 </script>
 <style lang="scss" scoped>
 .refuse-button {
@@ -441,5 +495,14 @@ const searchField = (row, colName) => {
 }
 :deep(.ant-radio-wrapper) {
   padding-bottom: 10px;
+}
+.set-status {
+  color: #8c8c8c;
+}
+.set-status:hover {
+  color: #262626;
+}
+.set-status[disabled] {
+  color: #8c8c8c;
 }
 </style>

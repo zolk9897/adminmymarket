@@ -5,7 +5,7 @@ const instance = axios.create({
 })
 
 instance.defaults.timeout = 60000
-instance.defaults.withCredentials = true
+// instance.defaults.withCredentials = true
 //instance.defaults.xsrfHeaderName = 'X-CSRFToken'
 //instance.defaults.xsrfCookieName = 'csrftoken'
 

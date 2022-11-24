@@ -1,5 +1,5 @@
 export default {
-  title: 'Редактирование результата заполнения веб-формы',
+  title: 'Жалобы на товар',
   page: 'complaint_form_edit',
   groups: [
     {
@@ -29,10 +29,14 @@ export default {
           title: 'Beб-формы',
         },
         {
-          title: 'Результаты',
+          title: 'Тикеты',
         },
         {
-          title: 'Заказать звонок',
+          title: 'Жалобы на товар',
+          path: '/main/complaints',
+        },
+        {
+          title: 'Жалоба',
         },
       ],
     },
@@ -110,7 +114,11 @@ export default {
     {
       name: 'common_info_block',
       type: 'div',
-      fields: ['common_info_cols_wrap', 'common_info_status'],
+      fields: [
+        'common_info_cols_wrap',
+        'common_info_status',
+        'common_info_category',
+      ],
     },
     {
       name: 'common_info_cols_wrap',
@@ -192,17 +200,33 @@ export default {
     },
     {
       title: 'Статус',
+      titlePosition: 'left',
       description: '',
       name: 'common_info_status',
       type: 'select',
-      value: 'default_9',
+      parentClass: ['mb-6'],
+      cssClass: ['w-[500px]'],
+      value: 1,
       options: [
-        {
-          id: 'default_9',
-          name: 'DEFAULT [9]',
-        },
+        { id: 0, name: 'Обработано' },
+        { id: 1, name: 'В работе' },
+        { id: 2, name: 'Отказано' },
       ],
-      parentClass: ['ml-6'],
+    },
+    {
+      title: 'Категория',
+      titlePosition: 'left',
+      description: '',
+      name: 'common_info_category',
+      type: 'select',
+      cssClass: ['w-[500px]'],
+      parentClass: ['mb-6'],
+      value: 1,
+      options: [
+        { id: 0, name: 'SonyPlayStation' },
+        { id: 1, name: 'samsung' },
+        { id: 2, name: 'xiaomi' },
+      ],
     },
     {
       text: 'Поля результата',
@@ -245,29 +269,32 @@ export default {
     },
     {
       title: 'Текст жалобы',
+      titlePosition: 'left',
       name: 'complaint_text',
       type: 'textarea',
       minRows: 4,
       value: '',
-      parentClass: ['mb-6', 'ml-6-neg'],
+      parentClass: ['mb-6', 'w-[500px]'],
     },
     {
       title: 'Телефон',
+      titlePosition: 'left',
       description: '+7 (999) 766-98-09',
       name: 'complaint_phone',
       type: 'input',
       format: 'text',
       value: '',
       mask: '+7 (###) ###-##-##',
-      parentClass: ['mb-6', 'ml-3'],
+      parentClass: ['mb-6', 'w-[500px]'],
     },
     {
       title: 'E-mail',
+      titlePosition: 'left',
       name: 'complaint_email',
       type: 'input',
       format: 'text',
       value: '',
-      parentClass: ['mb-6', 'ml-8'],
+      parentClass: ['mb-6', 'w-[500px]'],
     },
     {
       name: 'product_number_wrap',
@@ -301,9 +328,10 @@ export default {
     },
     {
       title: 'Файлы',
+      titlePosition: 'left',
       name: 'complaint_files',
       type: 'file',
-      parentClass: ['mb-6', 'ml-8'],
+      parentClass: ['mb-6', 'w-[500px]'],
     },
     {
       name: 'buttons_wrap',

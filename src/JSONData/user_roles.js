@@ -1,49 +1,28 @@
 export default {
-  title: 'Настройка ролей',
   page: 'user_roles',
+  useTitle: {
+    title: 'Настройка ролей',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Настройки',
+      },
+      {
+        title: 'Роли',
+        path: '/main/user_roles',
+      },
+    ],
+  },
   groups: [
     {
       name: 'user_roles',
-      fields: ['title_block', 'body_block'],
+      fields: ['body_block'],
     },
   ],
   fields: [
-    {
-      name: 'title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'mb-6', 'flex-col'],
-      fields: ['breadcrumbs', 'header_block'],
-    },
-    {
-      name: 'breadcrumbs',
-      type: 'breadcrumbs',
-      options: [
-        {
-          title: 'Главная',
-          path: '/',
-        },
-        {
-          title: 'Настройки',
-        },
-        {
-          title: 'Роли',
-          path: '/main/user_roles',
-        },
-      ],
-    },
-    {
-      name: 'header_block',
-      type: 'div',
-      cssClass: ['flex', 'items-end', 'justify-between'],
-      fields: ['title', 'user_role_add_modal_btn'],
-    },
-    {
-      text: 'Настройка ролей',
-      name: 'title',
-      type: 'label',
-      parentClass: ['mt-4'],
-      cssClass: ['font-medium', 'text-xl'],
-    },
     {
       name: 'body_block',
       type: 'div',
@@ -118,11 +97,11 @@ export default {
       name: 'block_modal_added_content',
       type: 'div',
       containerClass: ['bg-white', 'p-6', 'gap-4', 'w-480'],
-      fields: ['role_access', 'check_boxes_block', 'buttons_block_footer'],
+      fields: ['access_name', 'check_boxes_block', 'buttons_block_footer'],
     },
     {
       title: 'Право доступа',
-      name: 'role_access',
+      name: 'access_name',
       format: 'text',
       value: '',
       type: 'input',
@@ -141,16 +120,16 @@ export default {
       type: 'div',
       cssClass: ['w-full', 'flex', 'gap-4', 'pb-6', 'justify-between'],
       fields: [
-        'check_admin',
-        'check_manager',
-        'check_redactor',
-        'check_seo_spicialyst',
+        'roleId_admin',
+        'roleId_manager',
+        'roleId_redactor',
+        'roleId_seo_spicialyst',
       ],
     },
     {
       title: 'Админ',
       titleClass: ['font-medium'],
-      name: 'check_admin',
+      name: 'roleId_admin',
       value: false,
       type: 'boolean',
       viewType: 'checkbox',
@@ -158,7 +137,7 @@ export default {
     {
       title: 'Менеджер',
       titleClass: ['font-medium'],
-      name: 'check_manager',
+      name: 'roleId_manager',
       value: false,
       type: 'boolean',
       viewType: 'checkbox',
@@ -166,7 +145,7 @@ export default {
     {
       title: 'Контент-редактор',
       titleClass: ['font-medium'],
-      name: 'check_redactor',
+      name: 'roleId_redactor',
       value: false,
       type: 'boolean',
       viewType: 'checkbox',
@@ -174,7 +153,7 @@ export default {
     {
       title: 'SEO-специалист',
       titleClass: ['font-medium'],
-      name: 'check_seo_spicialyst',
+      name: 'roleId_seo_spicialyst',
       value: false,
       type: 'boolean',
       viewType: 'checkbox',
@@ -227,11 +206,11 @@ export default {
             pageName: 'user_roles',
             tableName: 'user_roles_table',
             data: {
-              role_access: 'role_access',
-              check_admin: 'check_admin',
-              check_manager: 'check_manager',
-              check_redactor: 'check_redactor',
-              check_seo_spicialyst: 'check_seo_spicialyst',
+              access_name: 'access_name',
+              roleId_admin: 'roleId_admin',
+              roleId_manager: 'roleId_manager',
+              roleId_redactor: 'roleId_redactor',
+              roleId_seo_spicialyst: 'roleId_seo_spicialyst',
             },
           },
         },
@@ -268,156 +247,42 @@ export default {
       },
       data: [
         {
-          role_access: 'Работа с каталогом',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: false,
+          access_name: 'Работа с каталогом',
+          accessID: 12314,
+          roleId_manager: false,
+          roleId_redactor: true,
+          roleId_seo_spicialyst: false,
         },
         {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
+          access_name: 'Сео параметры',
+          accessID: 423424,
+          roleId_admin: true,
+          roleId_manager: false,
+          roleId_redactor: true,
+          roleId_seo_spicialyst: true,
         },
         {
-          role_access: 'Редактирование карточек',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
+          access_name: 'Работа с каталогом',
+          accessID: 4141341,
+          roleId_admin: true,
+          roleId_manager: false,
+          roleId_redactor: true,
+          roleId_seo_spicialyst: false,
         },
         {
-          role_access: 'Работа с каталогом',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
-        },
-        {
-          role_access: 'Сео параметры',
-          check_admin: true,
-          check_manager: false,
-          check_redactor: true,
-          check_seo_spicialyst: true,
-        },
-        {
-          role_access: 'Работа с каталогом',
-        },
-        {
-          role_access: 'Сео параметры',
+          access_name: 'Сео параметры',
+          accessID: 25235235,
+          roleId_admin: true,
+          roleId_manager: false,
+          roleId_redactor: true,
+          roleId_seo_spicialyst: true,
         },
       ],
       columns: [
         {
           title: 'Право доступа',
-          dataIndex: 'role_access',
-          key: 'role_access',
+          dataIndex: 'access_name',
+          key: 'access_name',
           resizable: true,
           widget: {
             name: 'text',
@@ -426,39 +291,74 @@ export default {
         },
         {
           title: 'Админ',
-          dataIndex: 'check_admin',
-          key: 'check_admin',
+          dataIndex: 'roleId_admin',
+          key: 'roleId_admin',
           widget: {
             name: 'checkbox',
           },
           width: 150,
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: '/changeUserRoleCell',
+                rowId: 'accessID',
+              },
+            },
+          ],
         },
         {
           title: 'Менеджер',
-          dataIndex: 'check_manager',
-          key: 'check_manager',
+          dataIndex: 'roleId_manager',
+          key: 'roleId_manager',
           widget: {
             name: 'checkbox',
           },
           width: 150,
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: '/changeUserRoleRow',
+                fullRow: true,
+              },
+            },
+          ],
         },
         {
           title: 'Контент-редактор',
-          dataIndex: 'check_redactor',
-          key: 'check_redactor',
+          dataIndex: 'roleId_redactor',
+          key: 'roleId_redactor',
           widget: {
             name: 'checkbox',
           },
           width: 150,
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: '/changeUserRoleRow',
+                queryParams: true,
+              },
+            },
+          ],
         },
         {
           title: 'SEO-специалист',
-          dataIndex: 'check_seo_spicialyst',
-          key: 'check_seo_spicialyst',
+          dataIndex: 'roleId_seo_spicialyst',
+          key: 'roleId_seo_spicialyst',
           widget: {
             name: 'checkbox',
           },
           width: 150,
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: '/changeUserRoleRow',
+              },
+            },
+          ],
         },
       ],
     },

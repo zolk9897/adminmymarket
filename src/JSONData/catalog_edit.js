@@ -1,6 +1,22 @@
 export default {
   page: 'catalog_edit',
-  title: 'Каталог товаров: Раздел каталога: Редактирование',
+
+  useTitle: {
+    title: 'Каталог товаров: Раздел каталога: Редактирование',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Каталог',
+      },
+      {
+        title: 'Каталог товаров',
+        path: '/main/catalog_edit',
+      },
+    ],
+  },
   groups: [
     {
       tabName: 'Раздел каталога',
@@ -21,16 +37,6 @@ export default {
       tabName: 'Офферы',
       name: 'Offers',
       fields: ['offers__title_block', 'offers__container_block'],
-    },
-    {
-      tabName: 'Товар',
-      name: 'product__title_block',
-      fields: ['product__title_block', 'product__container_block'],
-    },
-    {
-      tabName: 'Разделы каталога',
-      name: 'part__title_block',
-      fields: ['part__title_block', 'part__container_block'],
     },
   ],
   fields: [
@@ -59,18 +65,6 @@ export default {
       fields: ['title_4'],
     },
     {
-      name: 'product__title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'border-b', 'border-borderColor'],
-      fields: ['title_5'],
-    },
-    {
-      name: 'part__title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'border-b', 'border-borderColor'],
-      fields: ['title_6'],
-    },
-    {
       text: 'Добавить раздел',
       name: 'title_1',
       type: 'label',
@@ -91,18 +85,6 @@ export default {
     {
       text: 'Офферы магазина',
       name: 'title_4',
-      type: 'label',
-      cssClass: ['font-medium', 'text-base'],
-    },
-    {
-      text: 'Товар',
-      name: 'title_5',
-      type: 'label',
-      cssClass: ['font-medium', 'text-base'],
-    },
-    {
-      text: 'Разделы',
-      name: 'title_6',
       type: 'label',
       cssClass: ['font-medium', 'text-base'],
     },
@@ -806,18 +788,6 @@ export default {
       fields: ['offers__body_block'],
     },
     {
-      name: 'product__container_block',
-      type: 'div',
-      cssClass: ['bg-white'],
-      fields: ['product__body_block'],
-    },
-    {
-      name: 'part__container_block',
-      type: 'div',
-      cssClass: ['bg-white'],
-      fields: ['part__body_block'],
-    },
-    {
       name: 'offers__body_block',
       type: 'div',
       cssClass: ['p-6'],
@@ -931,9 +901,8 @@ export default {
           key: 'offer',
           resizable: true,
           widget: {
-            name: 'offer',
-            type: 'external', // external || router
-            filterParam: 'title',
+            name: 'popover',
+            type: 'columns',
           },
           width: 150,
         },
@@ -982,342 +951,6 @@ export default {
           copy: true,
         },
       ],
-    },
-
-    {
-      name: 'title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'mb-6', 'flex-col'],
-      fields: ['breadcrumbs', 'title_wrap'],
-    },
-    {
-      name: 'breadcrumbs',
-      type: 'breadcrumbs',
-      options: [
-        {
-          title: 'Главная',
-          path: '/',
-        },
-        {
-          title: 'Сервисы',
-        },
-        {
-          title: 'Beб-формы',
-        },
-        {
-          title: 'Тикеты',
-        },
-        {
-          title: 'Жалобы на товар',
-          path: '/main/complaints',
-        },
-        {
-          title: 'Жалоба',
-        },
-      ],
-    },
-    {
-      name: 'title_wrap',
-      type: 'div',
-      cssClass: ['flex', 'mt-4'],
-      fields: ['title_arrow_back', 'title'],
-    },
-    {
-      type: 'button',
-      name: 'title_arrow_back',
-      buttonType: 'text',
-      disabled: false,
-      cssClass: ['font-medium', 'text-xl', 'mr-2'],
-      icon: {
-        name: 'fa-solid fa-arrow-left',
-      },
-      handlers: [
-        {
-          name: 'goBack',
-        },
-      ],
-    },
-    {
-      text: 'Редактирование результата заполнения веб-формы',
-      name: 'title',
-      type: 'label',
-      cssClass: ['font-medium', 'text-xl'],
-    },
-    {
-      name: 'product__body_block',
-      type: 'div',
-      cssClass: ['bg-white', 'flex', 'justify-center'],
-      fields: ['wrapper_block'],
-    },
-    {
-      name: 'wrapper_block',
-      type: 'div',
-      cssClass: ['w-600', 'p-6'],
-      fields: ['product_info_block', 'results_title', 'results_block'],
-    },
-    {
-      name: 'product_info_block',
-      type: 'div',
-      fields: [
-        'product_info_cols_wrap',
-        'product_name',
-        'product_symbol_code',
-        'product_info_category',
-        'product_sort',
-      ],
-    },
-    {
-      name: 'product_info_cols_wrap',
-      type: 'div',
-      cssClass: ['flex'],
-      fields: ['product_info_block_col_1', 'product_info_block_col_2'],
-    },
-    {
-      name: 'product_info_block_col_1',
-      type: 'div',
-      cssClass: ['flex', 'flex-col', 'items-end', 'mr-3'],
-      fields: [
-        'product_info_label_1',
-        'product_info_label_2',
-        'product_info_label_3',
-        'product_info_label_4',
-        'product_info_label_5',
-      ],
-    },
-    {
-      name: 'product_info_block_col_2',
-      type: 'div',
-      cssClass: ['flex', 'flex-col'],
-      fields: [
-        'product_info_text_1',
-        'product_info_text_2',
-        'product_info_text_3',
-        'product_info_text_4',
-        'product_info_text_5',
-      ],
-    },
-    {
-      text: 'ID:',
-      name: 'product_info_label_1',
-      type: 'label',
-      parentClass: ['mb-6'],
-    },
-    {
-      text: '391',
-      name: 'product_info_text_1',
-      type: 'label',
-      parentClass: ['mb-6'],
-    },
-    {
-      text: 'Создан:',
-      name: 'product_info_label_3',
-      type: 'label',
-      parentClass: ['mb-6'],
-    },
-    {
-      text: '23.05.2022   17:11:11',
-      name: 'product_info_text_3',
-      type: 'label',
-      parentClass: ['mb-6'],
-    },
-    {
-      text: 'Изменен:',
-      name: 'product_info_label_4',
-      type: 'label',
-      parentClass: ['mb-6'],
-    },
-    {
-      text: '23.05.2022   17:11:11',
-      name: 'product_info_text_4',
-      type: 'label',
-      parentClass: ['mb-6'],
-    },
-    {
-      title: 'Название',
-      titlePosition: 'left',
-      size: 'default',
-      name: 'product_name',
-      type: 'input',
-      format: 'text',
-      value: '',
-      parentClass: ['mb-6', 'w-[500px]'],
-    },
-    {
-      title: 'Символьный код',
-      titlePosition: 'left',
-      size: 'default',
-      name: 'product_symbol_code',
-      type: 'input',
-      format: 'text',
-      value: '',
-      parentClass: ['mb-6', 'w-[500px]'],
-    },
-    {
-      title: 'Основной раздел',
-      titlePosition: 'left',
-      size: 'default',
-      description: '',
-      name: 'product_info_category',
-      type: 'select',
-      cssClass: ['w-[500px]'],
-      parentClass: ['mb-6'],
-      value: 1,
-      options: [
-        { id: 0, name: 'SonyPlayStation' },
-        { id: 1, name: 'samsung' },
-        { id: 2, name: 'xiaomi' },
-      ],
-    },
-    {
-      title: 'Сортировка',
-      titlePosition: 'left',
-      size: 'default',
-      name: 'product_sort',
-      type: 'input',
-      format: 'text',
-      value: '',
-      parentClass: ['mb-6', 'w-[500px]'],
-    },
-    {
-      text: 'С этими товарами покупают',
-      name: 'results_title',
-      type: 'label',
-      parentClass: [
-        'mt-16',
-        'mb-10',
-        'ml-20',
-        'pl-12',
-        'relative',
-        'before:absolute',
-        'before:left-2',
-        'before:top-1/2',
-        'before:block',
-        'before:w-5',
-        'before:border-t',
-        'before:border-dividerColor',
-        'after:absolute',
-        'after:right-0',
-        'after:top-1/2',
-        'after:block',
-        'after:w-7/12',
-        'after:border-t',
-        'after:border-dividerColor',
-      ],
-      cssClass: ['font-semibold', 'text-base'],
-    },
-    {
-      name: 'results_block',
-      type: 'div',
-      fields: ['product_category', 'products', 'buttons_wrap'],
-    },
-    {
-      title: 'Основной раздел',
-      titlePosition: 'left',
-      mode: 'multiple',
-      size: 'default',
-      description: '',
-      name: 'product_category',
-      type: 'select',
-      cssClass: ['w-[500px]'],
-      parentClass: ['mb-6'],
-      value: 1,
-      options: [
-        { id: 0, name: 'SonyPlayStation' },
-        { id: 1, name: 'samsung' },
-        { id: 2, name: 'xiaomi' },
-      ],
-    },
-    {
-      title: 'Товары',
-      titlePosition: 'left',
-      size: 'default',
-      name: 'products',
-      type: 'input',
-      format: 'text',
-      value: '',
-      parentClass: ['mb-6', 'w-[500px]'],
-    },
-    {
-      name: 'buttons_wrap',
-      type: 'div',
-      cssClass: ['flex', 'pl-10', 'ml-12', 'mb-6'],
-      fields: ['button_reset', 'button_save'],
-    },
-    {
-      type: 'button',
-      value: 'Отмена',
-      name: 'button_reset',
-      disabled: false,
-      cssClass: ['mr-2'],
-      handler: {
-        name: 'resetForm',
-        params: {},
-      },
-    },
-    {
-      type: 'button',
-      value: 'Сохранить',
-      name: 'button_save',
-      buttonType: 'primary',
-      disabled: false,
-      handler: {
-        name: 'save',
-        params: {},
-      },
-    },
-    {
-      name: 'part__body_block',
-      type: 'div',
-      cssClass: ['bg-white', 'flex', 'justify-center'],
-      fields: ['part_wrapper_block'],
-    },
-    {
-      name: 'part_wrapper_block',
-      type: 'div',
-      cssClass: ['w-600', 'p-6'],
-      fields: ['part_select'],
-    },
-    {
-      title: 'Товары',
-      titlePosition: 'left',
-      size: 'default',
-      name: 'part_select',
-      type: 'treeSelect',
-      options: [
-        {
-          title: 'Node1',
-          value: '0-0',
-          children: [
-            {
-              title: 'Child Node1',
-              value: '0-0-0',
-            },
-          ],
-        },
-        {
-          title: 'Node2',
-          value: '0-1',
-          children: [
-            {
-              title: 'Child Node3',
-              value: '0-1-0',
-              disabled: true,
-            },
-            {
-              title: 'Child Node4',
-              value: '0-1-1',
-            },
-            {
-              title: 'Child Node5',
-              value: '0-1-2',
-            },
-          ],
-        },
-      ],
-      format: 'text',
-      value: [],
-      cssClass: ['w-[500px]'],
-      parentClass: ['mb-6', 'w-[500px]'],
     },
   ],
 }

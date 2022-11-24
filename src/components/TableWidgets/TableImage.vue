@@ -6,6 +6,7 @@
 <script setup>
 import { computed } from 'vue'
 import { FileImageOutlined } from '@ant-design/icons-vue'
+
 const props = defineProps({
   item: {
     type: Object,

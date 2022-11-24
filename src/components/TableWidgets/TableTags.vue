@@ -59,6 +59,7 @@ import { ColorPicker } from 'vue3-colorpicker'
 import { EditOutlined } from '@ant-design/icons-vue'
 
 import 'vue3-colorpicker/style.css'
+
 const props = defineProps({
   item: {
     type: Object,
@@ -82,7 +83,7 @@ const editableData = computed({
 
 const visibleModal = ref(false)
 const modalTags = ref([])
-const activeId = ref(null)
+let activeId = ref(null)
 
 const showModal = () => {
   modalTags.value = editableData.value[props.item.key][props.column.dataIndex]

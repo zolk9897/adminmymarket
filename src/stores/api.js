@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 import axios from '@/config/axios.js'
+import { useGlobalJsonDataStore } from '@/stores/global-json.js'
+import { defineStore } from 'pinia'
 export const useApiStore = defineStore({
   id: 'api',
   state: () => {
@@ -32,6 +32,12 @@ export const useApiStore = defineStore({
           resolve()
         }, 1000)
       )
+    },
+
+    async sendOneField({ endpoint, method, value, queryParams }) {
+      if (queryParams) {
+        await axios[method](endpoint, null, { params: value })
+      } else await axios[method](endpoint, value)
     },
   },
   getters: {},

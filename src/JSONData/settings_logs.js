@@ -1,49 +1,28 @@
 export default {
-  title: 'Настройка ролей',
   page: 'settings_logs',
+  useTitle: {
+    title: 'Настройка ролей',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Настройки',
+      },
+      {
+        title: 'Логирование',
+        path: '/main/settings_logs',
+      },
+    ],
+  },
   groups: [
     {
       name: 'settings_logs',
-      fields: ['settings_logs__title_block', 'settings_logs__body_block'],
+      fields: ['settings_logs__body_block'],
     },
   ],
   fields: [
-    {
-      name: 'settings_logs__title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'mb-6', 'flex-col'],
-      fields: ['breadcrumbs', 'header_block'],
-    },
-    {
-      name: 'breadcrumbs',
-      type: 'breadcrumbs',
-      options: [
-        {
-          title: 'Главная',
-          path: '/',
-        },
-        {
-          title: 'Настройки',
-        },
-        {
-          title: 'Логирование',
-          path: '/main/settings_logs',
-        },
-      ],
-    },
-    {
-      name: 'header_block',
-      type: 'div',
-      cssClass: ['flex', 'items-end', 'justify-between'],
-      fields: ['title', 'user_role_add_modal_btn'],
-    },
-    {
-      text: 'Логирование',
-      name: 'title',
-      type: 'label',
-      parentClass: ['mt-4'],
-      cssClass: ['font-medium', 'text-xl'],
-    },
     {
       name: 'settings_logs__body_block',
       type: 'div',
@@ -69,12 +48,7 @@ export default {
         align: 'center',
         bordered: true,
         search: {
-          fields: [
-            'user_name',
-            'object_name',
-            'user_type',
-            'action_name',
-          ],
+          fields: ['user_name', 'object_name', 'user_type', 'action_name'],
         },
       },
       data: [

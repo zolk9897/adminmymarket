@@ -1,6 +1,21 @@
 export default {
   page: 'base_settings',
-  title: 'Базовые настройки',
+  useTitle: {
+    title: 'Базовые настройки',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Настройки',
+      },
+      {
+        title: 'Базовые настройки',
+        path: '/main/base_settings',
+      },
+    ],
+  },
   groups: [
     {
       tabName: 'Основные',
@@ -14,8 +29,11 @@ export default {
     },
     {
       tabName: 'Безопасность',
-      name: 'more_tab',
-      fields: ['more_tab__title_block', 'more_tab__container_block'],
+      name: 'safety_tab',
+      fields: [
+        'safety_tab__table_banned_list',
+        'safety_tab__table_exeptions_list',
+      ],
     },
     {
       tabName: 'Юр. лица',
@@ -1160,6 +1178,655 @@ export default {
           params: {
             pageName: 'base_settings',
             blockName: 'block_modal_added_content',
+          },
+        },
+      ],
+    },
+    {
+      name: 'safety_tab__table_banned_list',
+      type: 'div',
+      cssClass: ['bg-white'],
+      fields: [
+        'table_banned_list__header',
+        'table_banned_list__body',
+        'table_banned_list_add_ip_modal',
+      ],
+    },
+    {
+      name: 'table_banned_list__header',
+      type: 'div',
+      cssClass: [
+        'p-6',
+        'flex',
+        'justify-between',
+        'items-center',
+        'border-b',
+        'border-borderColor',
+      ],
+      fields: ['table_banned_list__title', 'table_banned_list__buttons_block'],
+    },
+    {
+      text: 'Список заблокированных IP',
+      name: 'table_banned_list__title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-base'],
+    },
+    {
+      name: 'table_banned_list__buttons_block',
+      type: 'div',
+      fields: ['table_banned_list__add_ip_button'],
+    },
+    {
+      name: 'table_banned_list__body',
+      type: 'div',
+      cssClass: ['p-6', 'pb-2'],
+      fields: ['table_banned_list__table_ip'],
+    },
+    {
+      type: 'button',
+      value: 'Добавить',
+      name: 'table_banned_list__add_ip_button',
+      buttonType: 'primary',
+      disabled: false,
+      icon: {
+        name: 'fa-solid fa-plus',
+      },
+      handlers: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'flex' },
+          },
+        },
+      ],
+    },
+    {
+      name: 'table_banned_list__table_ip',
+      type: 'table',
+      config: {
+        pagination: false,
+        size: 'large',
+        align: 'center',
+        bordered: true,
+        selection: true,
+      },
+      data: [
+        {
+          id: 115164,
+          active_status: true,
+          name: 'DigitalOcean',
+          ip_address: '139.59.212.108',
+          comment_message: '',
+        },
+        {
+          id: 141548,
+          active_status: true,
+          name: 'DigitalOcean',
+          ip_address: '139.59.212.108',
+          comment_message: '',
+        },
+        {
+          id: 124853,
+          active_status: true,
+          name: 'DigitalOcean',
+          ip_address: '139.59.212.108',
+          comment_message: '',
+        },
+      ],
+      columns: [
+        {
+          dataIndex: 'actions',
+          widget: {
+            name: 'actions',
+          },
+          width: 20,
+          hide: false,
+          delete: true,
+          edit: true,
+          copy: true,
+        },
+        {
+          title: 'Активность',
+          dataIndex: 'active_status',
+          key: 'active_status',
+          widget: {
+            name: 'checkbox',
+            type: 'text',
+          },
+          width: 1,
+        },
+        {
+          title: 'Название',
+          dataIndex: 'name',
+          key: 'name',
+          widget: {
+            name: 'text',
+            class: 'font-normal',
+          },
+          resizable: true,
+          width: 550,
+        },
+        {
+          title: 'IP-адреса',
+          dataIndex: 'ip_address',
+          key: 'ip_address',
+          resizable: true,
+          widget: {
+            name: 'text',
+          },
+          width: 150,
+        },
+        {
+          title: 'Комментарий',
+          dataIndex: 'comment_message',
+          key: 'comment_message',
+          resizable: true,
+          widget: {
+            name: 'text',
+          },
+          width: 100,
+        },
+      ],
+    },
+    {
+      name: 'safety_tab__table_exeptions_list',
+      type: 'div',
+      cssClass: ['bg-white', 'mt-6'],
+      fields: [
+        'table_exeptions_list__header',
+        'table_exeptions_list__body',
+        'table_exeptions_list_add_ip_modal',
+      ],
+    },
+    {
+      name: 'table_exeptions_list__header',
+      type: 'div',
+      cssClass: [
+        'p-6',
+        'flex',
+        'justify-between',
+        'items-center',
+        'border-b',
+        'border-borderColor',
+      ],
+      fields: [
+        'table_exeptions_list__title',
+        'table_exeptions_list__buttons_block',
+      ],
+    },
+    {
+      text: 'Список исключений',
+      name: 'table_exeptions_list__title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-base'],
+    },
+    {
+      name: 'table_exeptions_list__buttons_block',
+      type: 'div',
+      fields: ['table_exeptions_list__add_ip_button'],
+    },
+    {
+      name: 'table_exeptions_list__body',
+      type: 'div',
+      cssClass: ['p-6', 'pb-2'],
+      fields: ['table_exeptions_list__table_ip'],
+    },
+    {
+      type: 'button',
+      value: 'Добавить',
+      name: 'table_exeptions_list__add_ip_button',
+      buttonType: 'primary',
+      disabled: false,
+      icon: {
+        name: 'fa-solid fa-plus',
+      },
+      handlers: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'flex' },
+          },
+        },
+      ],
+    },
+    {
+      name: 'table_exeptions_list__table_ip',
+      type: 'table',
+      config: {
+        pagination: false,
+        size: 'large',
+        align: 'center',
+        bordered: true,
+        selection: { delete: true },
+      },
+      data: [
+        {
+          id: 115164,
+          active_status: true,
+          name: 'DigitalOcean',
+          ip_address: '139.59.212.108',
+          comment_message: '',
+        },
+        {
+          id: 141548,
+          active_status: true,
+          name: 'DigitalOcean',
+          ip_address: '139.59.212.108',
+          comment_message: '',
+        },
+        {
+          id: 124853,
+          active_status: true,
+          name: 'DigitalOcean',
+          ip_address: '139.59.212.108',
+          comment_message: '',
+        },
+      ],
+      columns: [
+        {
+          dataIndex: 'actions',
+          widget: {
+            name: 'actions',
+          },
+          width: 20,
+          hide: false,
+          delete: true,
+          edit: true,
+          copy: true,
+        },
+        {
+          title: 'Активность',
+          dataIndex: 'active_status',
+          key: 'active_status',
+          widget: {
+            name: 'checkbox',
+            type: 'text',
+          },
+          width: 1,
+        },
+        {
+          title: 'Название',
+          dataIndex: 'name',
+          key: 'name',
+          widget: {
+            name: 'text',
+            class: 'font-normal',
+          },
+          resizable: true,
+          width: 550,
+        },
+        {
+          title: 'IP-адреса',
+          dataIndex: 'ip_address',
+          key: 'ip_address',
+          resizable: true,
+          widget: {
+            name: 'text',
+          },
+          width: 150,
+        },
+        {
+          title: 'Комментарий',
+          dataIndex: 'comment_message',
+          key: 'comment_message',
+          resizable: true,
+          widget: {
+            name: 'text',
+          },
+          width: 100,
+        },
+      ],
+    },
+    {
+      name: 'table_banned_list_add_ip_modal',
+      type: 'div',
+      handlers: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'none' },
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+          },
+        },
+      ],
+      cssClass: [
+        'fixed',
+        'bottom-0',
+        'left-0',
+        'top-0',
+        'right-0',
+        'z-50',
+        'bg-black/40',
+        'hidden',
+        'justify-center',
+        'items-center',
+      ],
+      style: {},
+      fields: ['table_banned_list_modal_added_content'],
+    },
+    {
+      title: 'Добавление IP в список заблокированных',
+      titleClass: ['font-medium', 'mb-4'],
+      name: 'table_banned_list_modal_added_content',
+      type: 'div',
+      containerClass: ['bg-white', 'p-6', 'gap-4', 'w-480'],
+      fields: [
+        'table_banned_list_modal__name_ip_address',
+        'table_banned_list_modal__ip_address',
+        'table_banned_list_modal__message_comment',
+        'table_banned_list_modal__active',
+        'table_banned_list_buttons_modal_footer',
+      ],
+    },
+    {
+      title: 'Название',
+      name: 'table_banned_list_modal__name_ip_address',
+      format: 'text',
+      value: '',
+      type: 'input',
+      excludeSend: true,
+      containerClass: ['mt-6', 'mb-4'],
+      validation: {
+        rules: [
+          {
+            type: 'required',
+          },
+        ],
+      },
+    },
+    {
+      title: 'IP адресс',
+      name: 'table_banned_list_modal__ip_address',
+      format: 'text',
+      value: '',
+      type: 'input',
+      excludeSend: true,
+      containerClass: ['mt-6', 'mb-4'],
+      validation: {
+        rules: [
+          {
+            type: 'required',
+          },
+        ],
+      },
+    },
+    {
+      title: 'Комментарий',
+      name: 'table_banned_list_modal__message_comment',
+      format: 'text',
+      value: '',
+      type: 'input',
+      containerClass: ['mt-6', 'mb-4'],
+    },
+    {
+      title: 'Активность',
+      titleClass: ['font-medium'],
+      name: 'table_banned_list_modal__active',
+      value: false,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      name: 'table_banned_list_buttons_modal_footer',
+      type: 'div',
+      cssClass: ['flex', 'justify-end', 'gap-2'],
+      fields: [
+        'table_banned_list__modal_cancel_button',
+        'table_banned_list__modal__add_button',
+      ],
+    },
+    {
+      type: 'button',
+      value: 'Отменить',
+      name: 'table_banned_list__modal_cancel_button',
+      handlers: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'none' },
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+          },
+        },
+      ],
+    },
+    {
+      type: 'button',
+      value: 'Добавить',
+      name: 'table_banned_list__modal__add_button',
+      buttonType: 'primary',
+      handlers: [
+        {
+          name: 'validateHandler',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+          },
+        },
+        {
+          name: 'addDataToTableField',
+          params: {
+            pageName: 'base_settings',
+            tableName: 'table_banned_list__table_ip',
+            data: {
+              name: 'table_banned_list_modal__name_ip_address',
+              ip_address: 'table_banned_list_modal__ip_address',
+              comment_message: 'table_banned_list_modal__message_comment',
+              active_status: 'table_banned_list_modal__active',
+            },
+          },
+        },
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'none' },
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_banned_list_add_ip_modal',
+          },
+        },
+      ],
+    },
+    {
+      name: 'table_exeptions_list_add_ip_modal',
+      type: 'div',
+      handlers: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'none' },
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
+          },
+        },
+      ],
+      cssClass: [
+        'fixed',
+        'bottom-0',
+        'left-0',
+        'top-0',
+        'right-0',
+        'z-50',
+        'bg-black/40',
+        'hidden',
+        'justify-center',
+        'items-center',
+      ],
+      style: {},
+      fields: ['table_exeptions_list_modal_added_content'],
+    },
+    {
+      title: 'Добавление IP в список исключений',
+      titleClass: ['font-medium', 'mb-4'],
+      name: 'table_exeptions_list_modal_added_content',
+      type: 'div',
+      containerClass: ['bg-white', 'p-6', 'gap-4', 'w-480'],
+      fields: [
+        'table_exeptions_list_modal__name_ip_address',
+        'table_exeptions_list_modal__ip_address',
+        'table_exeptions_list_modal__message_comment',
+        'table_exeptions_list_modal__active',
+        'table_exeptions_list_buttons_modal_footer',
+      ],
+    },
+    {
+      title: 'Название',
+      name: 'table_exeptions_list_modal__name_ip_address',
+      format: 'text',
+      value: '',
+      type: 'input',
+      excludeSend: true,
+      containerClass: ['mt-6', 'mb-4'],
+      validation: {
+        rules: [
+          {
+            type: 'required',
+          },
+        ],
+      },
+    },
+    {
+      title: 'IP адресс',
+      name: 'table_exeptions_list_modal__ip_address',
+      format: 'text',
+      value: '',
+      type: 'input',
+      excludeSend: true,
+      containerClass: ['mt-6', 'mb-4'],
+      validation: {
+        rules: [
+          {
+            type: 'required',
+          },
+        ],
+      },
+    },
+    {
+      title: 'Комментарий',
+      name: 'table_exeptions_list_modal__message_comment',
+      format: 'text',
+      value: '',
+      type: 'input',
+      containerClass: ['mt-6', 'mb-4'],
+    },
+    {
+      title: 'Активность',
+      titleClass: ['font-medium'],
+      name: 'table_exeptions_list_modal__active',
+      value: false,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      name: 'table_exeptions_list_buttons_modal_footer',
+      type: 'div',
+      cssClass: ['flex', 'justify-end', 'gap-2'],
+      fields: [
+        'table_exeptions_list__modal_cancel_button',
+        'table_exeptions_list__modal__add_button',
+      ],
+    },
+    {
+      type: 'button',
+      value: 'Отменить',
+      name: 'table_exeptions_list__modal_cancel_button',
+      handlers: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'none' },
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
+          },
+        },
+      ],
+    },
+    {
+      type: 'button',
+      value: 'Добавить',
+      name: 'table_exeptions_list__modal__add_button',
+      buttonType: 'primary',
+      handlers: [
+        {
+          name: 'validateHandler',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
+          },
+        },
+        {
+          name: 'addDataToTableField',
+          params: {
+            pageName: 'base_settings',
+            tableName: 'table_exeptions_list__table_ip',
+            data: {
+              name: 'table_exeptions_list_modal__name_ip_address',
+              ip_address: 'table_exeptions_list_modal__ip_address',
+              comment_message: 'table_exeptions_list_modal__message_comment',
+              active_status: 'table_exeptions_list_modal__active',
+            },
+          },
+        },
+        {
+          name: 'editField',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
+            fieldName: 'style',
+            value: { display: 'none' },
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'table_exeptions_list_add_ip_modal',
           },
         },
       ],

@@ -1,44 +1,29 @@
 export default {
-  title: 'Рассылки',
   page: 'mail_templates',
+  useTitle: {
+    title: 'Рассылки',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Сервисы',
+      },
+      {
+        title: 'Почтовые шаблоны',
+        path: '/main/mailing',
+      },
+    ],
+  },
   groups: [
     {
       name: 'mail_templates',
       tabName: '',
-      fields: ['title_block', 'body_block'],
+      fields: ['body_block'],
     },
   ],
   fields: [
-    {
-      name: 'title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'flex-col'],
-      fields: ['breadcrumbs', 'title'],
-    },
-    {
-      name: 'breadcrumbs',
-      type: 'breadcrumbs',
-      options: [
-        {
-          title: 'Главная',
-          path: '/',
-        },
-        {
-          title: 'Сервисы',
-        },
-        {
-          title: 'Почтовые шаблоны',
-          path: '/main/mailing',
-        },
-      ],
-    },
-    {
-      text: 'Шаблоны рассылок',
-      name: 'title',
-      type: 'label',
-      parentClass: ['mt-4'],
-      cssClass: ['font-medium', 'text-xl'],
-    },
     {
       name: 'body_block',
       type: 'div',

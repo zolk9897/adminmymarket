@@ -2,16 +2,16 @@
   <div v-if="loading" class="great_loader">
     <a-spin class="mt-2" size="large" />
   </div>
-
-  <div v-show="!loading" v-if="!!compData" class="anitransition">
-    <template v-if="isSingleTab">
+  <PageHeader v-if="useTitle" :data="useTitle" :class="isSingleTab && 'pb-4'" />
+  <div v-if="!!compData">
+    <div v-show="!loading" v-if="isSingleTab" class="p-8 anitransition">
       <template
         v-for="(el, index) in singleTabData.fieldsData"
         :key="el.name + index"
       >
         <WidgetSwitch :item="el" />
       </template>
-    </template>
+    </div>
     <a-tabs
       v-else
       v-model:active-key="activeTab"
@@ -27,7 +27,7 @@
         :key="index"
         :tab="group.tabName"
       >
-        <div v-if="!loading && group">
+        <div v-show="!loading" v-if="group" class="p-8 anitransition">
           <template
             v-for="(el, index2) in group.fieldsData"
             :key="el.name + index2"
@@ -45,12 +45,13 @@
   </a-empty>
 </template>
 <script setup>
-import { computed, onBeforeMount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeMount, ref, watch } from 'vue'
 import WidgetSwitch from '@/components/Widgets/WidgetSwitch.vue'
 import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 import { useRoute, useRouter } from 'vue-router'
 import { debounce } from 'lodash-es'
 import { useApiStore } from '@/stores/api.js'
+import PageHeader from '@/components/PageHeader.vue'
 
 const store = useGlobalJsonDataStore()
 const api = useApiStore()
@@ -65,6 +66,7 @@ const compName = computed(() => route.params.component)
 const compData = computed(() => store.formattingData[compName.value])
 const isSingleTab = computed(() => compData.value?.length === 1)
 const singleTabData = computed(() => compData.value[0])
+const useTitle = computed(() => store.otherConfig[compName.value].useTitle)
 
 //SET METADATA AND LOADING
 const load = async () => {
@@ -144,15 +146,10 @@ const setTabUrl = () => {
 </script>
 
 <style lang="scss" scoped>
-:deep(.ant-form-item) {
-  margin-bottom: 0;
-}
-
-:deep(.ant-form-item-control-input) {
-  min-height: 0;
-}
-
 .anitransition {
   animation: animationPreview 0.4s forwards;
+}
+:global(.ant-tabs-top > .ant-tabs-nav) {
+  margin: 0;
 }
 </style>

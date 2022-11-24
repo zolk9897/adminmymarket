@@ -31,7 +31,17 @@
               Удалить
             </a-popconfirm>
           </a-menu-item>
-          <a-menu-item v-if="column.onCopy" key="3"> Копировать </a-menu-item>
+          <a-menu-item v-if="column.onCopy" key="3">
+            <a @click="onCopy(item)"> Копировать </a>
+          </a-menu-item>
+          <a-menu-item v-if="column.deactivate" key="4">
+            <a @click="onDeactivate(item.key, column.deactivate)">
+              {{ item[column.deactivate] ? 'Деактивировать' : 'Активировать' }}
+            </a>
+          </a-menu-item>
+          <a-menu-item v-if="column.view" key="4">
+            <a :href="item[column.view]" target="_blank"> Просмотреть </a>
+          </a-menu-item>
         </a-menu>
       </template>
     </a-dropdown>
@@ -41,7 +51,6 @@
 <script setup>
 import { computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
-import { MenuOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps({
   item: {
@@ -91,12 +100,24 @@ const saveEdit = (key) => {
 const cancelEdit = (key) => {
   delete editableData.value[key]
 }
+const count = computed(() => {
+  return dataSource.value.length
+})
 
-const onCopy = (e) => {
-  console.log(e)
+const onCopy = (item) => {
+  dataSource.value.push({
+    activity: true,
+    key: count.value,
+    name: item.name,
+    visibility: item.visibility,
+  })
 }
 const onDelete = (key) => {
   dataSource.value = dataSource.value.filter((item) => item.key !== key)
+}
+const onDeactivate = (key, field) => {
+  dataSource.value.find((item) => key === item.key)[field] =
+    !props.item[props.column.deactivate]
 }
 </script>
 <style scoped>

@@ -7,6 +7,7 @@
     :placeholder="`${column.title}`"
     :options="column.widget.params"
     :field-names="{ label: 'value', value: 'id' }"
+    @change="emits('change')"
   />
   <div v-else>
     <a-select
@@ -41,7 +42,7 @@ const props = defineProps({
   text: Number,
   editData: Object,
 })
-
+const emits = defineEmits(['change'])
 const value = computed(() => {
   if (!props.column.widget.type) return props.text
   return props.column.widget.params.find((param) => param.id === props.text)

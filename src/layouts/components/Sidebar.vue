@@ -4,7 +4,12 @@
       v-model:selectedKeys="selectedKeys"
       v-model:openKeys="openedKeys"
       mode="inline"
-      :style="{ height: '100%', borderRight: 0 }"
+      :style="{
+        overflow: 'auto',
+        height: '100vh',
+        borderRight: 0,
+        paddingBottom: '60px',
+      }"
     >
       <div v-for="item in menu" :key="item.name">
         <a-menu-item

@@ -1,6 +1,43 @@
 export default {
   page: 'about_company',
-  title: 'Контент: О компании: Редактирование',
+  useTitle: {
+    title: 'Контент: О компании: Редактирование',
+    operations: [
+      {
+        text: 'Сохранить',
+        type: 'primary',
+        handlers: [
+          {
+            name: 'pushData',
+            params: {
+              pageName: 'about_company',
+              blockName: 'element_tab__container_block',
+            },
+          },
+        ],
+      },
+      {
+        text: 'Скопировать',
+        icon: 'fa-solid fa-copy',
+      },
+    ],
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Контент',
+      },
+      {
+        title: 'Страницы',
+      },
+      {
+        title: 'О компании',
+        path: '/main/about_company',
+      },
+    ],
+  },
   groups: [
     {
       tabName: 'Элемент',
@@ -134,7 +171,7 @@ export default {
       titlePosition: 'left',
       name: 'slug_input',
       format: 'text',
-      value: 'o-kompanii',
+      value: 'o-kompanii@aa.ru',
       type: 'input',
       size: 'large',
       parentClass: ['w-480'],

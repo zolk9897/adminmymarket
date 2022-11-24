@@ -6,7 +6,7 @@
   --blue: #197aeb;
   --primaryColor: #197aeb;
   --buttonGreen: #7CB305;
-  
+
   --selected: rgba(29, 101, 192, 0.15);
   --text1: rgba(0, 0, 0, 0.85);
   --eBg: #ffffff;
@@ -364,8 +364,8 @@ a {
 .ant-message {
   z-index: 99999;
 }
-:global(.anticon){
-vertical-align: 0.05rem !important;
+.anticon{
+vertical-align: 0.1rem !important;
 }
 
 @keyframes animationPreview {

@@ -1,5 +1,6 @@
 import axios from '@/config/axios.js'
 import { createSchema } from '@/config/validate.js'
+import { useApiStore } from '@/stores/api.js'
 import { noFormWidgetsNames } from '@/utils/widgetsTypesNames.js'
 import { defineStore } from 'pinia'
 import * as yup from 'yup'
@@ -36,9 +37,8 @@ export const useGlobalJsonDataStore = defineStore({
         excludeSend[mainEl.page] = []
 
         otherConfig[mainEl.page] = {}
-        if (mainEl.useId) {
-          otherConfig[mainEl.page].useId = mainEl.useId
-        }
+        otherConfig[mainEl.page].useId = mainEl.useId || null
+        otherConfig[mainEl.page].useTitle = mainEl.useTitle || null
 
         mainEl.groups.forEach((el) => {
           function getFieldsData(fields) {
@@ -78,7 +78,7 @@ export const useGlobalJsonDataStore = defineStore({
         otherConfig,
       })
     },
-    async callHandler(handlers = [], value = null) {
+    async callHandler(handlers = [], value = null, otherParams = null) {
       if (!handlers.length) return
       for (let i = 0; i < handlers.length; i++) {
         if (this[handlers[i].name]) {
@@ -86,7 +86,7 @@ export const useGlobalJsonDataStore = defineStore({
             handlers[i].params[handlers[i].dynamicParam] = value
           }
           try {
-            await this[handlers[i].name](handlers[i].params)
+            await this[handlers[i].name](handlers[i].params, otherParams)
           } catch (e) {
             return false
           }
@@ -115,8 +115,16 @@ export const useGlobalJsonDataStore = defineStore({
     async pushData({ pageName, blockName }) {
       await this.validateData(pageName, blockName).then(async () => {
         const data = await this.getBlockData(pageName, blockName)
+        const res = await axios.get(
+          'https://ekat.sergeivl.ru/api/example/ok',
+          data
+        )
         console.log('-> Успешно отправлено', data)
-        const res = await axios.post('/data', data)
+        this.showNoty({
+          component: 'notification',
+          type: 'success',
+          title: res.data.message,
+        })
       })
     },
     async getBlockData(pageName, blockName) {
@@ -262,6 +270,47 @@ export const useGlobalJsonDataStore = defineStore({
     //OTHER
     goBack(params) {
       this.router.go(`-${params?.step ? params.step : 1}`)
+    },
+
+    //TABLE HANDLERS
+    async sendOneFieldFromTable(params, { key, rowItem }) {
+      const {
+        endpoint,
+        rowId,
+        method = 'post',
+        queryParams = null,
+        fullRow = false,
+      } = params
+      const API = useApiStore()
+
+      let value = {}
+      if (!fullRow) {
+        value[key] = rowItem[key]
+        value[rowId] = rowItem[rowId]
+      } else value = rowItem
+
+      await API.sendOneField({ endpoint, value, queryParams, method })
+    },
+    showNoty(params) {
+      if (params.component === 'message') {
+        const type = params.type || 'info'
+        this.message[type]({
+          content: () => params.title,
+          class: params.class,
+          style: params.style,
+          duration: params.duration || 2,
+        })
+      } else {
+        const type = params.type || 'open'
+        this.notification[type]({
+          message: params.title,
+          description: params.description,
+          duration: params.duration || 4,
+          class: params.class,
+          style: params.style,
+          placement: params.placement,
+        })
+      }
     },
   },
 })

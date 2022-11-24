@@ -1,4 +1,5 @@
 import about_company from './about_company'
+import pages from './pages'
 import analytics from './analytics'
 import banner_groups from './banner_groups'
 import base_settings from './base_settings'
@@ -9,6 +10,7 @@ import edit_banner from './edit_banner'
 import global_settings from './global_settings'
 import groups_users from './groups_users'
 import mailing from './mailing'
+import complaints from './complaints'
 import mail_templates from './mail_templates'
 import offer from './offer'
 import price_list from './price_list'
@@ -39,6 +41,11 @@ export default {
       name: 'offer',
       title: 'Офферы',
       data: offer,
+    },
+    {
+      name: 'pages',
+      title: 'Офферы',
+      data: pages,
     },
     {
       name: 'analytics',
@@ -102,6 +109,11 @@ export default {
       data: users_list_table,
     },
     {
+      name: 'complaints',
+      title: 'Жалобы на товар',
+      data: complaints,
+    },
+    {
       name: 'mailing',
       title: 'Рассылки',
       data: mailing,
@@ -115,11 +127,6 @@ export default {
       name: 'tabs_test',
       title: 'Табы тестирование',
       data: tabs_test,
-    },
-    {
-      name: 'groups_users',
-      title: 'Группы пользователей',
-      data: groups_users,
     },
     {
       name: 'settings_logs',
@@ -179,6 +186,12 @@ export default {
       icon: 'fa-folder fa-regular',
       subMenu: [
         {
+          name: 'pages',
+          title: 'Страницы',
+          main: true,
+          subMenuParents: ['content'],
+        },
+        {
           name: 'analytics',
           title: 'Аналитика',
           main: true,
@@ -234,12 +247,6 @@ export default {
               subMenuParents: ['users'],
             },
             {
-              name: 'groups_users',
-              title: 'Группы пользователей',
-              main: true,
-              subMenuParents: ['users'],
-            },
-            {
               name: 'user_roles',
               title: 'Роли',
               main: true,
@@ -290,6 +297,12 @@ export default {
       title: 'Сервисы',
       icon: 'fa-envelope',
       subMenu: [
+        {
+          name: 'complaints',
+          title: 'Жалобы на товар',
+          main: true,
+          subMenuParents: ['services'],
+        },
         {
           name: 'mailing',
           title: 'Рассылки',

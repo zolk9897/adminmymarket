@@ -1,43 +1,28 @@
 export default {
-  title: 'Рассылки',
   page: 'mailing',
+  useTitle: {
+    title: 'Рассылки',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Сервисы',
+      },
+      {
+        title: 'Paccылки',
+        path: '/main/mailing',
+      },
+    ],
+  },
   groups: [
     {
       name: 'mailing',
-      fields: ['title_block', 'body_block'],
+      fields: ['body_block'],
     },
   ],
   fields: [
-    {
-      name: 'title_block',
-      type: 'div',
-      cssClass: ['bg-white', 'p-6', 'mb-6', 'flex-col'],
-      fields: ['breadcrumbs', 'title'],
-    },
-    {
-      name: 'breadcrumbs',
-      type: 'breadcrumbs',
-      options: [
-        {
-          title: 'Главная',
-          path: '/',
-        },
-        {
-          title: 'Сервисы',
-        },
-        {
-          title: 'Paccылки',
-          path: '/main/mailing',
-        },
-      ],
-    },
-    {
-      text: 'Рассылки',
-      name: 'title',
-      type: 'label',
-      parentClass: ['mt-4'],
-      cssClass: ['font-medium', 'text-xl'],
-    },
     {
       name: 'body_block',
       type: 'div',
