@@ -47,9 +47,13 @@ export default {
         size: 'large',
         align: 'center',
         bordered: true,
-        search: {
-          fields: ['user_name', 'object_name', 'user_type', 'action_name'],
-        },
+        search: [
+          {
+            name: 'user_search',
+            type: 'input',
+            fields: ['user_name', 'object_name', 'user_type', 'action_name'],
+          },
+        ],
       },
       data: [
         {

@@ -1,7 +1,7 @@
 export default {
-  page: 'banner_groups',
+  page: 'banner_list',
   useTitle: {
-    title: 'Группы баннеров',
+    title: 'Список баннеров',
     breadcrumbs: [
       {
         title: 'Главная',
@@ -11,11 +11,8 @@ export default {
         title: 'Контент',
       },
       {
-        title: 'Баннеры',
-      },
-      {
-        title: 'Группы баннеров',
-        path: '/main/banner_groups',
+        title: 'Список баннеров',
+        path: '/main/banner_list',
       },
     ],
   },
@@ -41,17 +38,34 @@ export default {
     {
       name: 'main_table',
       type: 'table',
+
       config: {
         pagination: false,
         size: 'small',
         align: 'center',
         bordered: true,
-        selection: { active: true },
+        buttons: [
+          {
+            name: 'add',
+            type: 'primary',
+            label: 'Добавить баннер',
+            showLoading: true,
+            handlers: [
+              {
+                name: 'createNewPageFromId',
+                params: {
+                  endpoint: 'createNewBanner',
+                  jsonPage: 'edit_banner',
+                },
+              },
+            ],
+          },
+        ],
         search: [
           {
-            name: 'banner_groups_search',
+            name: 'bannerlist_search',
             type: 'input',
-            fields: ['active'],
+            fields: ['name'],
           },
         ],
       },
@@ -64,7 +78,7 @@ export default {
           id: 123,
         },
         {
-          name: 'Купить PlayStation 5!',
+          name: 'PlayStation 5!',
           active: true,
           sort: 500,
           updated_at: '23.09.2022 12:33:11',
@@ -107,17 +121,17 @@ export default {
         },
       ],
       columns: [
-        {
-          dataIndex: 'actions',
-          widget: {
-            name: 'actions',
-          },
-          width: 1,
-          hide: false,
-          delete: true,
-          edit: true,
-          copy: true,
-        },
+        // {
+        //   dataIndex: 'actions',
+        //   widget: {
+        //     name: 'actions',
+        //   },
+        //   width: 1,
+        //   hide: false,
+        //   delete: true,
+        //   edit: true,
+        //   copy: true,
+        // },
         {
           title: 'Название',
           dataIndex: 'name',
@@ -153,8 +167,9 @@ export default {
           resizable: true,
           width: 20,
         },
+
         {
-          title: 'Дата изменение',
+          title: 'Дата изменения',
           dataIndex: 'updated_at',
           key: 'updated_at',
           sort: true,

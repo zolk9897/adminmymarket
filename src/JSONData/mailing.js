@@ -283,10 +283,23 @@ export default {
       name: 'button_save',
       buttonType: 'primary',
       disabled: false,
-      handler: {
-        name: 'save',
-        params: {},
-      },
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'mailing',
+            blockName: 'wrapper_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'mailing',
+            blockName: 'wrapper_block',
+          },
+        },
+      ],
     },
   ],
 }

@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 
 const props = defineProps({
   item: {
@@ -41,12 +41,24 @@ const props = defineProps({
   widget: Object,
   text: Number,
   editData: Object,
+  config: Object,
 })
 const emits = defineEmits(['change'])
 const value = computed(() => {
   if (!props.column.widget.type) return props.text
   return props.column.widget.params.find((param) => param.id === props.text)
 })
+
+watch(
+  props,
+  () => {
+    if (props.config.selection?.updateOnSave) {
+      // отменить реактивность value
+      value.effect.stop()
+    }
+  },
+  { deep: true }
+)
 
 const editableData = computed(() => props.editData)
 </script>

@@ -8,6 +8,7 @@
     :class="[item.cssClass, errors && 'error']"
     :size="item.size || 'large'"
     allow-clear
+    :disabled="item.disabled"
     @press-enter="callHandler(item.handlers)"
   />
   <a-input-password
@@ -17,6 +18,7 @@
     :style="item.style"
     :class="[item.cssClass, errors && 'error']"
     :size="item.size || 'large'"
+    :disabled="item.disabled"
     @press-enter="callHandler(item.handlers)"
   />
   <a-input-number
@@ -26,6 +28,7 @@
     :placeholder="item.description ? item.description.substring(0, 40) : null"
     :style="item.style"
     :class="[item.cssClass, errors && 'error']"
+    :disabled="item.disabled"
     @press-enter="callHandler(item.handlers)"
   />
   <span

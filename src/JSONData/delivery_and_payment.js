@@ -128,10 +128,23 @@ export default {
       buttonType: 'primary',
       disabled: false,
       cssClass: ['my-12'],
-      handler: {
-        name: 'save',
-        params: {},
-      },
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'delivery_and_payment',
+            blockName: 'body_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'delivery_and_payment',
+            blockName: 'body_block',
+          },
+        },
+      ],
     },
   ],
 }

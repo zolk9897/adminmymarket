@@ -96,14 +96,20 @@ export default {
       buttonType: 'primary',
       disabled: false,
       cssClass: ['my-12'],
-      handler: [
+      handlers: [
         {
-          name: 'editField',
+          name: 'pushData',
           params: {
             pageName: 'requisites',
-            blockName: 'save_button',
-            fieldName: 'cssClass',
-            value: { add: [], remove: [] },
+            blockName: 'requisites_form',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'requisites',
+            blockName: 'requisites_form',
           },
         },
       ],

@@ -21,6 +21,7 @@
     "axios": "^0.27.2",
     "dayjs": "^1.11.6",
     "eslint-plugin-prettier": "^4.2.1",
+    "highlight.js": "^11.7.0",
     "path": "^0.12.7",
     "pinia": "^2.0.23",
     "prettier": "^2.7.1",
@@ -30,6 +31,7 @@
     "vue": "^3.2.37",
     "vue-router": "^4.0.15",
     "vue3-colorpicker": "^2.0.4",
+    "vue3-highlightjs": "^1.0.5",
     "yarn": "^1.22.19",
     "yup": "^0.32.11",
     "yup-locale-ru": "^1.0.1"

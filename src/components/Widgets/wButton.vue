@@ -5,17 +5,19 @@
     :style="item.style"
     :disabled="item.disabled"
     :size="item.size"
-    @click="callHandler(item.handlers)"
+    :ghost="item.ghost"
+    :loading="loading"
+    @click="callHandlers()"
   >
-    <template v-if="isIcon" #icon>
-      <fa class="mr-2" :icon="item.icon.name" />
+    <template #icon>
+      <fa v-if="item.icon" class="mr-2" :icon="item.icon.name" />
     </template>
     {{ item.value }}
   </a-button>
 </template>
 <script setup>
-import { computed } from 'vue'
 import { useGlobalJsonDataStore } from '../../stores/global-json.js'
+import { ref } from 'vue'
 
 const { callHandler } = useGlobalJsonDataStore()
 
@@ -26,7 +28,10 @@ const props = defineProps({
   },
 })
 
-const isIcon = computed(
-  () => props.item.icon && Object.keys(props.item.icon).length > 0
-)
+const loading = ref(false)
+const callHandlers = async () => {
+  if (props.item.showLoading) loading.value = true
+  await callHandler(props.item.handlers)
+  loading.value = false
+}
 </script>

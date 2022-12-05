@@ -12,9 +12,11 @@ export const useGlobalJsonDataStore = defineStore({
     return {
       formattingData: {},
       sendData: {},
+      defaultSendData: {},
       validationErrors: {},
       validationConfig: {},
       excludeSend: {},
+      excludeReset: {},
       oldBlockName: null,
       otherConfig: {},
     }
@@ -25,19 +27,29 @@ export const useGlobalJsonDataStore = defineStore({
     async getMainJson() {
       const formattingData = {}
       const sendData = {}
+      const defaultSendData = {}
       const excludeSend = {}
+      const excludeReset = {}
       const validationConfig = {}
       const otherConfig = {}
 
       mainData.data.forEach((data) => {
         let mainEl = data.data
-
+        //Форматированный JSON файл
         formattingData[mainEl.page] = []
+        //Хранилище данных всех json
         sendData[mainEl.page] = {}
+        //Копия данных для ресета
+        defaultSendData[mainEl.page] = {}
+        //Поля которые ненужно отправлять
         excludeSend[mainEl.page] = []
+        //Поля которые ненужно сбрасывать
+        excludeReset[mainEl.page] = {}
 
         otherConfig[mainEl.page] = {}
+        // useId для динамических страниц что бы полчать данные
         otherConfig[mainEl.page].useId = mainEl.useId || null
+        // Блок с header title(breadcrumbs, buttons and more)
         otherConfig[mainEl.page].useTitle = mainEl.useTitle || null
 
         mainEl.groups.forEach((el) => {
@@ -45,13 +57,16 @@ export const useGlobalJsonDataStore = defineStore({
             let fieldsData = []
             fields.forEach((item) => {
               const find = mainEl.fields.find((f) => f.name === item)
-              if (find && ['div', 'tabs'].includes(find.type)) {
+              if (find && ['div', 'tabs', 'code'].includes(find.type)) {
                 find.fieldsData = getFieldsData(find.fields)
                 fieldsData.push(find)
               } else if (find) {
                 if (!noFormWidgetsNames.includes(find.type)) {
-                  sendData[mainEl.page][find.name] = null
+                  sendData[mainEl.page][find.name] = find.value || null
+                  defaultSendData[mainEl.page][find.name] = find.value || null
                   if (find.excludeSend) excludeSend[mainEl.page].push(find.name)
+                  if (find.excludeReset)
+                    excludeReset[mainEl.page][find.name] = true
                   if (find.validation)
                     validationConfig[find.name] = find.validation
                 }
@@ -73,8 +88,10 @@ export const useGlobalJsonDataStore = defineStore({
       this.$patch({
         formattingData,
         sendData,
+        defaultSendData,
         validationConfig,
         excludeSend,
+        excludeReset,
         otherConfig,
       })
     },
@@ -88,6 +105,13 @@ export const useGlobalJsonDataStore = defineStore({
           try {
             await this[handlers[i].name](handlers[i].params, otherParams)
           } catch (e) {
+            this.showNoty({
+              component: 'notification',
+              type: 'error',
+              // TODO вставить сюда сообщение об ошибке из response
+              title: 'Error',
+              description: e,
+            })
             return false
           }
         }
@@ -112,13 +136,10 @@ export const useGlobalJsonDataStore = defineStore({
     },
 
     //SEND DATA FUNCTIONS
-    async pushData({ pageName, blockName }) {
+    async pushData({ pageName, blockName, endpoint = '', method = 'post' }) {
       await this.validateData(pageName, blockName).then(async () => {
         const data = await this.getBlockData(pageName, blockName)
-        const res = await axios.get(
-          'https://ekat.sergeivl.ru/api/example/ok',
-          data
-        )
+        const res = await axios[method](endpoint, data)
         console.log('-> Успешно отправлено', data)
         this.showNoty({
           component: 'notification',
@@ -183,7 +204,7 @@ export const useGlobalJsonDataStore = defineStore({
       let blocks = []
       async function getBlocks(block) {
         block.fieldsData.forEach((el) => {
-          if (['div', 'tabs'].includes(el.type)) {
+          if (['div', 'tabs', 'code'].includes(el.type)) {
             getBlocks(el)
           } else {
             blocks.push(el.name)
@@ -227,7 +248,7 @@ export const useGlobalJsonDataStore = defineStore({
       blockName.forEach((block) => {
         const findBlock = this.findField(groups, block)
         if (findBlock) {
-          if (findBlock[fieldName]) {
+          if (fieldName in findBlock) {
             if (Array.isArray(findBlock[fieldName])) {
               if (value.add)
                 findBlock[fieldName] = findBlock[fieldName].concat(value.add)
@@ -237,12 +258,15 @@ export const useGlobalJsonDataStore = defineStore({
                 )
             } else if (typeof findBlock[fieldName] === 'object') {
               Object.assign(findBlock[fieldName], value)
-            } else if (typeof findBlock[fieldName] === 'string') {
+            } else {
               findBlock[fieldName] = value
             }
           } else console.warn(`Поле: ${fieldName} не найдено!`)
         } else console.warn(`Блок: ${findBlock} не найден!`)
       })
+    },
+    setFieldValue({ pageName, fieldName, value }) {
+      this.$state.sendData[pageName][fieldName] = value
     },
     addDataToTableField({ pageName, tableName, data }) {
       let resData = {}
@@ -259,10 +283,35 @@ export const useGlobalJsonDataStore = defineStore({
     async resetBlockData({ pageName, blockName }) {
       const data = await this.getBlockData(pageName, blockName)
       Object.keys(data).forEach((el) => {
-        this.sendData[pageName][el] = null
+        if (!this.excludeReset[pageName][el])
+          this.sendData[pageName][el] = this.defaultSendData[pageName][el]
       })
       this.resetValidationErrors()
     },
+    async createNewPageFromId({ endpoint, jsonPage }) {
+      const API = useApiStore()
+      const { data } = await API.createNewPageFromId(endpoint)
+      await new Promise((resolve, reject) => setTimeout(resolve, 2000))
+      this.router.push({
+        path: `/main/${jsonPage}`,
+        query: { id: data.id },
+      })
+    },
+    deleteFromId({ endpoint, redirect }) {
+      const id = this.router.currentRoute._value.query.id
+      if (!id) {
+        this.showNoty({
+          component: 'notification',
+          type: 'error',
+          title: 'Id не найден!',
+        })
+      } else {
+        const API = useApiStore()
+        API.deleteFromId(endpoint, id)
+        this.router.push(redirect)
+      }
+    },
+
     goRoute({ name, query }) {
       this.router.push({ path: `/main/${name}`, query })
     },
@@ -270,6 +319,14 @@ export const useGlobalJsonDataStore = defineStore({
     //OTHER
     goBack(params) {
       this.router.go(`-${params?.step ? params.step : 1}`)
+    },
+    getJsonCode({ pageName, blockName }) {
+      const groups = this.formattingData[pageName]
+      const findBlock = this.findField(groups, blockName)
+      const jsonCode = findBlock.fields.map((block) =>
+        this.findField(groups, block)
+      )
+      return jsonCode
     },
 
     //TABLE HANDLERS

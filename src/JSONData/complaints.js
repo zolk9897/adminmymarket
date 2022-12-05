@@ -39,10 +39,6 @@ export default {
         size: 'small',
         align: 'center',
         bordered: true,
-        search: {
-          fields: [],
-          selected: false,
-        },
         selection: {
           setStatus: true,
           setStatusColumn: ['status', 'category'],

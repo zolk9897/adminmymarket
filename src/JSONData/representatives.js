@@ -57,6 +57,23 @@ export default {
       size: 'large',
       buttonType: 'primary',
       disabled: false,
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'representatives',
+            blockName: 'blockModal_1_content',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'representatives',
+            blockName: 'blockModal_1_content',
+          },
+        },
+      ],
     },
     {
       layout: 'grid',

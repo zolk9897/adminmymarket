@@ -147,7 +147,7 @@ export default {
       value: 'О компании',
       type: 'input',
       size: 'large',
-      parentClass: ['w-480'],
+      parentClass: ['w-500'],
       validation: {
         type: 'string',
         rules: [
@@ -174,7 +174,7 @@ export default {
       value: 'o-kompanii@aa.ru',
       type: 'input',
       size: 'large',
-      parentClass: ['w-480'],
+      parentClass: ['w-500'],
       validation: {
         type: 'string',
         rules: [
@@ -197,7 +197,7 @@ export default {
       value: '500',
       type: 'input',
       size: 'large',
-      parentClass: ['w-480'],
+      parentClass: ['w-500'],
       validation: {
         type: 'string',
         rules: [
@@ -216,7 +216,7 @@ export default {
       value: '/main/o-kompanii',
       type: 'input',
       size: 'large',
-      parentClass: ['w-480'],
+      parentClass: ['w-500'],
       validation: {
         type: 'string',
         rules: [
@@ -242,6 +242,14 @@ export default {
       handlers: [
         {
           name: 'pushData',
+          params: {
+            pageName: 'about_company',
+            blockName: 'element_tab__container_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
           params: {
             pageName: 'about_company',
             blockName: 'element_tab__container_block',
@@ -286,7 +294,23 @@ export default {
       name: 'more_tab__save_button',
       size: 'large',
       buttonType: 'primary',
-      disabled: false,
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'about_company',
+            blockName: 'more_tab__editor_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'about_company',
+            blockName: 'more_tab__editor_block',
+          },
+        },
+      ],
     },
     {
       type: 'button',
@@ -788,6 +812,14 @@ export default {
       handlers: [
         {
           name: 'pushData',
+          params: {
+            pageName: 'about_company',
+            blockName: 'seo_tab__body_block_1',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
           params: {
             pageName: 'about_company',
             blockName: 'seo_tab__body_block_1',

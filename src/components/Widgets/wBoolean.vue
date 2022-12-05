@@ -4,8 +4,10 @@
     <a-switch
       v-if="item.viewType === 'switch'"
       v-model:checked="sendData[pageName][item.name]"
+      :disabled="item.disabled"
       :style="item.style"
       :class="item.cssClass"
+      @change="change"
     />
     <span v-if="!item.labelBefore" class="ml-3">{{ item.label }}</span>
   </template>
@@ -28,6 +30,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useGlobalJsonDataStore } from '@/stores/global-json.js'
+const { callHandler } = useGlobalJsonDataStore()
 
 const props = defineProps({
   item: {
@@ -47,6 +50,15 @@ onMounted(() => {
       ? props.item.value
       : !!props.item.value
 })
+
+const change = () => {
+  const currentValue = sendData[props.pageName][props.item.name]
+  const handlers = Array.isArray(props.item.handlers)
+    ? props.item.handlers
+    : props.item.handlers[`${currentValue}Handlers`]
+
+  callHandler(handlers, currentValue)
+}
 </script>
 
 <style scoped></style>

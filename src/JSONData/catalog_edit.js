@@ -104,7 +104,7 @@ export default {
         'active_switch',
         'parent_part_input',
         'title_name_input',
-        'slug_input',
+        'catalog_part__slug_input',
         'image_file_input',
         'banner_file_input',
         'description_block',
@@ -170,7 +170,7 @@ export default {
       title: 'Символьный код',
       titlePosition: 'left',
       titleClass: ['h-10', 'flex', 'items-center'],
-      name: 'slug_input',
+      name: 'catalog_part__slug_input',
       format: 'text',
       value: 'sony-playstation-5',
       type: 'input',
@@ -253,7 +253,16 @@ export default {
         {
           name: 'pushData',
           params: {
-            name: 'catalog_edit',
+            pageName: 'catalog_edit',
+            blockName: 'catalog_part__body_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'catalog_edit',
+            blockName: 'catalog_part__body_block',
           },
         },
       ],
@@ -498,7 +507,23 @@ export default {
       name: 'more_tab__save_button',
       size: 'large',
       buttonType: 'primary',
-      disabled: false,
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'catalog_edit',
+            blockName: 'more_tab__body_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'catalog_edit',
+            blockName: 'more_tab__body_block',
+          },
+        },
+      ],
     },
     {
       type: 'button',
@@ -771,7 +796,23 @@ export default {
       name: 'seo_tab__save_button',
       size: 'large',
       buttonType: 'primary',
-      disabled: false,
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'catalog_edit',
+            blockName: 'seo_tab__body_block_1',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'catalog_edit',
+            blockName: 'seo_tab__body_block_1',
+          },
+        },
+      ],
     },
     {
       type: 'button',

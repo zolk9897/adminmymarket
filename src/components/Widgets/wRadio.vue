@@ -11,6 +11,7 @@
         v-for="(el, index) in item.options"
         :key="index"
         :value="el.value"
+        :class="item.buttonClass"
       >
         {{ el.label }}
       </a-radio-button>
@@ -26,6 +27,13 @@
       </a-radio>
     </template>
   </a-radio-group>
+  <div
+    v-if="item.subtitle"
+    :style="item.subtitle.style"
+    :class="item.subtitle.cssClass"
+  >
+    {{ item.subtitle.text }}
+  </div>
 </template>
 <script setup>
 import { onMounted, ref, unref } from 'vue'

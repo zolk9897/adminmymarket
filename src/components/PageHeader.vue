@@ -25,7 +25,8 @@
           :disabled="item.disabled"
           :size="item.size"
           :ghost="item.ghost"
-          @click="callHandler(item.handlers)"
+          :loading="loading"
+          @click="callHandlers(item)"
         >
           {{ item.text }}
           <template #icon>
@@ -39,14 +40,21 @@
 
 <script setup>
 import { useGlobalJsonDataStore } from '@/stores/global-json.js'
+import { ref } from 'vue'
 
 const { callHandler } = useGlobalJsonDataStore()
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
     required: true,
   },
 })
+const loading = ref(false)
+const callHandlers = async (btn) => {
+  if (btn.showLoading) loading.value = true
+  await callHandler(btn.handlers)
+  loading.value = false
+}
 </script>
 
 <style lang="scss" scoped>

@@ -102,10 +102,18 @@ export default {
     },
     {
       title: 'Добавление пользователя',
-      titleClass: ['font-medium', 'mb-4'],
+      titleClass: [
+        'font-medium',
+        'mb-4',
+        'block',
+        'border-b',
+        'border-borderColor',
+        'pb-4',
+      ],
       name: 'block_modal_added_content',
       type: 'div',
       containerClass: ['bg-white', 'p-6', 'gap-4', 'w-480'],
+      cssClass: ['flex', 'flex-col', 'gap-4'],
       fields: [
         'user_login',
         'activity',
@@ -328,15 +336,19 @@ export default {
         align: 'center',
         bordered: true,
         selection: true,
-        search: {
-          fields: [
-            'user_login',
-            'user_name',
-            'user_surname',
-            'user_email',
-            'user_id',
-          ],
-        },
+        search: [
+          {
+            name: 'user_search',
+            type: 'input',
+            fields: [
+              'user_login',
+              'user_name',
+              'user_surname',
+              'user_email',
+              'user_id',
+            ],
+          },
+        ],
       },
       data: [
         {

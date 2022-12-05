@@ -6,6 +6,7 @@
     :style="item.style"
     :class="[item.cssClass, errors && 'error']"
     :size="item.size"
+    :disabled="item.disabled"
     not-found-content="Нет данных"
     allow-clear
   >
@@ -45,7 +46,7 @@ const errors = computed(() => store.validationErrors[props.item.name])
 
 onMounted(() => {
   //Default value
-  store.sendData[props.pageName][props.item.name] = props.item.value || ''
+  store.sendData[props.pageName][props.item.name] = props.item.value || null
 })
 </script>
 

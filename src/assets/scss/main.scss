@@ -390,3 +390,9 @@ vertical-align: 0.1rem !important;
     bottom: 0;
   }
 }
+
+.upload-full-width {
+  .ant-upload {
+    width: 100%;
+  }
+}

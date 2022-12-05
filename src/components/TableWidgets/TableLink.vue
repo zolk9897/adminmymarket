@@ -1,7 +1,8 @@
 <template>
   <div v-if="!editableData[item.key]">
     <a v-if="widget.type === 'external'" :href="text.link">{{ text.title }}</a>
-    <router-link v-else :to="text.link">{{ text.title }} </router-link>
+    <router-link v-else :to="text.link">{{ text.title }}</router-link>
+    <div v-if="text.description">{{ text.description }}</div>
   </div>
   <div v-else class="cursor-pointer flex items-center" @click="showModal">
     <span>{{ editableData[item.key][column.dataIndex].title }}</span>

@@ -5,42 +5,54 @@
     list-type="picture-card"
     class="image-uploader"
     :show-upload-list="false"
-    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+    action="https://ekat.sergeivl.ru/api/admin/files/upload"
     :max-count="item.maxCount"
+    :accept="item.accept"
     :style="item.style"
     :class="item.cssClass"
     @change="handleChange"
   >
     <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
     <div v-else>
-      <LoadingOutlined v-if="loading"></LoadingOutlined>
-      <PlusOutlined v-else></PlusOutlined>
-      <div class="ant-upload-text">Загрузить</div>
+      <fa v-if="loading" icon="fa-solid fa-spinner" />
+      <fa v-else :icon="item.button?.icon || 'fa-solid fa-plus'" />
+      <div class="ant-upload-text">
+        {{ item.button?.text ? item.button.text : 'Загрузить' }}
+      </div>
     </div>
   </a-upload>
   <a-upload
     v-else
     v-model:file-list="fileList"
-    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-    :list-type="item.fileType === 'image' ? 'picture' : 'text'"
+    action="https://ekat.sergeivl.ru/api/admin/files/upload"
+    :list-type="item.fileType === 'text' ? 'text' : 'picture'"
     :max-count="item.maxCount"
+    :accept="item.accept"
     :style="item.style"
     :class="item.cssClass"
+    @change="handleChange"
   >
     <a-button
       v-if="!fileList?.length"
-      ghost
-      :type="errors ? 'danger' : 'primary'"
+      :ghost="item.button ? item.button.ghost : true"
+      :block="item.button ? item.button.block : false"
+      :type="errors ? 'danger' : item.button?.type || 'primary'"
+      :disabled="item.disabled"
     >
-      <UploadOutlined />
-      Загрузить
+      <fa class="mr-2" :icon="item.button?.icon || 'fa-solid fa-upload'" />
+      {{ item.button?.text ? item.button.text : 'Загрузить' }}
     </a-button>
   </a-upload>
+  <span
+    v-if="item.subtitle"
+    :style="item.subtitle.style"
+    :class="item.subtitle.cssClass"
+  >
+    {{ item.subtitle.text }}
+  </span>
 </template>
 <script setup>
-import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
 import { computed, onMounted, ref } from 'vue'
-import { UploadOutlined } from '@ant-design/icons-vue'
 import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 
 const props = defineProps({
@@ -72,14 +84,22 @@ const handleChange = (info) => {
     return
   }
   if (info.file.status === 'done') {
-    getBase64(info.file.originFileObj, (base64Url) => {
-      imageUrl.value = base64Url
-      loading.value = false
-    })
+    // getBase64(info.file.originFileObj, (base64Url) => {
+    //   loading.value = false
+    // })
+    let ids = null
+    if (info.fileList.length > 1) {
+      info.fileList.forEach((el) => {
+        ids.push(el.response.data.id)
+      })
+    } else {
+      ids = info.fileList[0].response.data.id
+    }
+    store.sendData[props.pageName][props.item.name] = ids
+    // console.log('-> info', info)
   }
   if (info.file.status === 'error') {
     loading.value = false
-    imageUrl.value = 'https://picsum.photos/200' // TODO Delete - Example
     console.log('upload error')
   }
 }

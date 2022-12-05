@@ -285,10 +285,13 @@ export default {
         align: 'center',
         bordered: true,
         selection: true,
-        search: {
-          fields: ['id', 'recent_event', 'active', 'sender', 'recipient'],
-          selected: true,
-        },
+        search: [
+          {
+            name: 'mail_search',
+            type: 'input',
+            fields: ['id', 'recent_event', 'active', 'sender', 'recipient'],
+          },
+        ],
       },
       data: [
         {

@@ -1,8 +1,41 @@
 export default {
   page: 'edit_banner',
-  title: 'Редактирование банера',
+  title: 'Редактирование баннера',
   useId: {
     endpoint: '/banners',
+  },
+  useTitle: {
+    title: 'Редактирование баннера',
+    breadcrumbs: [
+      {
+        title: 'Главная',
+        path: '/',
+      },
+      {
+        title: 'Контент',
+      },
+      {
+        title: 'Баннеры',
+        path: '/main/banner_list',
+      },
+    ],
+    operations: [
+      {
+        text: 'Удалить',
+        type: 'danger',
+        ghost: true,
+        icon: 'fa-trash',
+        handlers: [
+          {
+            name: 'deleteFromId',
+            params: {
+              endpoint: 'deleteBanner',
+              redirect: '/main/banner_list',
+            },
+          },
+        ],
+      },
+    ],
   },
   groups: [
     {

@@ -3,27 +3,35 @@ import pages from './pages'
 import analytics from './analytics'
 import banner_groups from './banner_groups'
 import base_settings from './base_settings'
+import blog_page from './blog_page'
+import blog_page_edit from './blog_page_edit'
 import catalog_edit from './catalog_edit'
+import complaints from './complaints'
 import complaint_form_edit from './complaint_form_edit'
 import delivery_and_payment from './delivery_and_payment'
 import edit_banner from './edit_banner'
 import global_settings from './global_settings'
-import groups_users from './groups_users'
 import mailing from './mailing'
-import complaints from './complaints'
 import mail_templates from './mail_templates'
 import offer from './offer'
 import price_list from './price_list'
+import price_list_new from './price_list_new'
 import profile from './profile'
 import rates from './rates'
 import representatives from './representatives'
 import requisites from './requisites'
 import settings_logs from './settings_logs'
+import shops from './shops.js'
+import shop_template from './shop_template.js'
 import tabs_test from './tab_test'
 import test_table from './test_table'
 import users_edit from './users_edit'
 import users_list_table from './users_list_table'
 import user_roles from './user_roles'
+import ui_kit from './ui_kit'
+import banner_list from './banner_list'
+import banner_types from './banner_types'
+import test_upload from './test_upload.js'
 
 export default {
   data: [
@@ -31,6 +39,11 @@ export default {
       name: 'about_company',
       title: 'О компании',
       data: about_company,
+    },
+    {
+      name: 'ui_kit',
+      title: 'Ui-Kit',
+      data: ui_kit,
     },
     {
       name: 'catalog_edit',
@@ -54,8 +67,13 @@ export default {
     },
     {
       name: 'price_list',
-      title: 'Прайс листы',
+      title: 'Прайс-листы',
       data: price_list,
+    },
+    {
+      name: 'price_list_new',
+      title: 'Прайс-лист',
+      data: price_list_new,
     },
 
     {
@@ -134,6 +152,16 @@ export default {
       data: settings_logs,
     },
     {
+      name: 'shops',
+      title: 'Магазины',
+      data: shops,
+    },
+    {
+      name: 'shop_template',
+      title: '#',
+      data: shop_template,
+    },
+    {
       name: 'base_settings',
       title: 'Базовые настройки',
       data: base_settings,
@@ -145,13 +173,38 @@ export default {
     },
     {
       name: 'banner_groups',
-      title: 'Баннеров',
+      title: 'Группы баннеров',
       data: banner_groups,
     },
     {
       name: 'user_roles',
       title: 'Настройка ролей',
       data: user_roles,
+    },
+    {
+      name: 'banner_list',
+      title: 'Список баннеров',
+      data: banner_list,
+    },
+    {
+      name: 'banner_types',
+      title: 'Типы баннеров',
+      data: banner_types,
+    },
+    {
+      name: 'test_upload',
+      title: 'test_upload',
+      data: test_upload,
+    },
+    {
+      name: 'blog_page',
+      title: 'Блог',
+      data: blog_page,
+    },
+    {
+      name: 'blog_page_edit',
+      title: 'Блог редактирование',
+      data: blog_page_edit,
     },
   ],
   menu: [
@@ -181,6 +234,12 @@ export default {
       ],
     },
     {
+      name: 'blog_page',
+      title: 'Блог',
+      icon: 'fa-solid fa-pen-to-square',
+      main: true,
+    },
+    {
       name: 'content',
       title: 'Контент',
       icon: 'fa-folder fa-regular',
@@ -205,7 +264,7 @@ export default {
         },
         {
           name: 'price_list',
-          title: 'Прайс листы',
+          title: 'Прайс-листы',
           main: true,
           subMenuParents: ['content'],
         },
@@ -217,13 +276,19 @@ export default {
         },
         {
           name: 'banner_groups',
-          title: 'Баннеры',
+          title: 'Группы баннеров',
           main: true,
           subMenuParents: ['content'],
         },
         {
-          name: 'edit_banner',
-          title: 'Редактирование банера',
+          name: 'banner_list',
+          title: 'Список баннеров',
+          main: true,
+          subMenuParents: ['content'],
+        },
+        {
+          name: 'banner_types',
+          title: 'Типы баннеров',
           main: true,
           subMenuParents: ['content'],
         },
@@ -291,6 +356,12 @@ export default {
           subMenuParents: ['settings'],
         },
       ],
+    },
+    {
+      name: 'shops',
+      title: 'Магазины',
+      icon: 'fa-solid fa-chart-simple',
+      main: true,
     },
     {
       name: 'services',

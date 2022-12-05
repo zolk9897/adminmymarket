@@ -69,15 +69,23 @@ export default {
       buttonType: 'primary',
       disabled: false,
       cssClass: ['my-12'],
-      handler: {
-        name: 'editField',
-        params: {
-          pageName: 'global_settings',
-          blockName: 'save_button',
-          fieldName: 'cssClass',
-          value: { add: [], remove: [] },
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'global_settings',
+            blockName: 'body_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
         },
-      },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'global_settings',
+            blockName: 'body_block',
+          },
+        },
+      ],
     },
   ],
 }

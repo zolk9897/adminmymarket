@@ -697,6 +697,7 @@ export default {
       format: 'text',
       value: '',
       type: 'input',
+      mask: '##############',
       parentClass: ['w-480'],
     },
     {
@@ -716,6 +717,7 @@ export default {
       format: 'text',
       value: '',
       type: 'input',
+      mask: '##############',
       parentClass: ['w-480'],
     },
     {
@@ -735,6 +737,7 @@ export default {
       format: 'text',
       value: '',
       type: 'input',
+      mask: '##############',
       parentClass: ['w-480'],
     },
     {
@@ -754,6 +757,7 @@ export default {
       format: 'text',
       value: '',
       type: 'input',
+      mask: '##############',
       parentClass: ['w-480'],
     },
     {
@@ -798,6 +802,7 @@ export default {
       format: 'text',
       value: '',
       type: 'input',
+      mask: '##############',
       parentClass: ['w-480'],
     },
     {
@@ -851,6 +856,23 @@ export default {
       size: 'large',
       buttonType: 'primary',
       disabled: false,
+      handlers: [
+        {
+          name: 'pushData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'body_block',
+            endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+          },
+        },
+        {
+          name: 'resetBlockData',
+          params: {
+            pageName: 'base_settings',
+            blockName: 'body_block',
+          },
+        },
+      ],
     },
     {
       type: 'button',

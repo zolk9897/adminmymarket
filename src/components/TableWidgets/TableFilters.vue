@@ -1,28 +1,44 @@
 <template>
-  <template v-if="searchConfig">
-    <div class="flex gap-2 pb-2">
-      <a-input-search
-        v-model:value="searchInput"
-        placeholder="Поиск"
-        :class="
-          searchFields.length > 0 && searchConfig.selected
-            ? 'short-search'
-            : 'long-search'
-        "
-        @search="runSearch()"
-      />
+  <div v-if="searchConfig" class="flex items-center gap-2">
+    <div
+      v-for="(search, indexSearch) in searchConfig"
+      :key="search.name + indexSearch"
+    >
+      <div v-if="search.type === 'input'" class="flex gap-2">
+        <a-input-search
+          v-model:value="searchInput"
+          placeholder="Поиск"
+          :class="searchInputFields.length > 1 ? 'short-search' : 'long-search'"
+          @search="runSearch(searchInput, search.fields[searchField])"
+        />
+        <a-select
+          v-if="searchInputFields.length > 1"
+          v-model:value="searchField"
+          style="width: 188px"
+          :field-names="{ label: 'label', value: 'id' }"
+          :options="searchInputFields"
+          @change="runSearch(searchInput, search.fields[searchField])"
+        />
+      </div>
+
+      <div v-if="search.type === 'switch'" class="flex gap-2">
+        <div>{{ search.label }}</div>
+        <a-switch
+          v-model:checked="searchSwitch"
+          @change="runSearch(searchSwitch, search.fields[0])"
+        />
+      </div>
+
       <a-select
-        v-if="searchFields.length > 0 && searchConfig.selected"
-        v-model:value="searchField"
+        v-if="search.type === 'select'"
+        v-model:value="searchSelect"
         style="width: 188px"
-        :field-names="{ label: 'label', value: 'id' }"
-        :options="searchFields"
-        @change="runSearch()"
-      >
-      </a-select>
+        :options="searchSelectOptions"
+        @change="runSearch(searchSelect, search.fields[0])"
+      />
     </div>
-  </template>
-  <div v-if="haveFilter" class="filters flex flex-wrap gap-2">
+  </div>
+  <div v-if="haveFilter" class="filters flex flex-wrap gap-2 items-center">
     <template
       v-for="(column, index) in columns"
       :key="column.dataIndex + index"
@@ -105,6 +121,7 @@
 
     <a-button
       :class="config.filterSize || 'large'"
+      :style="{ display: config.hideFilterBtn ? 'none' : 'inline-block' }"
       type="primary"
       @click="runFilter()"
     >
@@ -115,7 +132,7 @@
   </div>
 </template>
 <script setup>
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import locale from 'ant-design-vue/es/date-picker/locale/ru_RU'
 
 const props = defineProps({
@@ -128,18 +145,39 @@ const props = defineProps({
 })
 
 const searchInput = ref('')
+const searchSelect = ref('')
+const searchSwitch = ref(false)
 const searchConfig = ref(props.config.search)
 const searchField = ref(0)
-const searchFields = ref(
-  searchConfig.value?.fields?.map((item, index) => {
-    const column = props.columns.find((column) => column.dataIndex === item)
-    return {
-      label: column.title,
-      id: index,
-      dataIndex: item,
-    }
-  })
+const searchInputFields = ref(
+  searchConfig.value
+    ?.find((config) => config.type === 'input')
+    ?.fields.map((item, index) => {
+      const column = props.columns.find((column) => column.dataIndex === item)
+      return {
+        label: column.title,
+        id: index,
+        dataIndex: item,
+      }
+    })
 )
+
+const searchSelectOptions = computed(() => {
+  if (!props.dataSource) return []
+
+  const select = searchConfig.value?.find((config) => config.type === 'select')
+  const fields = select.fields
+    .map((name) => {
+      return [...new Set(props.dataSource.map((field) => field[name]))].map(
+        (value) => {
+          return { label: value, value }
+        }
+      )
+    })
+    .flat()
+
+  return [select.defaultValue, ...fields]
+})
 
 const checkboxFilterOptions = ref([
   { value: 'true', label: 'Да' },
@@ -151,12 +189,13 @@ const emits = defineEmits(['update:filteredInfo', 'update:searchData'])
 
 onBeforeMount(() => {
   props.columns.forEach((column) => {
-    if (column.filterType) {
-      filterField.value[column.dataIndex] =
-        column.filterType === 'number' || column.filterType === 'daterange'
-          ? [null, null]
-          : [null]
-    }
+    if (!column.filterType) return
+
+    if (column.filterType === 'number' || column.filterType === 'daterange') {
+      filterField.value[column.dataIndex] = [null, null]
+    } else if (column.filterType === 'boolean') {
+      filterField.value[column.dataIndex] = [false]
+    } else filterField.value[column.dataIndex] = [null]
   })
 })
 
@@ -164,11 +203,8 @@ const runFilter = () => {
   const formattedFilterData = getFormattedFilterData()
   emits('update:filteredInfo', JSON.parse(JSON.stringify(formattedFilterData)))
 }
-const runSearch = () => {
-  emits('update:searchData', {
-    text: searchInput.value,
-    field: searchConfig.value.fields[searchField.value],
-  })
+const runSearch = (value, field) => {
+  emits('update:searchData', { value, field })
 }
 const getFormattedFilterData = () => {
   const filterData = Object.assign({}, filterField.value)
@@ -194,26 +230,33 @@ const getFormattedFilterData = () => {
 ::v-deep(.ant-input) {
   border-radius: 4px;
 }
+
 ::v-deep(.ant-btn) {
   border-radius: 0px 4px 4px 0 !important;
 }
+
 ::v-deep(.ant-select-selector) {
   border-radius: 4px !important;
 }
+
 .short-search {
   width: 200px;
 }
+
 .long-search {
   width: 400px;
 }
+
 .filters {
   .ant-btn {
     border-radius: 4px !important;
   }
+
   input {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
   }
+
   .ant-input-group-wrapper {
     :v-deep(.ant-input) {
       border: 1px solid #d9d9d9;
@@ -229,6 +272,7 @@ const getFormattedFilterData = () => {
       vertical-align: 0.1em;
     }
   }
+
   .large {
     height: 40px;
     width: 40px;

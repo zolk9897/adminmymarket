@@ -61,6 +61,7 @@ const router = useRouter()
 
 const loading = ref(true)
 const activeTab = ref(0)
+const thisId = ref(null)
 
 const compName = computed(() => route.params.component)
 const compData = computed(() => store.formattingData[compName.value])
@@ -72,10 +73,13 @@ const useTitle = computed(() => store.otherConfig[compName.value].useTitle)
 const load = async () => {
   loading.value = true
   setMetaTitle()
-  await getUseIdData()
+  if (!route.query.id) thisId.value = null
+  if (route.query.id !== thisId.value) {
+    await getUseIdData()
+  }
   setTimeout(() => {
     loading.value = false
-  }, 100)
+  }, 500)
 }
 
 watch(compName, () => {
@@ -121,6 +125,7 @@ const getUseIdData = async () => {
   const config = store.otherConfig[compName.value].useId
   if (config) {
     const id = route.query.id
+    thisId.value = id
     if (id) {
       await api.getDataFromCompName({ ...config, id, pageName: compName.value })
     }
@@ -141,7 +146,8 @@ const setMetaTitle = () => {
 }
 
 const setTabUrl = () => {
-  router.replace({ path: route.path, query: { tab: activeTab.value } })
+  const query = { ...route.query, tab: activeTab.value }
+  router.replace({ path: route.path, query })
 }
 </script>
 

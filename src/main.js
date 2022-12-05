@@ -18,6 +18,10 @@ library.add(far)
 //Editor
 import ckeditor from '@ckeditor/ckeditor5-vue'
 
+//VueHighlightJS
+import VueHighlightJS from 'vue3-highlightjs'
+import 'highlight.js/styles/vs.css'
+
 const pinia = createPinia()
 const app = createApp(App)
 const router = setupRouter()
@@ -31,6 +35,7 @@ pinia.use(({ store }) => {
 app.use(pinia)
 app.use(router)
 app.use(ckeditor)
+app.use(VueHighlightJS)
 app.component('Fa', FontAwesomeIcon)
 
 app.mount('#app')
