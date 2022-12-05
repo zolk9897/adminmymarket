@@ -1,7 +1,8 @@
 import about_company from './about_company'
-import pages from './pages'
 import analytics from './analytics'
 import banner_groups from './banner_groups'
+import banner_list from './banner_list'
+import banner_types from './banner_types'
 import base_settings from './base_settings'
 import blog_page from './blog_page'
 import blog_page_edit from './blog_page_edit'
@@ -11,9 +12,11 @@ import complaint_form_edit from './complaint_form_edit'
 import delivery_and_payment from './delivery_and_payment'
 import edit_banner from './edit_banner'
 import global_settings from './global_settings'
+import legal_entity_edit from './legal_entity_edit'
 import mailing from './mailing'
 import mail_templates from './mail_templates'
 import offer from './offer'
+import pages from './pages'
 import price_list from './price_list'
 import price_list_new from './price_list_new'
 import profile from './profile'
@@ -25,13 +28,11 @@ import shops from './shops.js'
 import shop_template from './shop_template.js'
 import tabs_test from './tab_test'
 import test_table from './test_table'
+import test_upload from './test_upload.js'
+import ui_kit from './ui_kit'
 import users_edit from './users_edit'
 import users_list_table from './users_list_table'
 import user_roles from './user_roles'
-import ui_kit from './ui_kit'
-import banner_list from './banner_list'
-import banner_types from './banner_types'
-import test_upload from './test_upload.js'
 
 export default {
   data: [
@@ -165,6 +166,11 @@ export default {
       name: 'base_settings',
       title: 'Базовые настройки',
       data: base_settings,
+    },
+    {
+      name: 'legal_entity_edit',
+      title: 'Редактирование юр. лица',
+      data: legal_entity_edit,
     },
     {
       name: 'edit_banner',

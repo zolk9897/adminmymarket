@@ -607,7 +607,7 @@ export default {
           resizable: true,
           widget: {
             name: 'link',
-            type: 'roouter',
+            type: 'router',
           },
           width: 600,
         },

@@ -14,6 +14,7 @@
   <a-config-provider :locale="ru_RU">
     <hr v-if="haveFilter" class="pb-6" />
     <a-table
+      :loading="loading"
       :class="item.cssClass"
       :columns="columns.filter((col) => !col.hide)"
       :data-source="searchedDataSource ? searchedDataSource : dataSource"
@@ -173,11 +174,12 @@ import {
   onMounted,
   toRefs,
   watch,
-  onUpdated,
+  onBeforeMount,
 } from 'vue'
 import * as filters from '../../utils/filters.js'
 import dayjs from 'dayjs'
 import ru_RU from 'ant-design-vue/es/locale/ru_RU'
+import { useApiStore } from '@/stores/api.js'
 
 import TableFilters from '../TableWidgets/TableFilters.vue'
 import TableLink from '../TableWidgets/TableLink.vue'
@@ -221,6 +223,8 @@ const state = reactive({
   selectedRowKeys: [],
 })
 
+const loading = ref(true)
+
 const dataSource = computed({
   get() {
     return store.sendData[pageName.value][item.value.name] || []
@@ -260,8 +264,10 @@ const rowSelection = computed(() => {
 const haveFilter = computed(() => {
   return columns.value.some((col) => col.filterType)
 })
-onMounted(() => {
-  store.sendData[pageName.value][item.value.name] = item.value.data
+
+onMounted(async () => {
+  await store.getTableData(pageName.value, props.item)
+  loading.value = false
   dataSource.value.map((item, index) => Object.assign(item, { key: index }))
   renderColumns()
 })
@@ -277,7 +283,7 @@ const handleResizeColumn = (w, col) => {
 const renderColumns = () => {
   item.value.columns.map((col) => {
     if (col.sort) {
-      if (item.value.data.every((elem) => typeof elem[col.key] === 'number')) {
+      if (dataSource.value.every((elem) => typeof elem[col.key] === 'number')) {
         col = Object.assign(col, {
           sorter: (a, b) => a[col.key] - b[col.key],
         })

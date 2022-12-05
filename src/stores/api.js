@@ -58,6 +58,9 @@ export const useApiStore = defineStore({
         }, 1000)
       )
     },
+    async getDataForTable(endpoint) {
+      return (await axios(endpoint)).data
+    },
 
     async sendOneField({ endpoint, method, value, queryParams }) {
       if (queryParams) {

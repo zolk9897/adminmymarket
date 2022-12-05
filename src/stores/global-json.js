@@ -348,6 +348,13 @@ export const useGlobalJsonDataStore = defineStore({
 
       await API.sendOneField({ endpoint, value, queryParams, method })
     },
+    async getTableData(pageName, item) {
+      const API = useApiStore()
+      this.sendData[pageName][item.name] =
+        typeof item.data === 'string'
+          ? await API.getDataForTable(item.data)
+          : item.data
+    },
     showNoty(params) {
       if (params.component === 'message') {
         const type = params.type || 'info'

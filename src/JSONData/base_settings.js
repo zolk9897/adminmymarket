@@ -926,17 +926,26 @@ export default {
       },
       data: [
         {
-          name: 'DigitalOcean',
+          legal_entity_name: {
+            title: 'DigitalOcean',
+            link: '/main/legal_entity_edit',
+          },
           status: 1,
           debt: 1000,
         },
         {
-          name: 'DigitalOcean',
+          legal_entity_name: {
+            title: 'DigitalOcean',
+            link: '/main/legal_entity_edit',
+          },
           status: 0,
           debt: 1500,
         },
         {
-          name: 'DigitalOcean',
+          legal_entity_name: {
+            title: 'DigitalOcean',
+            link: '/main/legal_entity_edit',
+          },
           status: 2,
           debt: 1000,
         },
@@ -955,14 +964,15 @@ export default {
         },
         {
           title: 'Название',
-          dataIndex: 'name',
-          key: 'name',
+          dataIndex: 'legal_entity_name',
+          key: 'legal_entity_name',
           resizable: true,
           widget: {
-            name: 'text',
+            name: 'link',
+            type: 'router',
           },
           width: 250,
-          render: 'name',
+          render: 'legal_entity_name',
         },
         {
           title: 'Не закрыто актами, ₽',
