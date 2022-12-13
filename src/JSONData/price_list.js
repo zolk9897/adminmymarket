@@ -96,7 +96,7 @@ export default {
           offers: '14 из 198 (7%)',
           editLink: {
             title: 'Редактировать',
-            link: '/price_list_edit',
+            link: '/main/price_edit?id=0',
           },
           active: false,
         },
@@ -113,7 +113,7 @@ export default {
           offers: '14 из 198 (7%)',
           editLink: {
             title: 'Редактировать',
-            link: '/price_list_edit',
+            link: '/main/price_edit?id=1',
           },
           active: true,
         },

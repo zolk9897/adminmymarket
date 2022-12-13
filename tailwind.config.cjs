@@ -19,6 +19,7 @@ module.exports = {
       spacing: {
         18: '4.5rem',
         85: '360px',
+        25: '6.2rem'
       },
       margin: {
         '20-neg': '-80px',

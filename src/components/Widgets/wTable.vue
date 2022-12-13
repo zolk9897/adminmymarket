@@ -1,7 +1,9 @@
 <template>
-  <div class="flex items-center justify-between pb-6">
+  <div
+    v-if="haveFilter || (searchConfig && item.config.buttons)"
+    class="flex items-center jusWetween pb-6"
+  >
     <TableFilters
-      v-if="haveFilter || searchConfig"
       v-model:filteredInfo="filteredInfo"
       v-model:search-data="searchData"
       :columns="columns"
@@ -96,6 +98,7 @@
             :column="column"
             :widget="column.widget"
             :text="text"
+            :set-data="setData"
             :config="item.config"
             @change="
               store.callHandler(column.changeHandlers, null, {
@@ -140,6 +143,8 @@
             :item="record"
             :column="column"
             :text="text"
+            @row-updated="isRowUpdated = true"
+            @save-row="saveRow"
           />
         </template>
 
@@ -163,6 +168,10 @@
       v-model:state="state"
       :item="item"
       :columns="columns"
+      :save-loading="saveLoading"
+      :is-row-updated="isRowUpdated"
+      @save-rows="saveSelectedRows"
+      @save-table="saveTable"
     />
   </template>
 </template>
@@ -208,11 +217,36 @@ const props = defineProps({
 
 const { item, pageName } = toRefs(props)
 const store = useGlobalJsonDataStore()
+const apiStore = useApiStore()
+const saveLoading = ref(false)
+const isRowUpdated = ref(false)
 const searchConfig = ref(item.value.config?.search)
 const searchData = ref({
   value: '',
   field: searchConfig.value,
 })
+const handlers = {
+  sendRow: [
+    {
+      name: 'sendOneFieldFromTable',
+      params: {
+        endpoint: apiStore.testEndpoint,
+        fullRow: true,
+      },
+    },
+  ],
+  pushData: [
+    {
+      name: 'pushData',
+      params: {
+        pageName: props.pageName,
+        blockName: props.item.name,
+        endpoint: apiStore.testEndpoint,
+        validate: false,
+      },
+    },
+  ],
+}
 
 watch(searchData, () => {
   search()
@@ -326,7 +360,30 @@ const getFilter = (filterType) => {
 
 //Изменение данных любой ячейки по индексу и ключу объекта
 const setData = (index, key, value) => {
-  dataSource.value[index][key] = value
+  dataSource.value[index][key] = value.value
+}
+
+const saveRow = async (rowItem) => {
+  await store.callHandler(handlers.sendRow, null, { rowItem })
+  delete editableData.value[rowItem.key]
+}
+
+const saveSelectedRows = async () => {
+  saveLoading.value = true
+  const selectedRows = []
+  for (const key in dataSource.value) {
+    if (Object.values(state.selectedRowKeys).includes(Number(key))) {
+      selectedRows.push(dataSource.value[key])
+    }
+  }
+  await store.callHandler(handlers.sendRow, null, { rowItem: selectedRows })
+  saveLoading.value = false
+}
+
+const saveTable = async () => {
+  saveLoading.value = true
+  await store.callHandler(handlers.pushData)
+  saveLoading.value = false
 }
 
 const search = () => {

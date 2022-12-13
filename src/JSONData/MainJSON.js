@@ -1,8 +1,6 @@
 import about_company from './about_company'
 import analytics from './analytics'
 import banner_groups from './banner_groups'
-import banner_list from './banner_list'
-import banner_types from './banner_types'
 import base_settings from './base_settings'
 import blog_page from './blog_page'
 import blog_page_edit from './blog_page_edit'
@@ -10,15 +8,18 @@ import catalog_edit from './catalog_edit'
 import complaints from './complaints'
 import complaint_form_edit from './complaint_form_edit'
 import delivery_and_payment from './delivery_and_payment'
-import edit_banner from './edit_banner'
+import edit_bannerMany from './edit_bannerMany.js'
+import edit_bannerOne from './edit_bannerOne.js'
 import global_settings from './global_settings'
 import legal_entity_edit from './legal_entity_edit'
 import mailing from './mailing'
 import mail_templates from './mail_templates'
 import offer from './offer'
 import pages from './pages'
+import page_edit from './page_edit.js'
 import price_list from './price_list'
 import price_list_new from './price_list_new'
+import price_edit from './price_edit'
 import profile from './profile'
 import rates from './rates'
 import representatives from './representatives'
@@ -28,11 +29,15 @@ import shops from './shops.js'
 import shop_template from './shop_template.js'
 import tabs_test from './tab_test'
 import test_table from './test_table'
-import test_upload from './test_upload.js'
-import ui_kit from './ui_kit'
 import users_edit from './users_edit'
 import users_list_table from './users_list_table'
 import user_roles from './user_roles'
+import ui_kit from './ui_kit'
+import banner_list from './banner_list'
+import banner_types from './banner_types'
+import selections_groups from './selections_groups'
+import edit_selection from './edit_selection'
+import test_tree from './test_tree'
 
 export default {
   data: [
@@ -76,7 +81,11 @@ export default {
       title: 'Прайс-лист',
       data: price_list_new,
     },
-
+    {
+      name: 'price_edit',
+      title: 'Прайс-лист',
+      data: price_edit,
+    },
     {
       name: 'global_settings',
       title: 'Общие настройки',
@@ -175,7 +184,22 @@ export default {
     {
       name: 'edit_banner',
       title: 'Редактирование банера',
-      data: edit_banner,
+      data: edit_bannerMany,
+    },
+    {
+      name: 'edit_banner_many',
+      title: 'Редактирование банера',
+      data: edit_bannerMany,
+    },
+    {
+      name: 'edit_banner_one',
+      title: 'Редактирование банера',
+      data: edit_bannerOne,
+    },
+    {
+      name: 'edit_selection',
+      title: 'Редактирование подборки',
+      data: edit_selection,
     },
     {
       name: 'banner_groups',
@@ -198,9 +222,9 @@ export default {
       data: banner_types,
     },
     {
-      name: 'test_upload',
-      title: 'test_upload',
-      data: test_upload,
+      name: 'selections_groups',
+      title: 'Группы  подборок',
+      data: selections_groups,
     },
     {
       name: 'blog_page',
@@ -211,6 +235,16 @@ export default {
       name: 'blog_page_edit',
       title: 'Блог редактирование',
       data: blog_page_edit,
+    },
+    {
+      name: 'page_edit',
+      title: 'Редактирование страницы',
+      data: page_edit,
+    },
+    {
+      name: 'test_tree',
+      title: 'test_tree',
+      data: test_tree,
     },
   ],
   menu: [
@@ -295,6 +329,12 @@ export default {
         {
           name: 'banner_types',
           title: 'Типы баннеров',
+          main: true,
+          subMenuParents: ['content'],
+        },
+        {
+          name: 'selections_groups',
+          title: 'Группы подборок',
           main: true,
           subMenuParents: ['content'],
         },

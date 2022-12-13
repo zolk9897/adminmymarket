@@ -33,10 +33,10 @@ export default {
       name: 'main_table_block',
       type: 'div',
       parentClass: ['p-6'],
-      fields: ['main_table'],
+      fields: ['table_banner_types'],
     },
     {
-      name: 'main_table',
+      name: 'table_banner_types',
       type: 'table',
 
       config: {

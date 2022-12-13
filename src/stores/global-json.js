@@ -56,17 +56,40 @@ export const useGlobalJsonDataStore = defineStore({
           function getFieldsData(fields) {
             let fieldsData = []
             fields.forEach((item) => {
+              // Поиск блока
               const find = mainEl.fields.find((f) => f.name === item)
+              // Если это parent то вытаскиваем children
               if (find && ['div', 'tabs', 'code'].includes(find.type)) {
                 find.fieldsData = getFieldsData(find.fields)
                 fieldsData.push(find)
               } else if (find) {
+                // Проверка что это компоненты данные которых нужны в sendData
                 if (!noFormWidgetsNames.includes(find.type)) {
+                  // Значения по умолчанию
                   sendData[mainEl.page][find.name] = find.value || null
-                  defaultSendData[mainEl.page][find.name] = find.value || null
+                  // Добавляем значение по умолчанию в отдельный объект для дальнейшего использования
+                  if (find.type === 'table') {
+                    defaultSendData[mainEl.page][find.name] =
+                      JSON.parse(JSON.stringify(find.data)) || null
+                  } else {
+                    defaultSendData[mainEl.page][find.name] = find.value || null
+                  }
+
+                  // Дополнительные изменения для комопонента tree что бы иметь 2 стора в одном
+                  if (find.type === 'tree') {
+                    const data = {
+                      selectedKeys: [],
+                      checkedKeys: [],
+                    }
+                    sendData[mainEl.page][find.name] = data
+                    defaultSendData[mainEl.page][find.name] = data
+                  }
+                  // Поля которые не нужно отправлять
                   if (find.excludeSend) excludeSend[mainEl.page].push(find.name)
+                  // Поля которые не нужно ресетить
                   if (find.excludeReset)
                     excludeReset[mainEl.page][find.name] = true
+                  // Валидация
                   if (find.validation)
                     validationConfig[find.name] = find.validation
                 }
@@ -136,8 +159,14 @@ export const useGlobalJsonDataStore = defineStore({
     },
 
     //SEND DATA FUNCTIONS
-    async pushData({ pageName, blockName, endpoint = '', method = 'post' }) {
-      await this.validateData(pageName, blockName).then(async () => {
+    async pushData({
+      pageName,
+      blockName,
+      endpoint = '',
+      method = 'post',
+      validate = true,
+    }) {
+      const sendData = async () => {
         const data = await this.getBlockData(pageName, blockName)
         const res = await axios[method](endpoint, data)
         console.log('-> Успешно отправлено', data)
@@ -146,7 +175,14 @@ export const useGlobalJsonDataStore = defineStore({
           type: 'success',
           title: res.data.message,
         })
-      })
+      }
+      if (validate) {
+        await this.validateData(pageName, blockName).then(async () => {
+          sendData()
+        })
+      } else {
+        sendData()
+      }
     },
     async getBlockData(pageName, blockName) {
       this.excludeSend[pageName]?.forEach((el) => {
@@ -159,14 +195,19 @@ export const useGlobalJsonDataStore = defineStore({
       )
       const sendData = this.sendData
       function getBlocksData(block) {
-        block.fieldsData.forEach((el) => {
-          if (['div', 'tabs'].includes(el.type)) {
-            getBlocksData(el)
-          } else {
-            if (sendData[pageName][el.name] !== undefined)
-              data[el.name] = sendData[pageName][el.name]
-          }
-        })
+        if (!block.fieldsData) {
+          // если у блока нет fields (таблица), берем данные самого блока
+          data = sendData[pageName][block.name]
+        } else {
+          block.fieldsData.forEach((el) => {
+            if (['div', 'tabs'].includes(el.type)) {
+              getBlocksData(el)
+            } else {
+              if (sendData[pageName][el.name] !== undefined)
+                data[el.name] = sendData[pageName][el.name]
+            }
+          })
+        }
       }
       getBlocksData(findBlock)
 
@@ -266,7 +307,7 @@ export const useGlobalJsonDataStore = defineStore({
       })
     },
     setFieldValue({ pageName, fieldName, value }) {
-      this.$state.sendData[pageName][fieldName] = value
+      this.sendData[pageName][fieldName] = value
     },
     addDataToTableField({ pageName, tableName, data }) {
       let resData = {}
@@ -287,6 +328,20 @@ export const useGlobalJsonDataStore = defineStore({
           this.sendData[pageName][el] = this.defaultSendData[pageName][el]
       })
       this.resetValidationErrors()
+    },
+    resetTableData({ pageName, tableName, rowId, columnId }) {
+      let sendData = this.sendData[pageName][tableName]
+      const defaultData = this.defaultSendData[pageName][tableName]
+      if ((rowId || rowId === 0) && columnId) {
+        // reset cell
+        sendData[rowId][columnId] = defaultData[rowId][columnId]
+      } else if ((rowId || rowId === 0) && !columnId) {
+        // reset row
+        sendData[rowId] = defaultData[rowId]
+      } else {
+        // reset table
+        sendData = defaultData
+      }
     },
     async createNewPageFromId({ endpoint, jsonPage }) {
       const API = useApiStore()
@@ -333,26 +388,56 @@ export const useGlobalJsonDataStore = defineStore({
     async sendOneFieldFromTable(params, { key, rowItem }) {
       const {
         endpoint,
-        rowId,
+        pageName = '',
+        tableName = '',
         method = 'post',
         queryParams = null,
         fullRow = false,
       } = params
       const API = useApiStore()
 
-      let value = {}
-      if (!fullRow) {
-        value[key] = rowItem[key]
-        value[rowId] = rowItem[rowId]
-      } else value = rowItem
+      const cellData = {
+        rowId: rowItem.key,
+        columnId: key,
+        value: rowItem[key],
+      }
 
-      await API.sendOneField({ endpoint, value, queryParams, method })
+      let value = {}
+
+      if (!fullRow) value = cellData
+      else value = rowItem
+      try {
+        const response = await API.sendOneField({
+          endpoint,
+          value,
+          queryParams,
+          method,
+        })
+        console.log('-> Успешно отправлено', value.value)
+        this.showNoty({
+          component: 'notification',
+          type: 'success',
+          title: response.data.message,
+        })
+      } catch (error) {
+        this.showNoty({
+          component: 'notification',
+          type: 'error',
+          title: error,
+        })
+        this.resetTableData({
+          pageName: pageName,
+          tableName: tableName,
+          rowId: fullRow ? rowItem.key : null,
+          columnId: key || null,
+        })
+      }
     },
-    async getTableData(pageName, item) {
+    async getTableData(pageName, item, query) {
       const API = useApiStore()
       this.sendData[pageName][item.name] =
         typeof item.data === 'string'
-          ? await API.getDataForTable(item.data)
+          ? await API.getDataForTable(item.data, query)
           : item.data
     },
     showNoty(params) {

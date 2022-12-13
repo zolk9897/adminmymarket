@@ -13,7 +13,7 @@
       :tab="item.titles[index]"
       @click.stop="callHandler(item.handler)"
     >
-      <WidgetSwitch :item="el" />
+      <WidgetSwitch class="mt-2" :item="el" />
     </a-tab-pane>
   </a-tabs>
   <div v-else :style="item.style" :class="item.cssClass">
@@ -22,7 +22,7 @@
       :option-type="item.tabType"
       :options="radioOptions"
     />
-    <WidgetSwitch :item="item.fieldsData[activeTab]" />
+    <WidgetSwitch class="mt-2" :item="item.fieldsData[activeTab]" />
   </div>
 </template>
 

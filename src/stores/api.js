@@ -38,34 +38,74 @@ const emulateResponse = (endpoint, id) => {
       title_name_input: 'New Value 234',
     }
   }
+
+  if (endpoint === '/pages') {
+    if (id == 2) {
+      return {
+        id_field_label: id,
+        create_field_label: 'Alex 29.11.2022 18:56:00',
+        updated_field_label: 'Alex 29.11.2022 18:56:00',
+        active_switch: true,
+        page_name_input: 'Доставка',
+        page_slug_input: 'delivery',
+        sorting_input: '1',
+        link_input: '/main/delivery',
+        editor_field:
+          'Test content Test content Test content Test content Test content Test content ',
+      }
+    } else if (id == 1) {
+      return {
+        id_field_label: id,
+        create_field_label: 'Alex 29.11.2022 18:56:00',
+        updated_field_label: 'Alex 29.11.2022 18:56:00',
+        active_switch: true,
+        page_name_input: 'О компании',
+        page_slug_input: 'about-company',
+        sorting_input: '1',
+        link_input: '/main/about_company',
+        editor_field:
+          'Test content Test content Test content Test content Test content Test content ',
+      }
+    } else {
+      return {
+        id_field_label: id,
+        create_field_label: new Date().toLocaleDateString('ru'),
+        updated_field_label: new Date().toLocaleDateString('ru'),
+      }
+    }
+  }
 }
 
 export const useApiStore = defineStore({
   id: 'api',
   state: () => {
-    return {}
+    return {
+      testEndpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+    }
   },
   actions: {
     async getDataFromCompName({ endpoint, id, pageName }) {
       await new Promise((resolve) =>
-        setTimeout(() => {
+        setTimeout(async () => {
           const globalJson = useGlobalJsonDataStore()
           // Тестовый JSON эмулирующий бэк
           const res = emulateResponse(endpoint, id)
           axios.get(endpoint, { params: { id } })
           globalJson.setSendDataPageName(pageName, res)
+          await new Promise((resolve, reject) => setTimeout(resolve, 1000))
           resolve()
-        }, 1000)
+        }, 100)
       )
     },
     async getDataForTable(endpoint) {
-      return (await axios(endpoint)).data
+      const query = this.router.currentRoute._value.query
+      return (await axios.get(endpoint, { params: query })).data
     },
 
     async sendOneField({ endpoint, method, value, queryParams }) {
       if (queryParams) {
-        await axios[method](endpoint, null, { params: value })
-      } else await axios[method](endpoint, value)
+        return await axios[method](endpoint, null, { params: value })
+      } else return await axios[method](endpoint, value)
     },
     async createNewPageFromId(endpoint) {
       // await axios.post(endpoint)

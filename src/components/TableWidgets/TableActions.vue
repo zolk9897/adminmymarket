@@ -63,7 +63,12 @@ const props = defineProps({
   dataSource: [Object, String],
 })
 
-const emits = defineEmits(['update:editData', 'update:dataSource'])
+const emits = defineEmits([
+  'update:editData',
+  'update:dataSource',
+  'saveRow',
+  'rowUpdated',
+])
 
 const editableData = computed({
   get() {
@@ -90,11 +95,16 @@ const onEdit = (key) => {
 }
 
 const saveEdit = (key) => {
-  Object.assign(
-    dataSource.value.filter((item) => key === item.key)[0],
-    editableData.value[key]
-  )
-  delete editableData.value[key]
+  if (props.column.sendSingleRow) {
+    emits('saveRow', editableData.value[key])
+  } else {
+    Object.assign(
+      dataSource.value.filter((item) => key === item.key)[0],
+      editableData.value[key]
+    )
+    delete editableData.value[key]
+    emits('rowUpdated')
+  }
 }
 
 const cancelEdit = (key) => {

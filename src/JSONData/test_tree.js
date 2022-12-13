@@ -1,18 +1,11 @@
 export default {
-  page: 'banner_list',
+  page: 'test_tree',
   useTitle: {
-    title: 'Список баннеров',
+    title: 'test_tree',
     breadcrumbs: [
       {
         title: 'Главная',
         path: '/',
-      },
-      {
-        title: 'Контент',
-      },
-      {
-        title: 'Список баннеров',
-        path: '/main/banner_list',
       },
     ],
   },
@@ -27,46 +20,75 @@ export default {
       name: 'main__container_block',
       type: 'div',
       cssClass: ['bg-white'],
-      fields: ['main_table_block', 'block_modal_add_to_table'],
+      fields: ['main_table_block'],
     },
     {
       name: 'main_table_block',
       type: 'div',
       parentClass: ['p-6'],
-      fields: ['banner_list_table'],
+      cssClass: ['flex justify-between gap-6'],
+      fields: ['tree', 'table_tree'],
     },
     {
-      name: 'banner_list_table',
+      name: 'tree',
+      type: 'tree',
+      parentClass: ['w-1/2 mt-6'],
+      showIcon: true,
+      checkable: true,
+      search: true,
+      checkHandlers: [],
+      selectHandlers: [
+        {
+          name: 'resetTableData',
+          params: {
+            pageName: 'test_tree',
+            tableName: 'table_tree',
+          },
+        },
+      ],
+      fieldNames: {
+        children: 'chill',
+        title: 'title',
+        key: 'id',
+      },
+      data: [
+        {
+          title: 'one',
+          id: 'one',
+          titleColor: '#29a665',
+          chill: [
+            {
+              title: 'two',
+              selectColor: '#8e0eb9',
+              titleColor: '#000',
+              id: 'two',
+              chill: [
+                { title: 'leaf', id: 'leaf', disableCheckbox: true },
+                { title: 'beaf', id: 'beaf' },
+              ],
+            },
+            {
+              title: 'trip',
+              id: 'trip',
+              ico: 'fa-tree',
+              chill: [
+                { id: 'sss', title: 'sss' },
+                { id: 'ddd', title: 'ddd' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'table_tree',
       type: 'table',
+      parentClass: ['w-1/2'],
       config: {
         pagination: false,
         size: 'small',
         align: 'center',
         bordered: true,
-        buttons: [
-          {
-            name: 'add',
-            type: 'primary',
-            label: 'Добавить баннер',
-            showLoading: true,
-            handlers: [
-              {
-                name: 'createNewPageFromId',
-                params: {
-                  endpoint: 'createNewBanner',
-                  jsonPage: 'edit_banner_one',
-                },
-              },
-            ],
-          },
-        ],
-        search: [
-          {
-            name: 'bannerlist_search',
-            type: 'input',
-            fields: ['name'],
-          },
-        ],
       },
       data: [
         {
@@ -153,18 +175,6 @@ export default {
           render: 'name',
         },
         {
-          title: 'Активность',
-          dataIndex: 'active',
-          key: 'active',
-          sort: true,
-          widget: {
-            name: 'checkbox',
-            type: 'text',
-          },
-          resizable: true,
-          width: 40,
-        },
-        {
           title: 'Сорт.',
           dataIndex: 'sort',
           key: 'sort',
@@ -178,18 +188,6 @@ export default {
         },
 
         {
-          title: 'Дата изменения',
-          dataIndex: 'updated_at',
-          key: 'updated_at',
-          sort: true,
-          widget: {
-            name: 'text',
-            class: 'font-normal',
-          },
-          resizable: true,
-          width: 100,
-        },
-        {
           title: 'ID',
           dataIndex: 'id',
           key: 'id',
@@ -202,19 +200,6 @@ export default {
           width: 20,
         },
       ],
-    },
-    {
-      name: 'legal_entities__buttons_block',
-      type: 'div',
-      cssClass: ['flex', 'gap-2'],
-      fields: ['main__add_button'],
-    },
-    {
-      type: 'button',
-      value: 'Добавить баннер',
-      name: 'main__add_button',
-      buttonType: 'primary',
-      handlers: [],
     },
   ],
 }

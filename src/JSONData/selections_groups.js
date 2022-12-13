@@ -1,7 +1,7 @@
 export default {
-  page: 'banner_groups',
+  page: 'selections_groups',
   useTitle: {
-    title: 'Группы баннеров',
+    title: 'Группы подборок',
     breadcrumbs: [
       {
         title: 'Главная',
@@ -11,10 +11,10 @@ export default {
         title: 'Контент',
       },
       {
-        title: 'Баннеры',
+        title: 'Подборки',
       },
       {
-        title: 'Группы баннеров',
+        title: 'Группы подборок',
         path: '/main/banner_groups',
       },
     ],
@@ -36,10 +36,10 @@ export default {
       name: 'main_table_block',
       type: 'div',
       parentClass: ['p-6'],
-      fields: ['banner_groups_table'],
+      fields: ['selections_groups_table'],
     },
     {
-      name: 'banner_groups_table',
+      name: 'selections_groups_table',
       type: 'table',
       config: {
         pagination: false,
@@ -52,6 +52,23 @@ export default {
             name: 'banner_groups_search',
             type: 'input',
             fields: ['active'],
+          },
+        ],
+        buttons: [
+          {
+            name: 'add',
+            type: 'primary',
+            label: 'Добавить подборку',
+            showLoading: true,
+            handlers: [
+              {
+                name: 'createNewPageFromId',
+                params: {
+                  endpoint: 'createNewSelection',
+                  jsonPage: 'edit_selection',
+                },
+              },
+            ],
           },
         ],
       },

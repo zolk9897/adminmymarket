@@ -39,10 +39,11 @@
     </a-button>
     <a-button
       v-if="item.config.selection.save"
-      :disabled="isEmpty(editableData) || !hasSelected"
+      :disabled="isSaveBtnDisabled"
+      :loading="saveLoading"
       type="primary"
       class="mr-3"
-      @click="saveSelected"
+      @click="saveData"
     >
       Сохранить
     </a-button>
@@ -117,12 +118,16 @@ const props = defineProps({
   editData: [Object, String],
   dataSource: [Object, String],
   state: [Object, String],
+  saveLoading: Boolean,
+  isRowUpdated: Boolean,
 })
 
 const emits = defineEmits([
   'update:editData',
   'update:dataSource',
   'update:state',
+  'saveRows',
+  'saveTable',
 ])
 
 const editableData = computed({
@@ -153,6 +158,10 @@ const state = computed({
 
 const hasSelected = computed(() => state.value.selectedRowKeys.length > 0)
 
+const isSaveBtnDisabled = computed(() => {
+  return !(hasSelected.value || props.isRowUpdated) || props.saveLoading
+})
+
 const refuseReason = ref('Причина №1')
 const refuseMainReason = ref('')
 const statusTitle = ref({})
@@ -173,8 +182,13 @@ const deleteSelected = () => {
 const editSelected = () => {
   state.value.selectedRowKeys.map((item) => edit(item))
 }
-const saveSelected = () => {
-  state.value.selectedRowKeys.map((item) => save(item))
+const saveData = () => {
+  if (state.value.selectedRowKeys.length) {
+    state.value.selectedRowKeys.map((item) => save(item))
+    emits('saveRows')
+  } else {
+    emits('saveTable')
+  }
 }
 const approveSelected = () => {
   state.value.selectedRowKeys.map(
@@ -218,8 +232,6 @@ const setStatus = (param, colName) => {
   if (props.item.config.selection.updateOnSave) {
     // изменить заголовок дропдауна
     statusTitle.value[colName] = param.value
-    // сделать кнопку Сохранить активной
-    editableData.value = param
   }
 }
 </script>
