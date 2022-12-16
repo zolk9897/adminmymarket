@@ -427,6 +427,7 @@ export default {
         align: 'center',
         bordered: true,
         selection: true,
+        hideSearchBtn: true,
         buttons: [
           {
             name: 'add',
@@ -456,6 +457,7 @@ export default {
             name: 'city',
             type: 'select',
             fields: ['city'],
+            filterAllowClear: false,
             defaultValue: { label: 'Все города', value: '' },
           },
         ],
@@ -739,8 +741,8 @@ export default {
           key: 'is_have_account',
           resizable: true,
           widget: {
-            name: 'boolean',
-            title: 'Is have accoubt',
+            name: 'checkbox',
+            title: 'Is have account',
           },
           width: 200,
           sort: true,

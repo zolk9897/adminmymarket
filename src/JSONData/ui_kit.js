@@ -30,12 +30,14 @@ export default {
       cssClass: ['font-medium', 'text-xl'],
     },
     {
-      title: '',
+      title: 'Скрыть/Показать описание',
+      titlePosition: 'left',
       titleClass: ['font-medium'],
       name: 'info_switch',
-      value: false,
+      value: true,
       type: 'boolean',
       viewType: 'switch',
+      handlers: [],
     },
     {
       name: 'body_block',
@@ -47,8 +49,20 @@ export default {
         'border-solid',
         'border-neutral-100',
       ],
-      fields: ['buttons_block', 'inputs_block', 'handlers_block'],
+      fields: [
+        'buttons_block',
+        'inputs_block',
+        'handlers_block',
+        'tables_block',
+        'select_block',
+        'textarea_block',
+        'boolean_block',
+        'radio_block',
+        'link_block',
+        'label_block',
+      ],
     },
+    // BUTTONS Block
     {
       name: 'buttons_block',
       type: 'div',
@@ -68,7 +82,7 @@ export default {
     {
       name: 'buttons_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'gap-2', 'flex-wrap', 'my-[20px]'],
       fields: ['button_col_1', 'button_col_2', 'button_col_3'],
     },
     {
@@ -79,13 +93,14 @@ export default {
         'button_text_block',
         'button_styleClass_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'button_dashed_block',
       type: 'code',
       info: 'buttonType: "dashed"',
       infoTitle: 'buttonType',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'button_large_dashed',
@@ -119,6 +134,7 @@ export default {
       type: 'code',
       info: 'buttonType: "text"',
       infoTitle: 'buttonType',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_large_text', 'button_default_text', 'button_small_text'],
     },
@@ -148,6 +164,7 @@ export default {
       type: 'code',
       info: 'style параметр позволяет указывать стили, а праметр cssClass поддерживает классы в том числе и tailwind. Всегда лучше использовать tailwind классы. ',
       infoTitle: 'style и cssClass',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_styleClass'],
     },
@@ -160,7 +177,7 @@ export default {
         fontSize: '1.25rem',
         lineHeight: '1.75rem',
       },
-      cssClass: ['w-[200px]'],
+      cssClass: ['w-[250px]'],
       buttonType: 'primary',
     },
     {
@@ -171,13 +188,14 @@ export default {
         'button_ghost_block',
         'button_disabled_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'button_link_block',
       type: 'code',
       info: 'buttonType: "link"',
       infoTitle: 'buttonType',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_large_link', 'button_default_link', 'button_small_link'],
     },
@@ -207,6 +225,7 @@ export default {
       type: 'code',
       info: 'buttonType: "ghost"',
       infoTitle: 'buttonType',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'button_large_ghost',
@@ -240,6 +259,7 @@ export default {
       type: 'code',
       info: 'disabled: true/false',
       infoTitle: 'disabled',
+      parentClass: ['w-[380px]'],
       cssClass: ['grid', 'grid-cols-3', 'gap-2', 'row-2'],
       fields: [
         'button_disabled_dashed',
@@ -306,11 +326,12 @@ export default {
         'button_danger_block',
         'button_icon_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'button_primary_block',
       type: 'code',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       info: 'buttonType: "primary"',
       infoTitle: 'buttonType ',
@@ -347,6 +368,7 @@ export default {
       type: 'code',
       info: 'buttonType: "danger"',
       infoTitle: 'buttonType',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'button_large_danger',
@@ -380,6 +402,7 @@ export default {
       type: 'code',
       info: 'icon.name параметр позволяет добавлять в кнопку иконку из коллекции font awesome',
       infoTitle: 'icon',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_icon'],
     },
@@ -390,6 +413,7 @@ export default {
       icon: { name: 'fa-solid fa-code' },
       buttonType: 'danger',
     },
+    // INPUTS Block
     {
       name: 'inputs_block',
       type: 'div',
@@ -409,20 +433,21 @@ export default {
     {
       name: 'inputs_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'gap-2', 'flex-wrap', 'my-[20px]'],
       fields: ['inputs_col_1', 'inputs_col_2', 'inputs_col_3'],
     },
     {
       name: 'inputs_col_1',
       type: 'div',
       fields: ['input_text_block', 'input_vmask_block'],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'input_text_block',
       type: 'code',
       info: 'format: "text"',
       infoTitle: 'format',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_large_text', 'input_default_text', 'input_small_text'],
     },
@@ -452,6 +477,7 @@ export default {
       type: 'code',
       info: 'mask: "+7 (###) ###-##-##"',
       infoTitle: 'vmask',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_vmask'],
     },
@@ -467,13 +493,14 @@ export default {
       name: 'inputs_col_2',
       type: 'div',
       fields: ['input_password_block', 'input_subtitle_block'],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'input_password_block',
       type: 'code',
       info: 'format: "password"',
       infoTitle: 'format',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: [
         'input_large_password',
@@ -507,6 +534,7 @@ export default {
       type: 'code',
       info: 'subtitle: text указывает текст подзаголовка, style позволяет указывать стили, а праметр cssClass поддерживает классы в том числе и tailwind. Всегда лучше использовать tailwind классы. ',
       infoTitle: 'subtitle',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_subtitle'],
     },
@@ -526,13 +554,14 @@ export default {
       name: 'inputs_col_3',
       type: 'div',
       fields: ['input_number_block', 'input_style_block'],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'input_number_block',
       type: 'code',
       info: 'format: "number"',
       infoTitle: 'format',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: [
         'input_large_number',
@@ -566,6 +595,7 @@ export default {
       type: 'code',
       info: 'style параметр позволяет указывать стили, а праметр cssClass поддерживает классы в том числе и tailwind. Всегда лучше использовать tailwind классы. ',
       infoTitle: 'style',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_style'],
     },
@@ -577,6 +607,7 @@ export default {
       style: { width: '250px' },
       cssClass: ['font-black'],
     },
+    // HANDLERS Block
     {
       name: 'handlers_block',
       type: 'div',
@@ -596,7 +627,7 @@ export default {
     {
       name: 'handlers_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'gap-2', 'flex-wrap', 'my-[20px]'],
       fields: ['handler_col_1', 'handler_col_2', 'handler_col_3'],
     },
     {
@@ -607,13 +638,14 @@ export default {
         'handler_edit_field_block',
         'handler_add_data_to_table_field_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'handler_push_data_block',
       type: 'code',
       info: 'При использованнии данного обработчика отправляет форму по ссылке "https://ekat.sergeivl.ru/api/example/ok". Принимает параметры "pageName" и "blockName".',
       infoTitle: 'pushData',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['push_data_button'],
     },
@@ -637,6 +669,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет менять или добовлять свойства различным объектам. Принимает параметры "pageName", "blockName", "fieldName" и "value" в качестве которого указываются новые параметры',
       infoTitle: 'editField',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'edit_field_button_1',
@@ -688,13 +721,14 @@ export default {
       name: 'handler_col_2',
       type: 'div',
       fields: ['validate_handler_block', 'handler_go_back_block'],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'handler_reset_data_block',
       type: 'code',
       info: 'Данный обработчик позволяет сбрасывать значение полей. Принимает параметры "pageName", "blockName"',
       infoTitle: 'resetBlockData',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['reset_data_button', 'reset_data_input'],
     },
@@ -724,6 +758,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет валидировать определенные поля. Для этого необходимо назначить необходимому полю параметр validate и указать необходмые правила. Подробнее смотреть библиотеку yup. Принимает параметры "pageName", "blockName"',
       infoTitle: 'validateHandler',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['validate_handler_button', 'validate_handler_input'],
     },
@@ -759,6 +794,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет перейти на предыдущую страницу',
       infoTitle: 'goBack',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['go_back_button'],
     },
@@ -777,13 +813,14 @@ export default {
       name: 'handler_col_3',
       type: 'div',
       fields: ['handler_go_route_block', 'handler_reset_data_block'],
-      cssClass: ['flex', 'gap-4', 'flex-col'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'handler_go_route_block',
       type: 'code',
       info: 'Данный обработчик позволяет перейти на страницу с добавлением параметров. Принимает параметры "name" в качестве имени страницы и "query" в качестве параметров к странице',
       infoTitle: 'goRoute',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['go_route_button'],
     },
@@ -807,6 +844,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет добавить поле в таблицу. Принимает параметры "pageName", "tableName" и "data" в качестве объекта где ключом является имя столбца, а значением имя поля.',
       infoTitle: 'addDataToTableField',
+      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
       fields: [
         'add_data_to_table_field_button',
@@ -902,6 +940,2222 @@ export default {
           ],
         },
       ],
+    },
+    // TABLES Block
+    {
+      name: 'tables_block',
+      type: 'div',
+      fields: ['tables_title_block', 'tables_body'],
+    },
+    {
+      name: 'tables_title_block',
+      type: 'div',
+      fields: ['tables_title'],
+    },
+    {
+      text: 'Tables',
+      name: 'tables_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'tables_body',
+      type: 'div',
+      cssClass: ['flex', 'gap-2', 'flex-wrap', 'my-[20px]'],
+      fields: ['tables_col_1'],
+    },
+    {
+      name: 'tables_col_1',
+      type: 'div',
+      fields: [
+        'basic_table_block',
+        'all_widget_table_block',
+        'filter_table_block',
+        'search_table_block',
+        'config_table_block',
+        'button_table_block',
+      ],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'basic_table_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'basic table',
+      parentClass: ['w-[380px]'],
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['basic_table'],
+    },
+    {
+      name: 'basic_table',
+      type: 'table',
+      config: {
+        size: 'small',
+      },
+      data: [
+        {
+          name: 'DigitalOcean',
+          debt: 1000,
+        },
+        {
+          name: 'DigitalOcean',
+          debt: 1500,
+        },
+      ],
+      columns: [
+        {
+          title: 'Название',
+          dataIndex: 'name',
+          key: 'name',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'Не закрыто актами, ₽',
+          dataIndex: 'debt',
+          key: 'debt',
+          widget: {
+            name: 'text',
+          },
+        },
+      ],
+    },
+    {
+      name: 'all_widget_table_block',
+      type: 'code',
+      info: `widget содержит в себе описание способа отображения столбца.
+      Параметр 'name: text' отображает данные в качестве текста, так же принимает параметры class и style
+      Параметр 'name: link' отображает данные в качестве ссылки, так же может принимать 'type: external'
+      Параметр 'name: checkbox' отображает данные в качестве checkbox, в случае доополнительного параметра 'type: text' отображает в качестве надписи Да/Нет
+      Параметр 'name: select' отображает данные в качестве select, поддерживает 'type: stauts' и type: text
+      Параметр 'name: popover' отображает всплывающее окно при наведении, поддерживает 'type: column" и 'type: text'
+      Параметр 'name: image' отображает изображение по ссылке, поддерживает 'width: 150px',
+      Параметр 'name: date' отбражает unixtime в качестве даты в заданном формате, поддерживает 'format: "YYYY.MM.DD"'
+      Параметр 'name: input' создаёт поле ввода, поддерживает 'suffix: "%" и 'prefix: "%"'`,
+      infoTitle: 'widget',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['all_widget_table'],
+    },
+    {
+      name: 'all_widget_table',
+      type: 'table',
+      config: {},
+      data: [
+        {
+          text: 'text',
+          link: {
+            title: 'link',
+            link: '/main/blog_page_edit',
+          },
+          checkbox: false,
+          checkbox_text: true,
+          select: 1,
+          select_tag: 1,
+          select_text: 1,
+          popover: {
+            link: '/main/complaint_form_edit',
+            text: 'Жалоба',
+          },
+          popover_columns: {
+            title: 'Iphone',
+            link: '/mikes',
+            offerInfo: [
+              { param: 'Экран', value: '6.7 (2778х1284) OLED 120Гц' },
+              { param: 'Встроенная память', value: '128 гБ' },
+              { param: 'Оперативная память', value: '6ГБ' },
+              { param: 'З камеры', value: '12 МП, 12 МП, 12 мп' },
+              { param: 'Аккумулятор', value: '4352 мАч' },
+            ],
+          },
+          image:
+            'https://www.digitalclassworld.com/blog/wp-content/uploads/2021/02/Full-form-of-URL-1-1024x824.jpg',
+          date: 1666803600,
+          input: {
+            value: 10,
+            suffix: '%',
+          },
+        },
+        {
+          text: 'text',
+          link: {
+            title: 'link',
+            link: '/main/blog_page_edit',
+          },
+          checkbox: true,
+          checkbox_text: false,
+          select: 0,
+          select_tag: 0,
+          select_text: 0,
+          popover: {
+            link: '/main/complaint_form_edit',
+            text: 'Жалоба',
+          },
+          popover_columns: {
+            title: 'Iphone',
+            link: '/mikes',
+            offerInfo: [
+              { param: 'Экран', value: '6.7 (2778х1284) OLED 120Гц' },
+              { param: 'Встроенная память', value: '128 гБ' },
+              { param: 'Оперативная память', value: '6ГБ' },
+              { param: 'З камеры', value: '12 МП, 12 МП, 12 мп' },
+              { param: 'Аккумулятор', value: '4352 мАч' },
+            ],
+          },
+          image:
+            'https://techmonitor.ai/wp-content/uploads/sites/4/2016/06/what-is-URL.jpg',
+          date: 1666803600,
+          input: {
+            value: 10,
+            suffix: '%',
+          },
+        },
+      ],
+      columns: [
+        {
+          title: 'text',
+          dataIndex: 'text',
+          key: 'text',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'link',
+          dataIndex: 'link',
+          key: 'link',
+          widget: {
+            name: 'link',
+          },
+        },
+        {
+          title: 'checkbox',
+          dataIndex: 'checkbox',
+          key: 'checkbox',
+          widget: {
+            name: 'checkbox',
+          },
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: '/changeUserRoleCell',
+                fullRow: true,
+              },
+            },
+          ],
+        },
+        {
+          title: 'checkbox_text',
+          dataIndex: 'checkbox_text',
+          key: 'checkbox_text',
+          widget: {
+            name: 'checkbox',
+            type: 'text',
+          },
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: '/changeUserRoleCell',
+                fullRow: true,
+              },
+            },
+          ],
+        },
+        {
+          title: 'select',
+          dataIndex: 'select',
+          key: 'select',
+          widget: {
+            name: 'select',
+            params: [
+              { id: 0, value: 'sel 1' },
+              { id: 1, value: 'sek 2' },
+            ],
+          },
+        },
+        {
+          title: 'select_tag',
+          dataIndex: 'select_tag',
+          key: 'select_tag',
+          widget: {
+            name: 'select',
+            type: 'status',
+            params: [
+              { id: 0, value: 'Одобрено', color: '#87D068' },
+              { id: 1, value: 'Модерация', color: '#00', textColor: '#8c8c8c' },
+            ],
+          },
+        },
+        {
+          title: 'select_text',
+          dataIndex: 'select_text',
+          key: 'select_text',
+          widget: {
+            name: 'select',
+            type: 'text',
+            params: [
+              { id: 0, value: 'Одобрено' },
+              { id: 1, value: 'Модерация' },
+            ],
+          },
+        },
+        {
+          title: 'popover',
+          dataIndex: 'popover',
+          key: 'popover',
+          widget: {
+            name: 'popover',
+            type: 'text',
+          },
+        },
+        {
+          title: 'popover_columns',
+          dataIndex: 'popover_columns',
+          key: 'popover_columns',
+          widget: {
+            name: 'popover',
+            type: 'columns',
+          },
+        },
+        {
+          title: 'image',
+          dataIndex: 'image',
+          key: 'image',
+          widget: {
+            name: 'image',
+            width: 20,
+          },
+        },
+        {
+          title: 'date',
+          dataIndex: 'date',
+          key: 'date',
+          widget: {
+            name: 'date',
+            format: 'DD.MM.YYYY',
+          },
+          width: 100,
+        },
+        {
+          title: 'input',
+          dataIndex: 'input',
+          key: 'input',
+          widget: {
+            name: 'input',
+          },
+          width: 100,
+        },
+      ],
+    },
+    {
+      name: 'filter_table_block',
+      type: 'code',
+      info: `filterType параметр столбца, позволяет добавлять фильтры на необхоимый столбец
+      filterType: 'text позволяет осуществлять поиск по подстроке в определенном столбце',
+      filterType: 'number' позволяет искать числовые значения от и до определенной суммы ,
+      filterType: 'category' собирает всевозможные существующие значения в select и фильтрует по выбранному значению
+      есть дополнительный параметр filterParam(в случае если мы фильтруем объекты, необходимо указывать по какому ключу объекта мы фильтруем)
+      filterType: 'daterange' позволяет искать промежутки дат удобном формате,
+      filterType: 'checkbox' позволяет осуществлять удобный поиск по checkbox,
+      filterType: 'select' позволяет осуществлять поиск по готовому списку значений. Используется для виджетов select
+      sort: true необходим для добавления сортировки по столбцу,
+      hideSearchBtn: скрывает кнопку поиска с иконкой
+      gap: задает расстояние между фильтрами, по умолчанию 2
+      filterWidth: задает ширину фильтра
+      filterTitle: изменяет placeholder или title именно у фильтра
+      filterIcon: иконка для фильтра если input до будет внутри input
+      filterMultiple: делает селект multiselect
+      filtersPosition: можем задать порядок фильтров массив, если нужно указать фльтр из columns то пишем его key, если нужен фильтр из search то пишем его name, по умолчанию можно не указывать тогда сначала будут идти фильтры которые в search, а затем columns
+      filterAllowClear: добавить кнопку стреть в инпутах и селектах, по умолчанию true
+    `,
+      infoTitle: 'filterType, sort, и т.д',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['filter_table'],
+    },
+    {
+      name: 'filter_table',
+      type: 'table',
+      config: { filterSize: 'middle' },
+      data: [
+        {
+          text: '123',
+          number: 1000,
+          category: 'Smart',
+          date: 1670349600,
+          checkbox: true,
+          select: 1,
+        },
+        {
+          text: 'text',
+          number: 500,
+          category: 'Sony',
+          date: 1670263200,
+          checkbox: false,
+          select: 0,
+        },
+      ],
+      columns: [
+        {
+          title: 'text',
+          dataIndex: 'text',
+          key: 'text',
+          widget: {
+            name: 'text',
+          },
+          filterType: 'text',
+          filterWidth: '250px',
+          filterTitle: 'Введите текст',
+          filterIcon: 'fa-search',
+          sort: true,
+        },
+        {
+          title: 'number',
+          dataIndex: 'number',
+          key: 'number',
+          widget: {
+            name: 'number',
+          },
+          filterType: 'number',
+          sort: true,
+        },
+        {
+          title: 'category',
+          dataIndex: 'category',
+          key: 'category',
+          widget: {
+            name: 'text',
+          },
+          filterType: 'category',
+          sort: true,
+        },
+        {
+          title: 'date',
+          dataIndex: 'date',
+          key: 'date',
+          widget: {
+            name: 'date',
+            format: 'DD.MM.YYYY',
+          },
+          filterType: 'daterange',
+          sort: true,
+        },
+        {
+          title: 'checkbox',
+          dataIndex: 'checkbox',
+          key: 'checkbox',
+          widget: {
+            name: 'checkbox',
+          },
+          filterType: 'checkbox',
+          sort: true,
+        },
+        {
+          title: 'select',
+          dataIndex: 'select',
+          key: 'select',
+          widget: {
+            name: 'select',
+            params: [
+              { id: 0, value: 'SonyPlayStation' },
+              { id: 1, value: 'samsung' },
+            ],
+          },
+          filterType: 'select',
+          sort: true,
+        },
+      ],
+    },
+    {
+      name: 'search_table_block',
+      type: 'code',
+      info: `config.search позволяет искать по различным полям, в том чилсле тех которые не отображаются в таблице
+      type: input позволяет искать по любому из полей которые указаны в fields
+      type: switch позволяет фильтровать данные с типом checkbox через элемент switch
+      type: select создаёт селект который собирает варианты из стоблца
+      infoTooltip: Добавляет иконку рядом с толтипом
+      filterWidth: задает ширину фильтра
+      filterTitle: изменяет placeholder или title именно у фильтра
+      filterMultiple: делает селект multiselect
+      filterAllowClear: добавить кнопку стреть в инпутах и селектах, по умолчанию true
+      `,
+      infoTitle: 'Search',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['search_table'],
+    },
+    {
+      name: 'search_table',
+      type: 'table',
+      config: {
+        search: [
+          {
+            name: 'blog_search',
+            type: 'input',
+            fields: ['text', 'number'],
+          },
+          {
+            name: 'checkbox',
+            type: 'switch',
+            fields: ['checkbox'],
+            label: 'Только с аккаунтами',
+          },
+          {
+            name: 'category',
+            type: 'select',
+            fields: ['category'],
+            defaultValue: { label: 'Все города', value: '' },
+          },
+        ],
+      },
+      data: [
+        {
+          text: '123',
+          number: 1000,
+          category: 'Smart',
+          date: 1670349600,
+          checkbox: true,
+          select: 1,
+        },
+        {
+          text: 'text',
+          number: 500,
+          category: 'Sony',
+          date: 1670263200,
+          checkbox: false,
+          select: 0,
+        },
+      ],
+      columns: [
+        {
+          title: 'text',
+          dataIndex: 'text',
+          key: 'text',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'number',
+          dataIndex: 'number',
+          key: 'number',
+          widget: {
+            name: 'number',
+          },
+        },
+        {
+          title: 'category',
+          dataIndex: 'category',
+          key: 'category',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'date',
+          dataIndex: 'date',
+          key: 'date',
+          widget: {
+            name: 'date',
+            format: 'DD.MM.YYYY',
+          },
+        },
+        {
+          title: 'checkbox',
+          dataIndex: 'checkbox',
+          key: 'checkbox',
+          widget: {
+            name: 'checkbox',
+          },
+        },
+        {
+          title: 'select',
+          dataIndex: 'select',
+          key: 'select',
+          widget: {
+            name: 'select',
+            params: [
+              { id: 0, value: 'SonyPlayStation' },
+              { id: 1, value: 'samsung' },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      name: 'config_table_block',
+      type: 'code',
+      info: `config позволяет настраивать различные параметры таблицы
+      bordered: true добавляет отрисовку таблиц
+      pagination: false убирает возможность пагинации
+      sticky: true заголовки столбцов прилипают к верху страницы
+      size: 'small' указывает на размер строк, варианты: default | middle | small | large
+      selection: true позволяет выделять данные
+      filterSize: 'middle' принимает значения размера всех фильтров, варианты: small | middle | large
+      Дополнительные настройки колонок:
+      width: 140 задаёт ширину столбца
+      resizable: true позволяет пользователю менять ширину столбца
+      align: 'center'  позовляет выравнивать контент ячейки по ширирне, варианты: left | right | center
+      `,
+      infoTitle: 'Search',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['config_table'],
+    },
+    {
+      name: 'config_table',
+      type: 'table',
+      config: {
+        bordered: true,
+        pagination: false,
+        sticky: true,
+        size: 'small',
+        selection: true,
+      },
+      data: [
+        {
+          text: '123',
+          number: 1000,
+          category: 'Smart',
+          date: 1670349600,
+          checkbox: true,
+          select: 1,
+        },
+        {
+          text: 'text',
+          number: 500,
+          category: 'Sony',
+          date: 1670263200,
+          checkbox: false,
+          select: 0,
+        },
+      ],
+      columns: [
+        {
+          title: 'text',
+          dataIndex: 'text',
+          key: 'text',
+          widget: {
+            name: 'text',
+          },
+          width: 150,
+          resizable: true,
+          align: 'center',
+        },
+        {
+          title: 'number',
+          dataIndex: 'number',
+          key: 'number',
+          widget: {
+            name: 'number',
+          },
+        },
+        {
+          title: 'category',
+          dataIndex: 'category',
+          key: 'category',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'date',
+          dataIndex: 'date',
+          key: 'date',
+          widget: {
+            name: 'date',
+            format: 'DD.MM.YYYY',
+          },
+        },
+        {
+          title: 'checkbox',
+          dataIndex: 'checkbox',
+          key: 'checkbox',
+          widget: {
+            name: 'checkbox',
+          },
+        },
+        {
+          title: 'select',
+          dataIndex: 'select',
+          key: 'select',
+          widget: {
+            name: 'select',
+            params: [
+              { id: 0, value: 'SonyPlayStation' },
+              { id: 1, value: 'samsung' },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      name: 'button_table_block',
+      type: 'code',
+      info: `selection позволяет проводить различные операции с выбранными строками
+      refuse: специальное поле для таблицы офферов, устанавливает значение поля в 'отказано' и отправляет запрос с причиной отказа.
+      approve: специальное поле для таблицы офферов, устанавливает значение поля и 'одобрено' отправляет запрос о .
+      delete: позволяет удалить строку из таблицы
+      edit: переводит поля строк в режим редактирования
+      save: cохраняет выделенные строки после редактирования
+      setStatusColumn: ['select'] позволяет устанавливать для всех строк какое то опредленное значение select'a
+      active: true позволяет устанавливать значение checkbox с параметром text в определенные значения.
+      column actions добавляет столбец с отдельными действиями для каждой строки
+      delete: true, удаляет строку
+      edit: true, переводит поля строки в режим редактирования
+      onCopy: true, создаёт новую строку с такими же значениями
+      deactivate: 'active', позволяет менять значение checkbox с определенным именем поля.
+      `,
+      infoTitle: 'Button',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['button_table'],
+    },
+    {
+      name: 'button_table',
+      type: 'table',
+      config: {
+        selection: {
+          refuse: true,
+          approve: true,
+          delete: true,
+          save: true,
+          edit: true,
+          setStatusColumn: ['select'],
+          active: true,
+        },
+      },
+      data: [
+        {
+          text: '123',
+          number: 1000,
+          category: 'Smart',
+          date: 1670349600,
+          active: true,
+          select: 1,
+        },
+        {
+          text: 'text',
+          number: 500,
+          category: 'Sony',
+          date: 1670263200,
+          active: false,
+          select: 0,
+        },
+      ],
+      columns: [
+        {
+          dataIndex: 'actions',
+          widget: {
+            name: 'actions',
+          },
+          width: 10,
+          delete: true,
+          edit: true,
+          onCopy: true,
+          deactivate: 'active',
+        },
+        {
+          title: 'number',
+          dataIndex: 'number',
+          key: 'number',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'active',
+          dataIndex: 'active',
+          key: 'active',
+          widget: {
+            name: 'checkbox',
+            type: 'text',
+          },
+        },
+        {
+          title: 'select',
+          dataIndex: 'select',
+          key: 'select',
+          widget: {
+            name: 'select',
+            params: [
+              { id: 0, value: 'SonyPlayStation' },
+              { id: 1, value: 'samsung' },
+            ],
+          },
+        },
+      ],
+    },
+    // SELECT Block
+    {
+      name: 'select_block',
+      type: 'div',
+      fields: ['select_title_block', 'select_body'],
+    },
+    {
+      name: 'select_title_block',
+      type: 'div',
+      fields: ['select_title'],
+    },
+    {
+      text: 'Select',
+      name: 'select_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'select_body',
+      type: 'div',
+      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      fields: ['select_col_1', 'select_col_2', 'select_col_3'],
+    },
+    {
+      name: 'select_col_1',
+      type: 'div',
+      fields: [
+        'select_basic_usage_block',
+        'select_disabled_block',
+        'select_styleClass_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'select_basic_usage_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'Basic usage',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: [
+        'basic_select_large',
+        'basic_select_default',
+        'basic_select_small',
+      ],
+    },
+    {
+      size: 'large',
+      name: 'basic_select_large',
+      type: 'select',
+      cssClass: ['w-96'],
+      value: 1,
+      options: [
+        { id: 0, name: 'text' },
+        { id: 1, name: 'large' },
+        { id: 2, name: 'text' },
+      ],
+    },
+    {
+      size: 'default',
+      name: 'basic_select_default',
+      type: 'select',
+      cssClass: ['w-96'],
+      value: 1,
+      options: [
+        { id: 0, name: 'text' },
+        { id: 1, name: 'default' },
+        { id: 2, name: 'text' },
+      ],
+    },
+    {
+      size: 'small',
+      name: 'basic_select_small',
+      type: 'select',
+      cssClass: ['w-96'],
+      value: 1,
+      options: [
+        { id: 0, name: 'text' },
+        { id: 1, name: 'small' },
+        { id: 2, name: 'text' },
+      ],
+    },
+    {
+      name: 'select_styleClass_block',
+      type: 'code',
+      info: `style параметр позволяет указывать стили для поля, праметр cssClass поддерживает классы в том числе и tailwind.
+      Всегда лучше использовать tailwind классы. parentClass параметр используется для классов родительского контейнера.`,
+      infoTitle: 'style, cssClass и parentClass',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['styleClass_select_input'],
+    },
+    {
+      size: 'large',
+      name: 'styleClass_select_input',
+      type: 'select',
+      cssClass: ['w-96'],
+      style: {
+        fontSize: '1.25rem',
+        lineHeight: '1.75rem',
+        color: 'red',
+      },
+      parentClass: ['p-4', 'bg-[#7772]', 'rounded-lg'],
+      value: 1,
+      options: [
+        { id: 0, name: 'text' },
+        { id: 1, name: 'style' },
+        { id: 2, name: 'css' },
+      ],
+    },
+    {
+      name: 'select_disabled_block',
+      type: 'code',
+      info: 'disabled: true/false',
+      infoTitle: 'disabled',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: [
+        'disabled_large_select_input',
+        'disabled_default_select_input',
+        'disabled_small_select_input',
+      ],
+    },
+    {
+      name: 'disabled_large_select_input',
+      type: 'select',
+      size: 'large',
+      cssClass: ['w-96'],
+      disabled: true,
+      value: 1,
+      options: [
+        { id: 0, name: 'text' },
+        { id: 1, name: 'disabled large' },
+        { id: 2, name: 'css' },
+      ],
+    },
+    {
+      name: 'disabled_default_select_input',
+      type: 'select',
+      size: 'default',
+      cssClass: ['w-96'],
+      disabled: true,
+      value: 1,
+      options: [
+        { id: 0, name: 'text' },
+        { id: 1, name: 'disabled default' },
+        { id: 2, name: 'css' },
+      ],
+    },
+    {
+      name: 'disabled_small_select_input',
+      type: 'select',
+      size: 'small',
+      cssClass: ['w-96'],
+      disabled: true,
+      value: 1,
+      options: [
+        { id: 0, name: 'text' },
+        { id: 1, name: 'disabled small' },
+        { id: 2, name: 'css' },
+      ],
+    },
+    {
+      name: 'select_col_2',
+      type: 'div',
+      fields: [
+        'select_placeholder_block',
+        'select_mode_tags_block',
+        'select_mode_multiple_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'select_placeholder_block',
+      type: 'code',
+      info: 'description: "Example placeholder"',
+      infoTitle: 'Placeholder',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['placeholder_large_select_input'],
+    },
+    {
+      name: 'placeholder_large_select_input',
+      description: 'Example placeholder',
+      type: 'select',
+      size: 'large',
+      cssClass: ['w-96'],
+      value: 0,
+      options: [
+        { id: 0, name: 'text 1' },
+        { id: 1, name: 'text 2' },
+        { id: 2, name: 'text 3' },
+      ],
+    },
+    {
+      name: 'select_mode_tags_block',
+      type: 'code',
+      info: 'mode: tags',
+      infoTitle: 'Mode tags',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['mode_tags_large_select_input'],
+    },
+    {
+      name: 'mode_tags_large_select_input',
+      type: 'select',
+      mode: 'tags',
+      size: 'large',
+      cssClass: ['w-96'],
+      value: [0, 1],
+      options: [
+        { id: 0, name: 'text 1' },
+        { id: 1, name: 'text 2' },
+        { id: 2, name: 'text 3' },
+      ],
+    },
+    {
+      name: 'select_mode_multiple_block',
+      type: 'code',
+      info: 'mode: multiple',
+      infoTitle: 'Mode multiple',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['mode_multiple_large_select_input'],
+    },
+    {
+      name: 'mode_multiple_large_select_input',
+      type: 'select',
+      mode: 'multiple',
+      size: 'large',
+      cssClass: ['w-96'],
+      value: [0, 1],
+      options: [
+        { id: 0, name: 'text 1' },
+        { id: 1, name: 'text 2' },
+        { id: 2, name: 'text 3' },
+      ],
+    },
+    // TEXTAREA block
+    {
+      name: 'textarea_block',
+      type: 'div',
+      fields: ['textarea_title_block', 'textarea_body'],
+    },
+    {
+      name: 'textarea_title_block',
+      type: 'div',
+      fields: ['textarea_title'],
+    },
+    {
+      text: 'Textarea',
+      name: 'textarea_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'textarea_body',
+      type: 'div',
+      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      fields: ['textarea_col_1', 'textarea_col_2'],
+    },
+    {
+      name: 'textarea_col_1',
+      type: 'div',
+      fields: [
+        'textarea_basic_usage_block',
+        'textarea_style_css_block',
+        'textarea_placeholder_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'textarea_basic_usage_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'Basic usage',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['basic_textarea_field'],
+    },
+    {
+      name: 'basic_textarea_field',
+      type: 'textarea',
+      parentClass: ['w-96'],
+      value: 'Text example',
+    },
+    {
+      name: 'textarea_style_css_block',
+      type: 'code',
+      info: 'cssClass поддерживает классы в том числе и tailwind. Всегда лучше использовать tailwind классы. parentClass параметр используется для классов родительского контейнера. В случае с textarea этот параметр отвечает так же за ширину занимаемую полем.',
+      infoTitle: 'Style',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['style_css_textarea_field'],
+    },
+    {
+      name: 'style_css_textarea_field',
+      type: 'textarea',
+      parentClass: ['w-60'],
+      cssClass: ['font-medium'],
+      value: 'Text example',
+    },
+    {
+      name: 'textarea_placeholder_block',
+      type: 'code',
+      info: 'description: "This is placeholder"',
+      infoTitle: 'Placeholder',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['placeholder_textarea_field'],
+    },
+    {
+      name: 'placeholder_textarea_field',
+      type: 'textarea',
+      description: 'This is placeholder',
+      parentClass: ['w-96'],
+      value: '',
+    },
+    {
+      name: 'textarea_col_2',
+      type: 'div',
+      fields: [
+        'textarea_min_rows_block',
+        'textarea_max_rows_block',
+        'textarea_min_max_rows_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'textarea_min_rows_block',
+      type: 'code',
+      info: 'Высота textarea минимальное значение "minRows: 1". По умолчанию "minRows: 2"',
+      infoTitle: 'Min rows',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['min_rows_textarea_field'],
+    },
+    {
+      name: 'min_rows_textarea_field',
+      type: 'textarea',
+      parentClass: ['w-96'],
+      value: 'Text example',
+      minRows: 1,
+    },
+    {
+      name: 'textarea_max_rows_block',
+      type: 'code',
+      info: 'Высота textarea максимальное значение "maxRows: 6". По умолчанию "maxRows: 5"',
+      infoTitle: 'Max rows',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['max_rows_textarea_field'],
+    },
+    {
+      name: 'max_rows_textarea_field',
+      type: 'textarea',
+      parentClass: ['w-96'],
+      value:
+        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+      maxRows: 6,
+    },
+    {
+      name: 'textarea_min_max_rows_block',
+      type: 'code',
+      info: 'Заданы минимальное и максимальное значения высоты textarea "minRows: 1", "maxRows: 4"',
+      infoTitle: 'Min and max rows',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: ['min_max_rows_textarea_field'],
+    },
+    {
+      name: 'min_max_rows_textarea_field',
+      type: 'textarea',
+      parentClass: ['w-96'],
+      description: 'Please write a lot of text ',
+      value: '',
+      maxRows: 4,
+      minRows: 1,
+    },
+    // BOOLEAN block
+    {
+      name: 'boolean_block',
+      type: 'div',
+      fields: ['boolean_title_block', 'boolean_body'],
+    },
+    {
+      name: 'boolean_title_block',
+      type: 'div',
+      fields: ['boolean_title'],
+    },
+    {
+      text: 'Boolean',
+      name: 'boolean_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'boolean_body',
+      type: 'div',
+      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      fields: ['boolean_col_1', 'boolean_col_2', 'boolean_col_3'],
+    },
+    {
+      name: 'boolean_col_1',
+      type: 'div',
+      fields: [
+        'boolean_checkbox_basic_usage_block',
+        'boolean_switch_basic_usage_block',
+        'boolean_groupСheckbox_basic_usage_block',
+        'boolean_checkbox_css_style_usage_block',
+        'boolean_switch_css_style_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'boolean_checkbox_basic_usage_block',
+      type: 'code',
+      info: 'Параметр "viewType: checkbox"',
+      infoTitle: 'Basic usage with viewType=checkbox',
+      cssClass: ['flex', 'items-start', 'gap-2'],
+      fields: ['boolean_checkbox_basic_usage_field'],
+    },
+    {
+      title: 'Title checkbox',
+      titlePosition: 'left',
+      titleClass: ['flex', 'items-center'],
+      name: 'boolean_checkbox_basic_usage_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      name: 'boolean_switch_basic_usage_block',
+      type: 'code',
+      info: 'Параметр "viewType: switch"',
+      infoTitle: 'Basic usage with viewType=switch',
+      cssClass: ['flex', 'items-start', 'gap-2'],
+      fields: ['boolean_switch_basic_usage_field'],
+    },
+    {
+      title: 'Title switch',
+      titlePosition: 'left',
+      titleClass: ['flex', 'items-center'],
+      name: 'boolean_switch_basic_usage_field',
+      value: false,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      name: 'boolean_groupСheckbox_basic_usage_block',
+      type: 'code',
+      info: 'Параметр "viewType: groupСheckbox"',
+      infoTitle: 'Basic usage with viewType=groupСheckbox',
+      cssClass: ['flex', 'items-start', 'gap-2'],
+      fields: ['boolean_groupСheckbox_basic_usage_field'],
+    },
+    {
+      title: 'Title groupСheckbox',
+      name: 'boolean_groupСheckbox_basic_usage_field',
+      value: ['item_2'],
+      type: 'boolean',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 'item_1',
+        },
+        {
+          label: 'Значение 2',
+          value: 'item_2',
+        },
+        {
+          label: 'Значение 3',
+          value: 'item_3',
+        },
+      ],
+      viewType: 'groupСheckbox',
+    },
+    {
+      name: 'boolean_checkbox_css_style_usage_block',
+      type: 'code',
+      info: '"cssClass" - классы для самого поля. "style" - обьект с описанием css inline стилей. "parentClass" - классы для родительского контейнера.',
+      infoTitle: 'Checkbox - cssClass and style, parentClass',
+      cssClass: ['flex', 'items-start', 'gap-2', 'flex-col'],
+      fields: [
+        'boolean_checkbox_css_style_field_1',
+        'boolean_checkbox_css_style_field_2',
+        'boolean_checkbox_css_style_field_3',
+      ],
+    },
+    {
+      title: 'Parent Class',
+      parentClass: ['p-4', 'bg-[#0072]', 'rounded-lg'],
+      name: 'boolean_checkbox_css_style_field_1',
+      value: true,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      title: 'Style classes',
+      style: {
+        margin: '10px',
+        width: '100px',
+        backgroundColor: '#0022',
+        borderRadius: '8px',
+      },
+      name: 'boolean_checkbox_css_style_field_2',
+      value: true,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      title: 'Css class',
+      cssClass: ['testClass'],
+      name: 'boolean_checkbox_css_style_field_3',
+      value: true,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      name: 'boolean_switch_css_style_usage_block',
+      type: 'code',
+      info: '"cssClass" - классы для самого поля. "style" - обьект с описанием css inline стилей. "parentClass" - классы для родительского контейнера.',
+      infoTitle: 'Switch - cssClass and style, parentClass',
+      cssClass: ['flex', 'items-start', 'gap-2', 'flex-col'],
+      fields: [
+        'boolean_switch_css_style_field_1',
+        'boolean_switch_css_style_field_2',
+        'boolean_switch_css_style_field_3',
+      ],
+    },
+    {
+      title: 'Parent Class',
+      parentClass: ['p-4', 'bg-[#0072]', 'rounded-lg'],
+      name: 'boolean_switch_css_style_field_1',
+      value: false,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      title: 'Style classes',
+      style: {
+        margin: '10px',
+        width: '100px',
+      },
+      name: 'boolean_switch_css_style_field_2',
+      value: false,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      title: 'Css class',
+      cssClass: ['testClass'],
+      name: 'boolean_switch_css_style_field_3',
+      value: true,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      name: 'boolean_col_2',
+      type: 'div',
+      fields: [
+        'boolean_checkbox_title_usage_block',
+        'boolean_switch_title_usage_block',
+        'boolean_groupСheckbox_title_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'boolean_checkbox_title_usage_block',
+      type: 'code',
+      info: 'Параметр "title": выводит отборажение заголовка для поля (клик по тексту не меняет значение ckeckbox, для это нужно использовать label). "titlePosition": позиционирует title относительно самого поля (left/top/right/bottom). "titleClass" - параметр для классов применяемых к title (используются классы tailwind)',
+      infoTitle: 'Title usage for checkbox',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: [
+        'boolean_checkbox_title_usage_left_field',
+        'boolean_checkbox_title_usage_top_field',
+        'boolean_checkbox_title_usage_rigth_field',
+      ],
+    },
+    {
+      title: 'Left title',
+      titlePosition: 'left',
+      titleClass: ['font-medium'],
+      name: 'boolean_checkbox_title_usage_left_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      title: 'Top title',
+      titlePosition: 'top',
+      titleClass: ['text-xl'],
+      name: 'boolean_checkbox_title_usage_top_field',
+      value: false,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      title: 'Right title',
+      titlePosition: 'right',
+      titleClass: ['font-medium', 'text-sm'],
+      name: 'boolean_checkbox_title_usage_rigth_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      name: 'boolean_switch_title_usage_block',
+      type: 'code',
+      info: 'Параметр "title": выводит отборажение заголовка для поля (клик по тексту не меняет значение ckeckbox, для это нужно использовать label)."titlePosition": позиционирует title относительно самого поля (left/top/right/bottom). "titleClass" - параметр для классов применяемых к title (используются классы tailwind)',
+      infoTitle: 'Title usage for switch',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: [
+        'boolean_switch_title_usage_left_field',
+        'boolean_switch_title_usage_top_field',
+        'boolean_switch_title_usage_rigth_field',
+      ],
+    },
+    {
+      title: 'Left title',
+      titlePosition: 'left',
+      titleClass: ['font-medium'],
+      name: 'boolean_switch_title_usage_left_field',
+      value: false,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      title: 'Top title',
+      titlePosition: 'top',
+      titleClass: ['text-xl'],
+      name: 'boolean_switch_title_usage_top_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      title: 'Right title',
+      titlePosition: 'right',
+      titleClass: ['font-medium', 'text-sm'],
+      name: 'boolean_switch_title_usage_rigth_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      name: 'boolean_groupСheckbox_title_usage_block',
+      type: 'code',
+      info: 'Параметр "title": выводит отборажение заголовка для поля (клик по тексту не меняет значение ckeckbox, для это нужно использовать label). "titlePosition": позиционирует title относительно самого поля (left/top/right/bottom). "titleClass" - параметр для классов применяемых к title (используются классы tailwind)',
+      infoTitle: 'Title usage for groupСheckbox',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: [
+        'boolean_groupСheckbox_title_usage_left_field',
+        'boolean_groupСheckbox_title_usage_top_field',
+        'boolean_groupСheckbox_title_usage_rigth_field',
+      ],
+    },
+    {
+      title: 'Left title',
+      titlePosition: 'left',
+      titleClass: ['font-medium'],
+      name: 'boolean_groupСheckbox_title_usage_left_field',
+      value: ['item_2'],
+      type: 'boolean',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 'item_1',
+        },
+        {
+          label: 'Значение 2',
+          value: 'item_2',
+        },
+        {
+          label: 'Значение 3',
+          value: 'item_3',
+        },
+      ],
+      viewType: 'groupСheckbox',
+    },
+    {
+      title: 'Top title',
+      titleClass: ['font-medium'],
+      name: 'boolean_groupСheckbox_title_usage_top_field',
+      value: ['item_1'],
+      type: 'boolean',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 'item_1',
+        },
+        {
+          label: 'Значение 2',
+          value: 'item_2',
+        },
+        {
+          label: 'Значение 3',
+          value: 'item_3',
+        },
+      ],
+      viewType: 'groupСheckbox',
+    },
+    {
+      title: 'Right title',
+      titleClass: ['font-medium'],
+      titlePosition: 'right',
+      name: 'boolean_groupСheckbox_title_usage_rigth_field',
+      value: ['item_3'],
+      type: 'boolean',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 'item_1',
+        },
+        {
+          label: 'Значение 2',
+          value: 'item_2',
+        },
+        {
+          label: 'Значение 3',
+          value: 'item_3',
+        },
+      ],
+      viewType: 'groupСheckbox',
+    },
+    {
+      name: 'boolean_col_3',
+      type: 'div',
+      fields: [
+        'boolean_checkbox_label_usage_block',
+        'boolean_switch_label_usage_block',
+        'boolean_switch_disabled_usage_block',
+        'boolean_groupСheckbox_options_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'boolean_checkbox_label_usage_block',
+      type: 'code',
+      info: 'Параметр "label": выводит отборажение кликабельного текста для поля (клик по тексту меняет значение boolean).',
+      infoTitle: 'Label for checkbox',
+      cssClass: ['flex', 'items-start', 'gap-4'],
+      fields: ['boolean_checkbox_label_usage_basic_field'],
+    },
+    {
+      label: 'Label for checkbox',
+      name: 'boolean_checkbox_label_usage_basic_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'checkbox',
+    },
+    {
+      name: 'boolean_switch_label_usage_block',
+      type: 'code',
+      info: 'Параметр "label": выводит отборажение кликабельного текста для поля (клик по тексту меняет значение boolean). "labelBefore": true - позиционирует label перед полем switch. По-умолчанию label отображается справа.',
+      infoTitle: 'Label for switch, labelBefore',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: [
+        'boolean_switch_label_usage_basic_field',
+        'boolean_switch_label_usage_labelBefore_field',
+      ],
+    },
+    {
+      label: 'Left label',
+      name: 'boolean_switch_label_usage_basic_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      label: 'Label before label',
+      labelBefore: true,
+      name: 'boolean_switch_label_usage_labelBefore_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'switch',
+    },
+    {
+      name: 'boolean_switch_disabled_usage_block',
+      type: 'code',
+      info: '"disabled": true/false - делает поле заблокированым. По-умолчанию значение false.',
+      infoTitle: 'Disabled switch',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: ['boolean_switch_disabled_usage_basic_field'],
+    },
+    {
+      label: 'Label',
+      name: 'boolean_switch_disabled_usage_basic_field',
+      value: true,
+      type: 'boolean',
+      viewType: 'switch',
+      disabled: true,
+    },
+    {
+      name: 'boolean_groupСheckbox_options_usage_block',
+      type: 'code',
+      info: '"options" -  массив значений (опций) для groupСheckbox. у каждой опции есть поле "label"-текст который будет отображаться для checkbox, и поле "value"-значение для этого checkbox.',
+      infoTitle: 'Options for groupСheckbox',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: ['boolean_groupСheckbox_options_usage_basic_field'],
+    },
+    {
+      title: 'Title groupСheckbox',
+      name: 'boolean_groupСheckbox_options_usage_basic_field',
+      value: ['item_1', 'item_2'],
+      type: 'boolean',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 'item_1',
+        },
+        {
+          label: 'Значение 2',
+          value: 'item_2',
+        },
+        {
+          label: 'Значение 3',
+          value: 'item_3',
+        },
+      ],
+      viewType: 'groupСheckbox',
+    },
+    // RADIO block
+    {
+      name: 'radio_block',
+      type: 'div',
+      fields: ['radio_title_block', 'radio_body'],
+    },
+    {
+      name: 'radio_title_block',
+      type: 'div',
+      fields: ['radio_title'],
+    },
+    {
+      text: 'Radio',
+      name: 'radio_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'radio_body',
+      type: 'div',
+      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      fields: ['radio_col_1', 'radio_col_2'],
+    },
+    {
+      name: 'radio_col_1',
+      type: 'div',
+      fields: [
+        'radio_default_basic_usage_block',
+        'radio_button_basic_usage_block',
+        'radio_subtitle_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'radio_col_2',
+      type: 'div',
+      fields: ['radio_options_usage_block', 'radio_style_css_usage_block'],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'radio_default_basic_usage_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'Basic usage default',
+      cssClass: ['flex', 'items-start', 'gap-2'],
+      fields: ['radio_default_basic_usage_field'],
+    },
+    {
+      name: 'radio_default_basic_usage_field',
+      value: 2,
+      type: 'radio',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    {
+      name: 'radio_button_basic_usage_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'Basic usage viewType = "button"',
+      cssClass: ['flex', 'items-start', 'gap-2'],
+      fields: ['radio_button_basic_usage_field'],
+    },
+    {
+      name: 'radio_button_basic_usage_field',
+      value: 1,
+      type: 'radio',
+      viewType: 'button',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    {
+      name: 'radio_subtitle_usage_block',
+      type: 'code',
+      info: '"subtitle": - объект описывающий вспомогатейльный текст под полем. Содержит поля: "text": - текст содержание, "style": - inline стили css применяемые для subtitle, "cssClass": -  массив классов для subtitle.',
+      infoTitle: 'Subtitle',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: [
+        'radio_subtitle_usage_field',
+        'radio_subtitle_button_usage_field',
+      ],
+    },
+    {
+      name: 'radio_subtitle_usage_field',
+      value: 1,
+      type: 'radio',
+      subtitle: {
+        text: 'Subtitle',
+        style: {
+          padding: '5px',
+          fontSize: '16px',
+        },
+        cssClass: ['bg-[#0022]'],
+      },
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    {
+      name: 'radio_subtitle_button_usage_field',
+      value: 2,
+      type: 'radio',
+      viewType: 'button',
+      subtitle: {
+        text: 'Subtitle "viewType": button',
+        style: {
+          padding: '5px',
+          fontSize: '16px',
+        },
+        cssClass: ['bg-[#0022]'],
+      },
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    {
+      name: 'radio_options_usage_block',
+      type: 'code',
+      info: '"options": - массив объектов который описывает значения для radio. Содержит поля: "label": - текст значения для отображения, "value": - уникальное значение (string/integer).',
+      infoTitle: 'Options',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: ['radio_options_usage_field', 'radio_options_button_usage_field'],
+    },
+    {
+      title: 'Basic usage',
+      name: 'radio_options_usage_field',
+      value: 1,
+      type: 'radio',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    {
+      title: 'ViewType: button',
+      name: 'radio_options_button_usage_field',
+      value: [],
+      viewType: 'button',
+      type: 'radio',
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    {
+      name: 'radio_style_css_usage_block',
+      type: 'code',
+      info: '"cssClass" - классы для самого поля. "style" - обьект с описанием css inline стилей. "buttonClass" - классы для описания стилей кнопок (работает только для viewType:button) "parentClass" - классы для родительского контейнера.',
+      infoTitle: 'Style, cssClass and buttonClass',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
+      fields: [
+        'radio_style_css_usage_field',
+        'radio_style_css_button_usage_field',
+      ],
+    },
+    {
+      title: 'Basic usage',
+      name: 'radio_style_css_usage_field',
+      value: 1,
+      type: 'radio',
+      style: {
+        padding: '5px',
+        fontSize: '16px',
+      },
+      cssClass: ['bg-[#0022]'],
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    {
+      title: 'Style for "viewType":button',
+      name: 'radio_style_css_button_usage_field',
+      value: 1,
+      type: 'radio',
+      viewType: 'button',
+      style: {
+        padding: '5px',
+        fontSize: '16px',
+      },
+      cssClass: ['bg-[#0022]'],
+      buttonClass: ['p-4', 'text-xl'],
+      options: [
+        {
+          label: 'Значение 1',
+          value: 1,
+        },
+        {
+          label: 'Значение 2',
+          value: 2,
+        },
+        {
+          label: 'Значение 3',
+          value: 3,
+        },
+      ],
+    },
+    // LINK block
+    {
+      name: 'link_block',
+      type: 'div',
+      fields: ['link_title_block', 'link_body'],
+    },
+    {
+      name: 'link_title_block',
+      type: 'div',
+      fields: ['link_title'],
+    },
+    {
+      text: 'Link',
+      name: 'link_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'link_body',
+      type: 'div',
+      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      fields: ['link_col_1', 'link_col_2'],
+    },
+    {
+      name: 'link_col_1',
+      type: 'div',
+      fields: [
+        'link_default_basic_usage_block',
+        'link_mode_router_basic_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'link_col_2',
+      type: 'div',
+      fields: ['link_style_css_basic_usage_block'],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'link_default_basic_usage_block',
+      type: 'code',
+      info: 'При базовом отображенни ссылки используется "HTML тег - <a></a>"',
+      infoTitle: 'Basic usage link',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col', 'w-[450px]'],
+      fields: ['link_default_basic_usage_field'],
+    },
+    {
+      text: 'Пример ссылки',
+      name: 'link_default_basic_usage_field',
+      type: 'link',
+      link: '/main/ui_kit?example',
+    },
+    {
+      name: 'link_mode_router_basic_usage_block',
+      type: 'code',
+      info: 'При отображении с указанием "mode: router", ссылка отображается при помощи vue-router (<router-link>).',
+      infoTitle: 'Basic usage mode:router',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col', 'w-[450px]'],
+      fields: ['link_mode_router_basic_usage_field'],
+    },
+    {
+      text: 'Пример ссылки mode - router',
+      name: 'link_mode_router_basic_usage_field',
+      type: 'link',
+      mode: 'router',
+      link: '/main/ui_kit?example',
+    },
+    {
+      name: 'link_style_css_basic_usage_block',
+      type: 'code',
+      info: '"cssClass" - классы для самого поля. "style" - обьект с описанием css inline стилей. "parentClass" - классы для родительского контейнера.',
+      infoTitle: 'Style, cssClass and parentClass',
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col', 'w-[450px]'],
+      fields: ['link_style_css_basic_usage_field'],
+    },
+    {
+      text: 'Пример ссылки',
+      name: 'link_style_css_basic_usage_field',
+      type: 'link',
+      link: '/main/ui_kit?example',
+      style: {
+        margin: '10px',
+        fontWeight: '600',
+      },
+      cssClass: ['text-xl', 'p-2'],
+      parentClass: ['bg-[#0022]'],
+    },
+    // LABEL block
+    {
+      name: 'label_block',
+      type: 'div',
+      fields: ['label_title_block', 'label_body'],
+    },
+    {
+      name: 'label_title_block',
+      type: 'div',
+      fields: ['label_title'],
+    },
+    {
+      text: 'Label',
+      name: 'label_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'label_body',
+      type: 'div',
+      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      fields: ['label_col_1', 'label_col_2', 'label_col_3'],
+    },
+    {
+      name: 'label_col_1',
+      type: 'div',
+      fields: [
+        'label_basic_usage_block',
+        'label_style_css_usage_block',
+        'label_external_value_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'label_col_2',
+      type: 'div',
+      fields: [
+        'label_tooltip_usage_block',
+        'label_tooltip_show_icon_usage_block',
+        'label_tooltip_position_icon_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'label_col_3',
+      type: 'div',
+      fields: [
+        'label_tooltip_icon_text_usage_block',
+        'label_tooltip_trigger_color_usage_block',
+      ],
+      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+    },
+    {
+      name: 'label_basic_usage_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'Basic usage Label',
+      cssClass: ['flex', 'items-center', 'gap-2', 'w-[450px]'],
+      fields: ['label_basic_usage_field'],
+    },
+    {
+      text: 'Пример label 1234567890',
+      name: 'label_basic_usage_field',
+      type: 'label',
+    },
+    {
+      name: 'label_style_css_usage_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'Style, cssClass, parentClass for Label',
+      cssClass: ['flex', 'items-center', 'gap-2', 'w-[450px]'],
+      fields: ['label_style_css_usage_field'],
+    },
+    {
+      text: 'Пример label styles',
+      name: 'label_style_css_usage_field',
+      type: 'label',
+      cssClass: ['text-xl', 'mx-4', 'font-medium'],
+      parentClass: ['p-2', 'bg-[#0022]'],
+      style: {
+        color: '#007',
+      },
+    },
+    {
+      name: 'label_external_value_usage_block',
+      type: 'code',
+      info: '"externalValue" - параметр отвечает за что, будет ли обновлено значение поля (текст label) после получения/отправки данных на сервер.',
+      infoTitle: 'ExternalValue Label',
+      cssClass: ['flex', 'items-center', 'gap-2', 'w-[450px]'],
+      fields: ['label_external_value_usage_field'],
+    },
+    {
+      text: 'Пример externalValue label',
+      name: 'label_external_value_usage_field',
+      type: 'label',
+      cssClass: ['text-xl', 'mx-4', 'font-medium', 'text-[#ff0000]'],
+      externalValue: true,
+    },
+    {
+      name: 'label_tooltip_usage_block',
+      type: 'code',
+      info: '',
+      infoTitle: 'Default usage tooltip for Label',
+      cssClass: ['flex', 'items-center', 'gap-2', 'w-[450px]'],
+      fields: ['label_tooltip_usage_field'],
+    },
+    {
+      text: 'Пример tooltip label',
+      name: 'label_tooltip_usage_field',
+      type: 'label',
+      cssClass: ['text-xl', 'mx-4', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Текст тултипа',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      name: 'label_tooltip_show_icon_usage_block',
+      type: 'code',
+      info: '"showIcon" - параметр отвечает за отображение иконки подсказки. Если значение true - то иконка отображается, если false - то подсказка всплывает после наведения на сам текст label.',
+      infoTitle: 'showIcon params for Tooltip',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: [
+        'label_tooltip_icon_usage_field_1',
+        'label_tooltip_icon_usage_field_2',
+      ],
+    },
+    {
+      text: 'Пример showIcon = true',
+      name: 'label_tooltip_icon_usage_field_1',
+      type: 'label',
+      cssClass: ['text-xl', 'mx-4', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Иконка отображается',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      text: 'Пример showIcon = false',
+      name: 'label_tooltip_icon_usage_field_2',
+      type: 'label',
+      cssClass: ['text-xl', 'mx-4', 'font-medium'],
+      showTooltip: {
+        showIcon: false,
+        text: 'Иконка не отображается',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      name: 'label_tooltip_position_icon_usage_block',
+      type: 'code',
+      info: '"positionIcon" - параметр отвечает за позицию иконки подсказки отностительно текста label. Обязательный параметр (left/right). ',
+      infoTitle: 'positionIcon params for Tooltip',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: [
+        'label_tooltip_position_icon_usage_field_1',
+        'label_tooltip_position_icon_usage_field_2',
+      ],
+    },
+    {
+      text: 'Пример positionIcon - right',
+      name: 'label_tooltip_position_icon_usage_field_1',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Иконка отображается слева',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      text: 'Пример positionIcon - left',
+      name: 'label_tooltip_position_icon_usage_field_2',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'left',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Иконка отображается справа',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      name: 'label_tooltip_icon_text_usage_block',
+      type: 'code',
+      info: '"icon" - параметр в котором перечисляются fa-иконки, отображающиеся в подсказке. (Используются только FontAwesome icons, передаются строкой). "text" - параметр отвечает за текст, который содержит всплывающая подсказка.',
+      infoTitle: 'icon and text params for Tooltip',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: [
+        'label_tooltip_icon_text_usage_field_1',
+        'label_tooltip_icon_text_usage_field_2',
+        'label_tooltip_icon_text_usage_field_3',
+      ],
+    },
+    {
+      text: 'Пример разных icons',
+      name: 'label_tooltip_icon_text_usage_field_1',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-folder-closed',
+        text: 'Текст подсказки',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      text: 'Пример разных icons',
+      name: 'label_tooltip_icon_text_usage_field_2',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-closed-captioning',
+        text: 'Текст подсказки',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      text: 'Пример text для подсказки',
+      name: 'label_tooltip_icon_text_usage_field_3',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Текстовое содержание подсказки 1234567890',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      name: 'label_tooltip_trigger_color_usage_block',
+      type: 'code',
+      info: '"trigger" - параметр отвечает за то на какое событие пользователя будет отображаться подсказка (hover/click). "color" - параметр в котором можно передать фон всплывающей подсказки.',
+      infoTitle: 'trigger and color params for Tooltip',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: [
+        'label_tooltip_trigger_color_usage_field_1',
+        'label_tooltip_trigger_color_usage_field_2',
+        'label_tooltip_trigger_color_usage_field_3',
+      ],
+    },
+    {
+      text: 'Пример trigger hover',
+      name: 'label_tooltip_trigger_color_usage_field_1',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Текст подсказки',
+        trigger: 'hover',
+        color: 'gray',
+      },
+    },
+    {
+      text: 'Пример trigger click',
+      name: 'label_tooltip_trigger_color_usage_field_2',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Подсказка появилась после клика',
+        trigger: 'click',
+        color: 'red',
+      },
+    },
+    {
+      text: 'Пример color задан через #',
+      name: 'label_tooltip_trigger_color_usage_field_3',
+      type: 'label',
+      cssClass: ['text-xl', 'font-medium'],
+      showTooltip: {
+        showIcon: true,
+        positionIcon: 'right',
+        icon: 'fa-regular fa-circle-question',
+        text: 'Подсказка',
+        trigger: 'hover',
+        color: '#0077',
+      },
     },
   ],
 }

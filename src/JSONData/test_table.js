@@ -57,7 +57,7 @@ export default {
       },
       data: [
         {
-          name: { title: 'Евгений', link: '/mikes' },
+          name: { title: 'Евгений', link: '/' },
           status: [
             {
               id: 'iqeouhifd98io3f',

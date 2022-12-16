@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="haveFilter || (searchConfig && item.config.buttons)"
-    class="flex items-center jusWetween pb-6"
+    class="flex items-center justify-between flex-wrap pb-6"
   >
     <TableFilters
       v-model:filteredInfo="filteredInfo"
@@ -329,10 +329,7 @@ const renderColumns = () => {
       }
     }
     if (col.filterType === 'category')
-      col.widget.params = getCategoryFilterData(
-        col.key,
-        col.widget?.filterParam
-      )
+      col.widget.params = getCategoryFilterData(col.key, col.filterParam)
   })
 }
 const getCategoryFilterData = (columnName, param) => {
@@ -387,13 +384,20 @@ const saveTable = async () => {
 }
 
 const search = () => {
-  searchedDataSource.value = dataSource.value.filter((row) =>
-    Object.keys(row).some((colName) => {
-      if (searchData.value.field === colName) {
-        return searchField(row, colName)
-      }
-    })
-  )
+  if (
+    searchData.value.value === undefined ||
+    (Array.isArray(searchData.value.value) && !searchData.value.value.length)
+  ) {
+    searchedDataSource.value = null
+  } else {
+    searchedDataSource.value = dataSource.value.filter((row) =>
+      Object.keys(row).some((colName) => {
+        if (searchData.value.field === colName) {
+          return searchField(row, colName)
+        }
+      })
+    )
+  }
 }
 const searchField = (row, colName) => {
   const col = columns.value.find((col) => col.dataIndex === colName)
@@ -404,24 +408,28 @@ const searchField = (row, colName) => {
       ? false
       : JSON.stringify(data)
           .toLowerCase()
-          .includes(searchData.value.value.toLowerCase())
+          .includes(searchData.value?.value?.toLowerCase())
   }
   if (col.widget.name === 'date')
     return dayjs(row[colName] * 1000)
       .format(col.widget.format)
       .toLowerCase()
-      .includes(searchData.value.value.toLowerCase())
+      .includes(searchData.value?.value?.toLowerCase())
   if (col.widget.name === 'text')
     return String(row[colName])
       .toLowerCase()
-      .includes(searchData.value.value.toLowerCase())
-  if (col.widget.name === 'boolean') {
+      .includes(searchData.value?.value?.toLowerCase())
+  if (col.widget.name === 'multiselect') {
+    const val = JSON.parse(JSON.stringify(searchData.value.value))
+    return val.includes(String(row[colName]))
+  }
+  if (col.widget.name === 'checkbox') {
     if (!searchData.value.value) return true
     return row[colName] === searchData.value.value
   }
   return JSON.stringify(row[colName])
     .toLowerCase()
-    .includes(searchData.value.value.toLowerCase())
+    .includes(searchData.value?.value?.toLowerCase())
 }
 </script>
 <style lang="scss" scoped>

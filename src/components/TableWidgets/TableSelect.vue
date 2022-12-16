@@ -26,7 +26,7 @@
   <div v-if="!editableData[item.key] && !isEditableItem">
     <a-select
       v-if="!column.widget.type"
-      v-model:value="value"
+      :value="initSelectValue"
       :placeholder="`${column.title}`"
       :options="column.widget.params"
       :field-names="{ label: 'value', value: 'id' }"
@@ -70,14 +70,22 @@ const props = defineProps({
   setData: Function,
   config: Object,
 })
-const emits = defineEmits(['change'])
+const emits = defineEmits(['update:editData', 'change'])
 const isEditableItem = ref(false)
 const itemValue = ref({})
 const loading = ref(false)
-const editableData = ref(props.editData)
+
+const editableData = computed({
+  get() {
+    return props.editData
+  },
+  set(newValue) {
+    emits('update:editData', newValue)
+  },
+})
 
 const initSelectValue = computed(
-  () => props.dataSource[props.item.key][props.column.dataIndex]
+  () => props.dataSource?.[props.item.key]?.[props.column.dataIndex]
 )
 const value = computed(() => {
   if (!props.column.widget.type) return props.text

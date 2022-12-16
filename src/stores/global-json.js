@@ -5,6 +5,7 @@ import { noFormWidgetsNames } from '@/utils/widgetsTypesNames.js'
 import { defineStore } from 'pinia'
 import * as yup from 'yup'
 import mainData from '../JSONData/MainJSON'
+import { findField } from '@/utils/global-json-helpers.js'
 
 export const useGlobalJsonDataStore = defineStore({
   id: 'global-json',
@@ -140,23 +141,6 @@ export const useGlobalJsonDataStore = defineStore({
         }
       }
     },
-    findField(fArr = [], fName) {
-      if (!fArr.length) return
-      let searchResult = null
-
-      const recursiveSearch = (arr = [], name) => {
-        arr.forEach((item) => {
-          if (item.name === name) {
-            searchResult = item
-          } else {
-            recursiveSearch(item.fieldsData, name)
-          }
-        })
-      }
-      recursiveSearch(fArr, fName)
-
-      return searchResult
-    },
 
     //SEND DATA FUNCTIONS
     async pushData({
@@ -178,10 +162,10 @@ export const useGlobalJsonDataStore = defineStore({
       }
       if (validate) {
         await this.validateData(pageName, blockName).then(async () => {
-          sendData()
+          await sendData()
         })
       } else {
-        sendData()
+        await sendData()
       }
     },
     async getBlockData(pageName, blockName) {
@@ -189,7 +173,7 @@ export const useGlobalJsonDataStore = defineStore({
         delete this.sendData[pageName][el]
       })
       let data = {}
-      const findBlock = this.findField(
+      const findBlock = findField(
         this.$state.formattingData[pageName],
         blockName
       )
@@ -238,7 +222,7 @@ export const useGlobalJsonDataStore = defineStore({
       } else {
         this.oldBlockname = blockName
       }
-      const findBlock = this.findField(
+      const findBlock = findField(
         this.$state.formattingData[pageName],
         blockName
       )
@@ -282,12 +266,12 @@ export const useGlobalJsonDataStore = defineStore({
 
     //HANDLERS FORM
     editField({ pageName, blockName, fieldName, value }) {
-      const groups = this.$state.formattingData[pageName]
+      const groups = this.formattingData[pageName]
       if (typeof blockName === 'string') {
         blockName = [blockName]
       }
       blockName.forEach((block) => {
-        const findBlock = this.findField(groups, block)
+        const findBlock = findField(groups, block)
         if (findBlock) {
           if (fieldName in findBlock) {
             if (Array.isArray(findBlock[fieldName])) {
@@ -377,10 +361,8 @@ export const useGlobalJsonDataStore = defineStore({
     },
     getJsonCode({ pageName, blockName }) {
       const groups = this.formattingData[pageName]
-      const findBlock = this.findField(groups, blockName)
-      const jsonCode = findBlock.fields.map((block) =>
-        this.findField(groups, block)
-      )
+      const findBlock = findField(groups, blockName)
+      const jsonCode = findBlock.fields.map((block) => findField(groups, block))
       return jsonCode
     },
 

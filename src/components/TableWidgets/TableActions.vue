@@ -115,12 +115,7 @@ const count = computed(() => {
 })
 
 const onCopy = (item) => {
-  dataSource.value.push({
-    activity: true,
-    key: count.value,
-    name: item.name,
-    visibility: item.visibility,
-  })
+  dataSource.value.push(Object.assign({}, item, { key: count.value }))
 }
 const onDelete = (key) => {
   dataSource.value = dataSource.value.filter((item) => item.key !== key)

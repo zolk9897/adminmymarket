@@ -123,7 +123,7 @@ export default {
         {
           offer: {
             title: 'Iphone',
-            link: '/mikes',
+            link: '#',
             offerInfo: [
               { param: 'Экран', value: '6.7 (2778х1284) OLED 120Гц' },
               { param: 'Встроенная память', value: '128 гБ' },
@@ -145,9 +145,9 @@ export default {
           widget: {
             name: 'popover',
             type: 'columns',
-            filterParam: 'title',
           },
           width: 150,
+          filterParam: 'title',
           filterType: 'category',
         },
         {

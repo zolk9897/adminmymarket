@@ -62,10 +62,19 @@ function searchFilter(record, value, col) {
 }
 
 function categoryFilter(record, value, col) {
-  const colValue = col.widget.params[value].value
+  if (col.filterMultiple) {
+    const valArr = JSON.parse('[' + value + ']')
+    const colValue = col.widget.params
+      .filter((item) => valArr.includes(item.id))
+      .map((el) => el.value)
 
-  if (colValue === record[col.key][col.widget?.filterParam]) return true
-  if (colValue === record[col.key]) return true
+    if (colValue.includes(record[col.key][col.filterParam])) return true
+    if (colValue.includes(record[col.key])) return true
+  } else {
+    const colValue = col.widget.params[value].value
+    if (colValue === record[col.key][col.filterParam]) return true
+    if (colValue === record[col.key]) return true
+  }
   return false
 }
 

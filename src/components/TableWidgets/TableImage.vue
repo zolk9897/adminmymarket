@@ -29,3 +29,8 @@ const editableData = computed({
   },
 })
 </script>
+<style lang="scss">
+.ant-image-preview-img {
+  display: inline;
+}
+</style>

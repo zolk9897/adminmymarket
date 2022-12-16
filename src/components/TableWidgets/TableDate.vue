@@ -31,9 +31,16 @@ const props = defineProps({
   editData: [Object, String],
 })
 
-const emits = defineEmits(['change'])
+const emits = defineEmits(['update:editData', 'change'])
 
-const editableData = computed(() => props.editData)
+const editableData = computed({
+  get() {
+    return props.editData
+  },
+  set(newValue) {
+    emits('update:editData', newValue)
+  },
+})
 
 const textDateFormat = computed(() =>
   dayjs(props.text * 1000).format(props.widget.format)

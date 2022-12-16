@@ -43,6 +43,7 @@ export default {
       type: 'table',
       config: {
         pagination: false,
+        hideSearchBtn: true,
         size: 'small',
         align: 'center',
         bordered: true,

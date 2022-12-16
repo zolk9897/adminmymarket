@@ -43,6 +43,7 @@ export default {
         size: 'small',
         align: 'center',
         bordered: true,
+        hideSearchBtn: true,
         buttons: [
           {
             name: 'add',

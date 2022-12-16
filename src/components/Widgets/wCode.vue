@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" :class="item.parentClass">
     <div class="item-block" :style="item.style" :class="item.cssClass">
       <template v-for="(el, index) in item.fieldsData" :key="el.name + index">
         <WidgetSwitch :item="el" />
@@ -7,10 +7,10 @@
     </div>
     <div class="code-block">
       <div v-if="sendData.ui_kit.info_switch" class="relative">
-        <div class="absolute top-[-24px] bg-white">
+        <span class="absolute top-[-24px] bg-white font-medium">
           {{ item.infoTitle }}
-        </div>
-        <div class="w-[200px]">{{ item.info }}</div>
+        </span>
+        <p v-for="(el, index) in info" :key="el + index">{{ el }}</p>
       </div>
       <div class="buttons-block">
         <a-button
@@ -44,6 +44,7 @@ import { onMounted, ref } from 'vue'
 
 const { sendData, getJsonCode } = useGlobalJsonDataStore()
 const visibleCode = ref(false)
+const info = props.item.info.split('\n')
 
 const props = defineProps({
   item: {
@@ -66,7 +67,7 @@ const copyCode = () => {
   padding: 10px;
 }
 .item-block {
-  padding: 20px;
+  padding: 15px 0;
 }
 .code-block {
   border-top: 1px solid #f0f0f0;

@@ -44,6 +44,7 @@ export default {
       config: {
         pagination: false,
         size: 'small',
+        hideSearchBtn: true,
         align: 'center',
         bordered: true,
         selection: { active: true },
@@ -51,6 +52,7 @@ export default {
           {
             name: 'banner_groups_search',
             type: 'input',
+            size: 'large',
             fields: ['active'],
           },
         ],

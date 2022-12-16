@@ -46,8 +46,4 @@ const props = defineProps({
   editData: [Object, String],
   column: Object,
 })
-
-const editableData = computed(() => {
-  return props.editData
-})
 </script>
