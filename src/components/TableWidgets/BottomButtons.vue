@@ -229,7 +229,7 @@ const setStatus = (param, colName) => {
         param.id)
   )
 
-  if (props.item.config.selection.updateOnSave) {
+  if (props.item.config.selection.notImmediateUpdate) {
     // изменить заголовок дропдауна
     statusTitle.value[colName] = param.value
   }

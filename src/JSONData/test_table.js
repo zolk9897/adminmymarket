@@ -51,7 +51,7 @@ export default {
         selection: {
           save: true,
           setStatus: true,
-          updateOnSave: true,
+          notImmediateUpdate: true,
           setStatusColumn: ['status1'],
         },
       },

@@ -19,7 +19,15 @@
       <template #overlay>
         <a-menu>
           <a-menu-item v-if="column.edit" key="1">
-            <a @click="onEdit(item.key)">Изменить</a>
+            <a
+              v-if="column.edit.type === 'action' || !column.edit.type"
+              @click="onEdit(item.key)"
+            >
+              Изменить
+            </a>
+            <router-link v-else :to="item[column.edit.link_field]">
+              Изменить
+            </router-link>
           </a-menu-item>
           <a-menu-item v-if="column.delete" key="2">
             <a-popconfirm
@@ -35,7 +43,7 @@
             <a @click="onCopy(item)"> Копировать </a>
           </a-menu-item>
           <a-menu-item v-if="column.deactivate" key="4">
-            <a @click="onDeactivate(item.key, column.deactivate)">
+            <a @click="onDeactivate(item, column.deactivate)">
               {{ item[column.deactivate] ? 'Деактивировать' : 'Активировать' }}
             </a>
           </a-menu-item>
@@ -68,6 +76,7 @@ const emits = defineEmits([
   'update:dataSource',
   'saveRow',
   'rowUpdated',
+  'search',
 ])
 
 const editableData = computed({
@@ -119,10 +128,69 @@ const onCopy = (item) => {
 }
 const onDelete = (key) => {
   dataSource.value = dataSource.value.filter((item) => item.key !== key)
+  dataSource.value.forEach((element) => deepRemove(element, key))
+  emits('search')
 }
-const onDeactivate = (key, field) => {
-  dataSource.value.find((item) => key === item.key)[field] =
-    !props.item[props.column.deactivate]
+
+const deepRemove = (data, key) => {
+  if (data?.children) {
+    data.children = data.children.filter((item) => item.key !== key)
+    if (data.children.length === 0) {
+      delete data.children
+      return
+    }
+    data.children.forEach((element) => deepRemove(element, key))
+  }
+}
+
+const onDeactivate = (item, field) => {
+  const found_record = dataSource.value.find(
+    (record) => item.key === record.key
+  )
+  if (found_record) {
+    found_record[field] = !item[field]
+    if (found_record?.children) {
+      found_record.children.forEach((element) =>
+        deepDeactivateAllChild(element, field, found_record)
+      )
+    }
+    return
+  }
+  dataSource.value.forEach((element) => {
+    deepDeactivate(element, field, item)
+  })
+  emits('search')
+}
+
+const deepDeactivate = (data, field, item) => {
+  if (data?.children) {
+    const found_record = data.children.find((record) => item.key === record.key)
+    if (found_record) {
+      found_record[field] = !item[field]
+      if (found_record?.children) {
+        found_record.children.forEach((element) =>
+          deepDeactivateAllChild(element, field, found_record)
+        )
+      }
+      if (found_record[field]) {
+        data[field] = true
+        return true
+      }
+    }
+    return data.children.forEach((element) => {
+      const deactivate_result = deepDeactivate(element, field, item)
+      if (deactivate_result) data[field] = true
+    })
+  }
+}
+const deepDeactivateAllChild = (data, field, item) => {
+  data[field] = item[field]
+
+  if (data?.children) {
+    data.children.forEach((element) =>
+      deepDeactivateAllChild(element, field, item)
+    )
+  }
 }
 </script>
 <style scoped>

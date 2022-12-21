@@ -1,4 +1,26 @@
 import dayjs from 'dayjs'
+import filterDeep from 'deepdash/filterDeep'
+
+const getFormattedFilterData = (filter) => {
+  const filterData = Object.assign({}, filter)
+  for (var key in filterData) {
+    if (filterData[key]) {
+      if (filterData[key].length === 2) {
+        if (!filterData[key][0] && !filterData[key][1]) filterData[key] = null
+      } else {
+        if (
+          filterData[key][0] === null ||
+          filterData[key][0] === '' ||
+          filterData[key][0] === undefined ||
+          (Array.isArray(filterData[key][0]) && !filterData[key][0].length)
+        ) {
+          filterData[key] = []
+        }
+      }
+    }
+  }
+  return filterData
+}
 
 function numberFilter(record, val, col, filteredInfo) {
   const value = filteredInfo.value[col.dataIndex]
@@ -93,6 +115,67 @@ function checkboxFilter(record, value, col) {
   return false
 }
 
+const search = (dataSource, searchData, item, columns) => {
+  if (item.value.config.tree) {
+    return filterDeep(
+      dataSource.value,
+      function (value) {
+        return value[searchData.value.field]
+          .toLowerCase()
+          .includes(searchData.value?.value.toLowerCase())
+      },
+      {
+        childrenPath: 'children',
+        onTrue: {
+          skipChildren: true,
+          cloneDeep: true,
+          keepIfEmpty: true,
+        },
+      }
+    )
+  } else {
+    return dataSource.value.filter((row) =>
+      Object.keys(row).some((colName) => {
+        if (searchData.value.field === colName) {
+          return searchField(row, colName, searchData, columns)
+        }
+      })
+    )
+  }
+}
+const searchField = (row, colName, searchData, columns) => {
+  const col = columns.value.find((col) => col.dataIndex === colName)
+  if (colName === 'key') return false
+  if (col.widget.name === 'select') {
+    const data = col.widget.params.find((param) => param.id === row[colName])
+    return !data
+      ? false
+      : JSON.stringify(data)
+          .toLowerCase()
+          .includes(searchData.value?.value?.toLowerCase())
+  }
+  if (col.widget.name === 'date')
+    return dayjs(row[colName] * 1000)
+      .format(col.widget.format)
+      .toLowerCase()
+      .includes(searchData.value?.value?.toLowerCase())
+  if (col.widget.name === 'text')
+    return String(row[colName])
+      .toLowerCase()
+      .includes(searchData.value?.value?.toLowerCase())
+  if (col.widget.name === 'multiselect') {
+    const val = JSON.parse(JSON.stringify(searchData.value.value))
+    return val.includes(String(row[colName]))
+  }
+  if (col.widget.name === 'checkbox') {
+    if (!searchData.value.value) return true
+    return row[colName] === searchData.value.value
+  }
+  return JSON.stringify(row[colName])
+    .toLowerCase()
+    .includes(searchData.value?.value?.toLowerCase())
+}
+
 export {
   numberFilter,
   dateFilter,
@@ -100,4 +183,6 @@ export {
   categoryFilter,
   selectFilter,
   checkboxFilter,
+  search,
+  getFormattedFilterData,
 }

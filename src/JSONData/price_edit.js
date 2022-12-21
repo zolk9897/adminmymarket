@@ -46,7 +46,7 @@ export default {
         align: 'center',
         bordered: false,
       },
-      data: 'https://eeb2b398-a948-45f9-b373-a6d086b91e0d.mock.pstmn.io/priceListEditTableData',
+      data: 'https://639b1c4631877e43d682a629.mockapi.io/priceListEditTableData',
       columns: [
         {
           title: 'Активность',

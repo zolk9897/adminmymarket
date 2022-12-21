@@ -1176,6 +1176,7 @@ export default {
       name: 'legal_tab__add_button',
       buttonType: 'primary',
       disabled: false,
+      showLoading: true,
       handlers: [
         {
           name: 'validateHandler',
@@ -1193,6 +1194,10 @@ export default {
               name: 'name_legal_input',
               status: 'status_legal_input',
               debt: 'price_legal_input',
+            },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
             },
           },
         },
@@ -1650,6 +1655,7 @@ export default {
       value: 'Добавить',
       name: 'table_banned_list__modal__add_button',
       buttonType: 'primary',
+      showLoading: true,
       handlers: [
         {
           name: 'validateHandler',
@@ -1668,6 +1674,10 @@ export default {
               ip_address: 'table_banned_list_modal__ip_address',
               comment_message: 'table_banned_list_modal__message_comment',
               active_status: 'table_banned_list_modal__active',
+            },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
             },
           },
         },
@@ -1824,6 +1834,7 @@ export default {
       value: 'Добавить',
       name: 'table_exeptions_list__modal__add_button',
       buttonType: 'primary',
+      showLoading: true,
       handlers: [
         {
           name: 'validateHandler',
@@ -1842,6 +1853,10 @@ export default {
               ip_address: 'table_exeptions_list_modal__ip_address',
               comment_message: 'table_exeptions_list_modal__message_comment',
               active_status: 'table_exeptions_list_modal__active',
+            },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
             },
           },
         },

@@ -189,6 +189,7 @@ export default {
       value: 'Добавить',
       name: 'blog_page__add_button',
       buttonType: 'primary',
+      showLoading: true,
       handlers: [
         {
           name: 'validateHandler',
@@ -208,6 +209,10 @@ export default {
               active_status: true,
               page_sort: 500,
               page_change_date: 1666803600,
+            },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
             },
           },
         },

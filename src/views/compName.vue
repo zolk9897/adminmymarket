@@ -79,17 +79,13 @@ const load = async () => {
   }
   setTimeout(() => {
     loading.value = false
-  }, 500)
+  }, 300)
 }
 
-watch(compName, () => {
+watch(compName, async () => {
   if (route.name === 'main') {
-    load()
+    await load()
   }
-})
-
-watch(route, () => {
-  load()
 })
 
 //VALIDATION
@@ -118,7 +114,9 @@ onBeforeMount(async () => {
   setMetaTitle()
   await getUseIdData()
   store.resetValidationErrors()
-  loading.value = false
+  setTimeout(() => {
+    loading.value = false
+  }, 300)
 })
 
 const getUseIdData = async () => {

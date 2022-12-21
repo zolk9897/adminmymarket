@@ -1,20 +1,22 @@
 <template>
-  <div
-    v-if="haveFilter || (searchConfig && item.config.buttons)"
-    class="flex items-center justify-between flex-wrap pb-6"
-  >
-    <TableFilters
-      v-model:filteredInfo="filteredInfo"
-      v-model:search-data="searchData"
-      :columns="columns"
-      :data-source="dataSource"
-      :config="item.config"
-      :have-filter="haveFilter"
-    />
-    <TableHeaderButtons v-if="item.config.buttons" :item="item" />
+  <div v-if="isHeaderVisible" class="flex items-center justify-between pb-6">
+    <div v-if="item.config.title" class="font-medium text-base">
+      {{ item.config.title }}
+    </div>
+    <div class="flex gap-3 items-center">
+      <TableFilters
+        v-model:filteredInfo="filteredInfo"
+        v-model:search-data="searchData"
+        :columns="columns"
+        :data-source="dataSource"
+        :config="item.config"
+        :have-filter="haveFilter"
+      />
+      <TableHeaderButtons v-if="item.config.buttons" :item="item" />
+    </div>
   </div>
   <a-config-provider :locale="ru_RU">
-    <hr v-if="haveFilter" class="pb-6" />
+    <hr v-if="isHeaderVisible" class="pb-6" />
     <a-table
       :loading="loading"
       :class="item.cssClass"
@@ -26,6 +28,8 @@
       :pagination="item.config.pagination"
       :row-selection="rowSelection"
       :size="item.config.size"
+      :custom-row="item.config.customRow ? customRow : null"
+      :scroll="item.config.scroll || null"
       @resize-column="handleResizeColumn"
     >
       <template #bodyCell="{ column, text, record }">
@@ -145,6 +149,7 @@
             :text="text"
             @row-updated="isRowUpdated = true"
             @save-row="saveRow"
+            @search="search"
           />
         </template>
 
@@ -158,6 +163,37 @@
             :text="text"
           />
         </template>
+      </template>
+      <template
+        #customFilterDropdown="{
+          selectedKeys,
+          column,
+          setSelectedKeys,
+          confirm,
+          clearFilters,
+        }"
+      >
+        <TableColumnFilter
+          v-model:filteredInfo="filteredInfo"
+          :column="column"
+          :columns="columns"
+          :selected-keys="selectedKeys"
+          :set-selected-keys="setSelectedKeys"
+          :confirm="confirm"
+          :clear-filers="clearFilters"
+          :column-filter-focus="columnFilterFocus"
+        />
+      </template>
+
+      <template #customFilterIcon="{ filtered, column }">
+        <SearchOutlined
+          v-if="!['category', 'select'].includes(column.filterType)"
+          :style="{ color: filtered ? '#108ee9' : undefined }"
+        />
+        <FilterOutlined
+          v-else
+          :style="{ color: filtered ? '#108ee9' : undefined }"
+        />
       </template>
     </a-table>
   </a-config-provider>
@@ -176,19 +212,12 @@
   </template>
 </template>
 <script setup>
-import {
-  reactive,
-  ref,
-  computed,
-  onMounted,
-  toRefs,
-  watch,
-  onBeforeMount,
-} from 'vue'
+import { reactive, ref, computed, onMounted, toRefs, watch } from 'vue'
 import * as filters from '../../utils/filters.js'
-import dayjs from 'dayjs'
+import { useRoute, useRouter } from 'vue-router'
 import ru_RU from 'ant-design-vue/es/locale/ru_RU'
 import { useApiStore } from '@/stores/api.js'
+import { SearchOutlined, FilterOutlined } from '@ant-design/icons-vue'
 
 import TableFilters from '../TableWidgets/TableFilters.vue'
 import TableLink from '../TableWidgets/TableLink.vue'
@@ -203,6 +232,7 @@ import TablePopover from '../TableWidgets/TablePopover.vue'
 import TableHeaderButtons from '../TableWidgets/TableHeaderButtons.vue'
 import BottomButtons from '../TableWidgets/BottomButtons.vue'
 import { useGlobalJsonDataStore } from '@/stores/global-json.js'
+import TableColumnFilter from '../TableWidgets/TableColumnFilter.vue'
 
 const props = defineProps({
   item: {
@@ -214,17 +244,27 @@ const props = defineProps({
     required: true,
   },
 })
-
+const router = useRouter()
+const route = useRoute()
 const { item, pageName } = toRefs(props)
 const store = useGlobalJsonDataStore()
 const apiStore = useApiStore()
 const saveLoading = ref(false)
-const isRowUpdated = ref(false)
+let isRowUpdated = ref(false)
 const searchConfig = ref(item.value.config?.search)
 const searchData = ref({
   value: '',
   field: searchConfig.value,
 })
+const searchedDataSource = ref(null)
+const state = reactive({
+  selectedRowKeys: [],
+})
+const loading = ref(true)
+const editableData = ref({})
+const filteredInfo = ref({})
+const columnFilterFocus = ref(false)
+
 const handlers = {
   sendRow: [
     {
@@ -252,12 +292,23 @@ watch(searchData, () => {
   search()
 })
 
-const searchedDataSource = ref(null)
-const state = reactive({
-  selectedRowKeys: [],
+watch(route, async () => {
+  if (item.value.config.routeUpdate) {
+    loading.value = true
+    await store.getTableData(pageName.value, props.item)
+    if (!props.item.config.noAutokey) {
+      dataSource.value.map((item, index) => Object.assign(item, { key: index }))
+    }
+    loading.value = false
+  }
 })
 
-const loading = ref(true)
+const isHeaderVisible = computed(
+  () =>
+    item.value.config.title ||
+    haveFilter ||
+    (searchConfig.value && item.value.config.buttons)
+)
 
 const dataSource = computed({
   get() {
@@ -268,18 +319,19 @@ const dataSource = computed({
   },
 })
 
-const editableData = ref({})
-
-const filteredInfo = ref({})
-
 const columns = computed(() => {
   const filtered = filteredInfo.value || {}
   return item.value.columns.map((col) => {
     return Object.assign(col, {
+      customFilterDropdown: col.columnFilter,
+
       filteredValue: filtered[col.dataIndex] || null,
       onFilter: (value, record) => {
         const filter = getFilter(col.filterType)
         return filter(record, value, col, filteredInfo, dataSource.value)
+      },
+      onFilterDropdownVisibleChange: (visible) => {
+        columnFilterFocus.value = visible
       },
     })
   })
@@ -296,15 +348,28 @@ const rowSelection = computed(() => {
 })
 
 const haveFilter = computed(() => {
-  return columns.value.some((col) => col.filterType)
+  return (
+    columns.value.some((col) => col.filterType) &&
+    !props.item.config.hideHeaderFilters
+  )
 })
 
 onMounted(async () => {
   await store.getTableData(pageName.value, props.item)
   loading.value = false
-  dataSource.value.map((item, index) => Object.assign(item, { key: index }))
+  if (!props.item.config.noAutokey) {
+    dataSource.value.map((item, index) => Object.assign(item, { key: index }))
+  }
   renderColumns()
 })
+
+const customRow = (record) => {
+  return {
+    onClick: (event) => {
+      router.replace({ path: route.path, query: { id: record.key } })
+    },
+  }
+}
 
 const onSelectChange = (selectedRowKeys) => {
   state.selectedRowKeys = selectedRowKeys
@@ -316,6 +381,7 @@ const handleResizeColumn = (w, col) => {
 
 const renderColumns = () => {
   item.value.columns.map((col) => {
+    if (col.columnFilter) filteredInfo.value[col.dataIndex] = []
     if (col.sort) {
       if (dataSource.value.every((elem) => typeof elem[col.key] === 'number')) {
         col = Object.assign(col, {
@@ -385,51 +451,18 @@ const saveTable = async () => {
 
 const search = () => {
   if (
-    searchData.value.value === undefined ||
+    !searchData.value.value ||
     (Array.isArray(searchData.value.value) && !searchData.value.value.length)
   ) {
     searchedDataSource.value = null
   } else {
-    searchedDataSource.value = dataSource.value.filter((row) =>
-      Object.keys(row).some((colName) => {
-        if (searchData.value.field === colName) {
-          return searchField(row, colName)
-        }
-      })
+    searchedDataSource.value = filters.search(
+      dataSource,
+      searchData,
+      item,
+      columns
     )
   }
-}
-const searchField = (row, colName) => {
-  const col = columns.value.find((col) => col.dataIndex === colName)
-  if (colName === 'key') return false
-  if (col.widget.name === 'select') {
-    const data = col.widget.params.find((param) => param.id === row[colName])
-    return !data
-      ? false
-      : JSON.stringify(data)
-          .toLowerCase()
-          .includes(searchData.value?.value?.toLowerCase())
-  }
-  if (col.widget.name === 'date')
-    return dayjs(row[colName] * 1000)
-      .format(col.widget.format)
-      .toLowerCase()
-      .includes(searchData.value?.value?.toLowerCase())
-  if (col.widget.name === 'text')
-    return String(row[colName])
-      .toLowerCase()
-      .includes(searchData.value?.value?.toLowerCase())
-  if (col.widget.name === 'multiselect') {
-    const val = JSON.parse(JSON.stringify(searchData.value.value))
-    return val.includes(String(row[colName]))
-  }
-  if (col.widget.name === 'checkbox') {
-    if (!searchData.value.value) return true
-    return row[colName] === searchData.value.value
-  }
-  return JSON.stringify(row[colName])
-    .toLowerCase()
-    .includes(searchData.value?.value?.toLowerCase())
 }
 </script>
 <style lang="scss" scoped>

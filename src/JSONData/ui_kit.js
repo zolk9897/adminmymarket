@@ -82,7 +82,7 @@ export default {
     {
       name: 'buttons_body',
       type: 'div',
-      cssClass: ['flex', 'gap-2', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['button_col_1', 'button_col_2', 'button_col_3'],
     },
     {
@@ -93,6 +93,7 @@ export default {
         'button_text_block',
         'button_styleClass_block',
       ],
+      parentClass: ['w-2/6', 'pr-2'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -100,7 +101,6 @@ export default {
       type: 'code',
       info: 'buttonType: "dashed"',
       infoTitle: 'buttonType',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'button_large_dashed',
@@ -134,7 +134,6 @@ export default {
       type: 'code',
       info: 'buttonType: "text"',
       infoTitle: 'buttonType',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_large_text', 'button_default_text', 'button_small_text'],
     },
@@ -164,7 +163,6 @@ export default {
       type: 'code',
       info: 'style параметр позволяет указывать стили, а праметр cssClass поддерживает классы в том числе и tailwind. Всегда лучше использовать tailwind классы. ',
       infoTitle: 'style и cssClass',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_styleClass'],
     },
@@ -188,6 +186,7 @@ export default {
         'button_ghost_block',
         'button_disabled_block',
       ],
+      parentClass: ['w-2/6', 'pr-2'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -195,7 +194,6 @@ export default {
       type: 'code',
       info: 'buttonType: "link"',
       infoTitle: 'buttonType',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_large_link', 'button_default_link', 'button_small_link'],
     },
@@ -225,7 +223,6 @@ export default {
       type: 'code',
       info: 'buttonType: "ghost"',
       infoTitle: 'buttonType',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'button_large_ghost',
@@ -259,7 +256,6 @@ export default {
       type: 'code',
       info: 'disabled: true/false',
       infoTitle: 'disabled',
-      parentClass: ['w-[380px]'],
       cssClass: ['grid', 'grid-cols-3', 'gap-2', 'row-2'],
       fields: [
         'button_disabled_dashed',
@@ -275,7 +271,6 @@ export default {
       value: 'disabled dashed',
       name: 'button_disabled_dashed',
       buttonType: 'dashed',
-      cssClass: ['w-[120px]'],
       disabled: true,
     },
     {
@@ -283,7 +278,6 @@ export default {
       value: 'disabled text',
       name: 'button_disabled_text',
       buttonType: 'text',
-      cssClass: ['w-[120px]'],
       disabled: true,
     },
     {
@@ -291,7 +285,6 @@ export default {
       value: 'disabled link',
       name: 'button_disabled_link',
       buttonType: 'link',
-      cssClass: ['w-[120px]'],
       disabled: true,
     },
     {
@@ -299,7 +292,6 @@ export default {
       value: 'disabled ghost',
       name: 'button_disabled_ghost',
       buttonType: 'ghost',
-      cssClass: ['w-[120px]'],
       disabled: true,
     },
     {
@@ -307,7 +299,7 @@ export default {
       value: 'disabled primary',
       name: 'button_disabled_primary',
       buttonType: 'primary',
-      cssClass: ['w-[120px]'],
+      cssClass: ['w-full'],
       disabled: true,
     },
     {
@@ -315,7 +307,6 @@ export default {
       value: 'disabled danger',
       name: 'button_disabled_danger',
       buttonType: 'danger',
-      cssClass: ['w-[120px]'],
       disabled: true,
     },
     {
@@ -326,12 +317,12 @@ export default {
         'button_danger_block',
         'button_icon_block',
       ],
+      parentClass: ['w-2/6'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
       name: 'button_primary_block',
       type: 'code',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       info: 'buttonType: "primary"',
       infoTitle: 'buttonType ',
@@ -368,7 +359,6 @@ export default {
       type: 'code',
       info: 'buttonType: "danger"',
       infoTitle: 'buttonType',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'button_large_danger',
@@ -402,7 +392,6 @@ export default {
       type: 'code',
       info: 'icon.name параметр позволяет добавлять в кнопку иконку из коллекции font awesome',
       infoTitle: 'icon',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_icon'],
     },
@@ -433,13 +422,14 @@ export default {
     {
       name: 'inputs_body',
       type: 'div',
-      cssClass: ['flex', 'gap-2', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['inputs_col_1', 'inputs_col_2', 'inputs_col_3'],
     },
     {
       name: 'inputs_col_1',
       type: 'div',
       fields: ['input_text_block', 'input_vmask_block'],
+      parentClass: ['w-2/6', 'pr-2'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -447,7 +437,7 @@ export default {
       type: 'code',
       info: 'format: "text"',
       infoTitle: 'format',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_large_text', 'input_default_text', 'input_small_text'],
     },
@@ -477,7 +467,7 @@ export default {
       type: 'code',
       info: 'mask: "+7 (###) ###-##-##"',
       infoTitle: 'vmask',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_vmask'],
     },
@@ -493,6 +483,7 @@ export default {
       name: 'inputs_col_2',
       type: 'div',
       fields: ['input_password_block', 'input_subtitle_block'],
+      parentClass: ['w-2/6', 'pr-2'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -500,7 +491,7 @@ export default {
       type: 'code',
       info: 'format: "password"',
       infoTitle: 'format',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: [
         'input_large_password',
@@ -534,7 +525,7 @@ export default {
       type: 'code',
       info: 'subtitle: text указывает текст подзаголовка, style позволяет указывать стили, а праметр cssClass поддерживает классы в том числе и tailwind. Всегда лучше использовать tailwind классы. ',
       infoTitle: 'subtitle',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_subtitle'],
     },
@@ -554,6 +545,7 @@ export default {
       name: 'inputs_col_3',
       type: 'div',
       fields: ['input_number_block', 'input_style_block'],
+      parentClass: ['w-2/6'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -561,7 +553,7 @@ export default {
       type: 'code',
       info: 'format: "number"',
       infoTitle: 'format',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: [
         'input_large_number',
@@ -595,7 +587,7 @@ export default {
       type: 'code',
       info: 'style параметр позволяет указывать стили, а праметр cssClass поддерживает классы в том числе и tailwind. Всегда лучше использовать tailwind классы. ',
       infoTitle: 'style',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'flex-col', 'gap-2'],
       fields: ['input_style'],
     },
@@ -627,7 +619,7 @@ export default {
     {
       name: 'handlers_body',
       type: 'div',
-      cssClass: ['flex', 'gap-2', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['handler_col_1', 'handler_col_2', 'handler_col_3'],
     },
     {
@@ -638,6 +630,7 @@ export default {
         'handler_edit_field_block',
         'handler_add_data_to_table_field_block',
       ],
+      parentClass: ['w-2/6', 'pr-2'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -645,7 +638,7 @@ export default {
       type: 'code',
       info: 'При использованнии данного обработчика отправляет форму по ссылке "https://ekat.sergeivl.ru/api/example/ok". Принимает параметры "pageName" и "blockName".',
       infoTitle: 'pushData',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['push_data_button'],
     },
@@ -669,7 +662,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет менять или добовлять свойства различным объектам. Принимает параметры "pageName", "blockName", "fieldName" и "value" в качестве которого указываются новые параметры',
       infoTitle: 'editField',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: [
         'edit_field_button_1',
@@ -720,7 +713,12 @@ export default {
     {
       name: 'handler_col_2',
       type: 'div',
-      fields: ['validate_handler_block', 'handler_go_back_block'],
+      fields: [
+        'validate_handler_block',
+        'handler_go_back_block',
+        'handler_add_column_to_table_field_block',
+      ],
+      parentClass: ['w-2/6', 'pr-2'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -728,7 +726,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет сбрасывать значение полей. Принимает параметры "pageName", "blockName"',
       infoTitle: 'resetBlockData',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['reset_data_button', 'reset_data_input'],
     },
@@ -758,7 +756,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет валидировать определенные поля. Для этого необходимо назначить необходимому полю параметр validate и указать необходмые правила. Подробнее смотреть библиотеку yup. Принимает параметры "pageName", "blockName"',
       infoTitle: 'validateHandler',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['validate_handler_button', 'validate_handler_input'],
     },
@@ -794,7 +792,7 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет перейти на предыдущую страницу',
       infoTitle: 'goBack',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['go_back_button'],
     },
@@ -813,6 +811,7 @@ export default {
       name: 'handler_col_3',
       type: 'div',
       fields: ['handler_go_route_block', 'handler_reset_data_block'],
+      parentClass: ['w-2/6'],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
     {
@@ -820,7 +819,6 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет перейти на страницу с добавлением параметров. Принимает параметры "name" в качестве имени страницы и "query" в качестве параметров к странице',
       infoTitle: 'goRoute',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['go_route_button'],
     },
@@ -844,7 +842,6 @@ export default {
       type: 'code',
       info: 'Данный обработчик позволяет добавить поле в таблицу. Принимает параметры "pageName", "tableName" и "data" в качестве объекта где ключом является имя столбца, а значением имя поля.',
       infoTitle: 'addDataToTableField',
-      parentClass: ['w-[380px]'],
       cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
       fields: [
         'add_data_to_table_field_button',
@@ -867,6 +864,10 @@ export default {
             data: {
               name: 'name_legal_input',
               debt: 'price_legal_input',
+            },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
             },
           },
         },
@@ -935,6 +936,102 @@ export default {
               params: {
                 endpoint: '/changeUserRoleCell',
                 fullRow: true,
+                method: 'get',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'handler_add_column_to_table_field_block',
+      type: 'code',
+      info: 'Данный обработчик позволяет добавить колонку в таблицу. Принимает параметры "pageName", "tableName", "data" и "request".',
+      infoTitle: 'addColumnToTable',
+      cssClass: ['flex', 'flex-col', 'items-center', 'gap-2'],
+      fields: [
+        'role_name',
+        'add_column_to_table_field_button',
+        'add_column_to_table_table',
+      ],
+    },
+    {
+      type: 'button',
+      value: 'add_column_to_table_field',
+      name: 'add_column_to_table_field_button',
+      buttonType: 'primary',
+      handlers: [
+        {
+          name: 'addColumnToTable',
+          params: {
+            pageName: 'ui_kit',
+            tableName: 'add_column_to_table_table',
+            data: {
+              role_name: 'role_name',
+            },
+            request: {
+              method: 'post',
+              endpoint: '/add/role',
+            },
+          },
+        },
+      ],
+    },
+    {
+      title: 'Название роли',
+      name: 'role_name',
+      format: 'text',
+      value: '',
+      type: 'input',
+      excludeSend: true,
+      containerClass: ['mt-6', 'mb-4'],
+      validation: {
+        type: 'String',
+        rules: [
+          {
+            type: 'required',
+            params: ['Это поле обязательно для заполнения'],
+          },
+        ],
+      },
+    },
+    {
+      name: 'add_column_to_table_table',
+      type: 'table',
+      config: {},
+      data: [
+        {
+          access_rules: 'Добавление',
+          role_name_1: true,
+        },
+        {
+          access_rules: 'Редактирование',
+          role_name_1: false,
+        },
+      ],
+      columns: [
+        {
+          title: 'Право доступа',
+          dataIndex: 'access_rules',
+          key: 'access_rules',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'Роль 1',
+          dataIndex: 'role_name_1',
+          key: 'role_name_1',
+          widget: {
+            name: 'checkbox',
+          },
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: '/changeUserRoleCell',
+                fullRow: true,
+                method: 'get',
               },
             },
           ],
@@ -971,9 +1068,11 @@ export default {
         'basic_table_block',
         'all_widget_table_block',
         'filter_table_block',
+        'filter_column_table_block',
         'search_table_block',
         'config_table_block',
         'button_table_block',
+        'tree_table_block',
       ],
       cssClass: ['flex', 'gap-2', 'flex-col'],
     },
@@ -982,7 +1081,7 @@ export default {
       type: 'code',
       info: '',
       infoTitle: 'basic table',
-      parentClass: ['w-[380px]'],
+
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['basic_table'],
     },
@@ -1025,14 +1124,23 @@ export default {
       name: 'all_widget_table_block',
       type: 'code',
       info: `widget содержит в себе описание способа отображения столбца.
-      Параметр 'name: text' отображает данные в качестве текста, так же принимает параметры class и style
-      Параметр 'name: link' отображает данные в качестве ссылки, так же может принимать 'type: external'
-      Параметр 'name: checkbox' отображает данные в качестве checkbox, в случае доополнительного параметра 'type: text' отображает в качестве надписи Да/Нет
-      Параметр 'name: select' отображает данные в качестве select, поддерживает 'type: stauts' и type: text
-      Параметр 'name: popover' отображает всплывающее окно при наведении, поддерживает 'type: column" и 'type: text'
-      Параметр 'name: image' отображает изображение по ссылке, поддерживает 'width: 150px',
-      Параметр 'name: date' отбражает unixtime в качестве даты в заданном формате, поддерживает 'format: "YYYY.MM.DD"'
-      Параметр 'name: input' создаёт поле ввода, поддерживает 'suffix: "%" и 'prefix: "%"'`,
+      <ul class="list-disc ml-5">
+      <li>Параметр 'name: text' отображает данные в качестве текста, так же принимает параметры class и style</li>
+      <li>Параметр 'name: link' отображает данные в качестве ссылки, так же может принимать 'type: external'</li>
+      <li>Параметр 'name: checkbox' отображает данные в качестве checkbox, в случае доополнительного параметра 'type: text' отображает в качестве надписи Да/Нет</li>
+      <li>
+      Параметр 'name: select' отображает данные в качестве select, поддерживает 'type: status' и 'type: text'<br/>
+        Дополнительные параметры:
+        <ul class="list-circle ml-5">
+          <li>isEditable поле становится редактируемым по двойному клику (по умолчанию false)</li>
+          <li>showLoading отображается лоадер на select во время отправки запроса (по умолчанию false)</li>
+        </ul>
+      </li>
+      </ul>
+      <li>Параметр 'name: popover' отображает всплывающее окно при наведении, поддерживает 'type: column" и 'type: text'</li>
+      <li>Параметр 'name: image' отображает изображение по ссылке, поддерживает 'width: 150px',</li>
+      <li>Параметр 'name: date' отбражает unixtime в качестве даты в заданном формате, поддерживает 'format: "YYYY.MM.DD"'</li>
+      <li>Параметр 'name: input' создаёт поле ввода, поддерживает 'suffix: "%" и 'prefix: "%"'</li>`,
       infoTitle: 'widget',
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['all_widget_table'],
@@ -1182,11 +1290,23 @@ export default {
           widget: {
             name: 'select',
             type: 'status',
+            isEditable: true,
+            showLoading: true,
             params: [
               { id: 0, value: 'Одобрено', color: '#87D068' },
               { id: 1, value: 'Модерация', color: '#00', textColor: '#8c8c8c' },
             ],
           },
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+                pageName: 'ui_kit',
+                tableName: 'all_widget_table',
+              },
+            },
+          ],
         },
         {
           title: 'select_text',
@@ -1253,23 +1373,27 @@ export default {
       name: 'filter_table_block',
       type: 'code',
       info: `filterType параметр столбца, позволяет добавлять фильтры на необхоимый столбец
-      filterType: 'text позволяет осуществлять поиск по подстроке в определенном столбце',
-      filterType: 'number' позволяет искать числовые значения от и до определенной суммы ,
-      filterType: 'category' собирает всевозможные существующие значения в select и фильтрует по выбранному значению
-      есть дополнительный параметр filterParam(в случае если мы фильтруем объекты, необходимо указывать по какому ключу объекта мы фильтруем)
-      filterType: 'daterange' позволяет искать промежутки дат удобном формате,
-      filterType: 'checkbox' позволяет осуществлять удобный поиск по checkbox,
-      filterType: 'select' позволяет осуществлять поиск по готовому списку значений. Используется для виджетов select
-      sort: true необходим для добавления сортировки по столбцу,
-      hideSearchBtn: скрывает кнопку поиска с иконкой
-      gap: задает расстояние между фильтрами, по умолчанию 2
-      filterWidth: задает ширину фильтра
-      filterTitle: изменяет placeholder или title именно у фильтра
-      filterIcon: иконка для фильтра если input до будет внутри input
-      filterMultiple: делает селект multiselect
-      filtersPosition: можем задать порядок фильтров массив, если нужно указать фльтр из columns то пишем его key, если нужен фильтр из search то пишем его name, по умолчанию можно не указывать тогда сначала будут идти фильтры которые в search, а затем columns
-      filterAllowClear: добавить кнопку стреть в инпутах и селектах, по умолчанию true
-    `,
+      <ul class="list-disc ml-5">
+        <li>filterType: 'text' позволяет осуществлять поиск по подстроке в определенном столбце</li>
+        <li>filterType: 'number' позволяет искать числовые значения от и до определенной суммы</li>
+        <li>filterType: 'category' собирает всевозможные существующие значения в select и фильтрует по выбранному значению
+          <ul class="list-circle ml-5">
+            <li>дополнительный параметр filterParam(в случае если мы фильтруем объекты, необходимо указывать по какому ключу объекта мы фильтруем)</li>
+          </ul>
+        </li>
+        <li>filterType: 'daterange' позволяет искать промежутки дат удобном формате</li>
+        <li>filterType: 'checkbox' позволяет осуществлять удобный поиск по checkbox</li>
+        <li>filterType: 'select' позволяет осуществлять поиск по готовому списку значений. Используется для виджетов select</li>
+        <li>sort: true необходим для добавления сортировки по столбцу</li>
+        <li>hideSearchBtn: скрывает кнопку поиска с иконкой</li>
+        <li>gap: задает расстояние между фильтрами, по умолчанию 2</li>
+        <li>filterWidth: задает ширину фильтра</li>
+        <li>filterTitle: изменяет placeholder или title именно у фильтра</li>
+        <li>filterIcon: иконка для фильтра если input до будет внутри input</li>
+        <li>filterMultiple: делает селект multiselect</li>
+        <li>filtersPosition: можем задать порядок фильтров массив, если нужно указать фльтр из columns то пишем его key, если нужен фильтр из search то пишем его name, по умолчанию можно не указывать тогда сначала будут идти фильтры которые в search, а затем columns</li>
+        <li>filterAllowClear: добавить кнопку стреть в инпутах и селектах, по умолчанию true</li>
+      </ul>`,
       infoTitle: 'filterType, sort, и т.д',
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['filter_table'],
@@ -1370,19 +1494,176 @@ export default {
     {
       name: 'search_table_block',
       type: 'code',
-      info: `config.search позволяет искать по различным полям, в том чилсле тех которые не отображаются в таблице
-      type: input позволяет искать по любому из полей которые указаны в fields
-      type: switch позволяет фильтровать данные с типом checkbox через элемент switch
-      type: select создаёт селект который собирает варианты из стоблца
-      infoTooltip: Добавляет иконку рядом с толтипом
-      filterWidth: задает ширину фильтра
-      filterTitle: изменяет placeholder или title именно у фильтра
-      filterMultiple: делает селект multiselect
-      filterAllowClear: добавить кнопку стреть в инпутах и селектах, по умолчанию true
-      `,
+      info: `config.search позволяет искать по различным полям, в том числе тех которые не отображаются в таблице
+      <ul class="list-disc ml-5">
+        <li>type: input позволяет искать по любому из полей которые указаны в fields</li>
+        <li>type: switch позволяет фильтровать данные с типом checkbox через элемент switch</li>
+        <li>type: select создаёт селект который собирает варианты из стоблца</li>
+        <li>infoTooltip: Добавляет иконку рядом с толтипом</li>
+        <li>filterWidth: задает ширину фильтра</li>
+        <li>filterTitle: изменяет placeholder или title именно у фильтра</li>
+        <li>filterMultiple: делает селект multiselect</li>
+        <li>filterAllowClear: добавить кнопку стреть в инпутах и селектах, (по умолчанию true)</li>
+        <li>headerFilter: показать/ скрыть фильтр в header (по умолчанию true)</li>
+      </ul>`,
       infoTitle: 'Search',
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['search_table'],
+    },
+    {
+      name: 'filter_column_table_block',
+      type: 'code',
+      info: `columnFilter параметр столбца, позволяет добавлять фильтры в column рядом с кнопкой sort;
+        все свойства filterType, filterWidth и т.д работают так же, (исключение filterIcon свойство здесь не работает)`,
+      infoTitle: 'columnFilter',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['filter_column_table'],
+    },
+    {
+      name: 'filter_column_table',
+      type: 'table',
+      config: {
+        pagination: false,
+        size: 'small',
+        align: 'center',
+        gap: '4',
+        bordered: true,
+        selection: true,
+        hideHeaderFilters: true,
+      },
+      data: [
+        {
+          category: 'Смартфон',
+          offer: 'Honor',
+          price: 1000,
+          city: 'Санкт-Петербург',
+          placement: 'Страница товара',
+          recommendations: 800,
+          rate: 400,
+          my_rates: true,
+          feed: 'Телефоны Москва',
+        },
+        {
+          category: 'Игровая приставка',
+          offer: 'Playstation 5',
+          price: 900,
+          city: 'Москва',
+          placement: 'Страница цен',
+          recommendations: 600,
+          rate: 400,
+          my_rates: true,
+          feed: 'азонокосилки Нижний Таггил',
+        },
+        {
+          category: 'Игровая приставка',
+          offer: 'Playstation 5',
+          price: 500,
+          city: 'Москва',
+          placement: 'Страница цен',
+          recommendations: 600,
+          rate: 400,
+          my_rates: false,
+          feed: 'Еще что то 3',
+        },
+        {
+          category: 'Игровая приставка',
+          offer: 'Playstation 5',
+          price: 500,
+          city: 'Москва',
+          placement: 'Страница цен',
+          recommendations: 600,
+          rate: 400,
+          my_rates: false,
+          feed: 'Еще что то 5',
+        },
+      ],
+      columns: [
+        {
+          title: 'Категория',
+          dataIndex: 'category',
+          key: 'category',
+          resizable: true,
+          columnFilter: true,
+          headerFilter: false,
+          widget: {
+            name: 'text',
+          },
+          width: 200,
+          filterTitle: 'Поиск категории',
+          filterType: 'text',
+          filterWidth: '200px',
+          sort: true,
+        },
+        {
+          title: 'Предложение',
+          dataIndex: 'offer',
+          key: 'offer',
+          resizable: true,
+          columnFilter: true,
+          headerFilter: false,
+          widget: {
+            name: 'text',
+          },
+          width: 200,
+          filterType: 'text',
+          filterTitle: 'Поиск по названию',
+          filterWidth: '220px',
+          sort: true,
+        },
+        {
+          title: 'Цена',
+          dataIndex: 'price',
+          key: 'price',
+          resizable: true,
+          widget: {
+            name: 'text',
+          },
+          width: 200,
+          columnFilter: true,
+          filterType: 'number',
+          filterWidth: '130px',
+          sort: true,
+        },
+        {
+          title: 'Город',
+          dataIndex: 'city',
+          key: 'city',
+          resizable: true,
+          columnFilter: true,
+          filterType: 'category',
+          filterTitle: 'Поиск по городу',
+          widget: {
+            name: 'text',
+          },
+          width: 200,
+          sort: true,
+        },
+        {
+          title: 'Размещение',
+          dataIndex: 'placement',
+          key: 'placement',
+          resizable: true,
+          columnFilter: true,
+          widget: {
+            name: 'text',
+          },
+          width: 200,
+          filterType: 'category',
+          filterMultiple: true,
+          sort: true,
+        },
+        {
+          title: 'Ставка',
+          dataIndex: 'rate',
+          key: 'rate',
+          resizable: true,
+          widget: {
+            name: 'text',
+          },
+          width: 200,
+          sort: true,
+        },
+      ],
     },
     {
       name: 'search_table',
@@ -1486,18 +1767,25 @@ export default {
       name: 'config_table_block',
       type: 'code',
       info: `config позволяет настраивать различные параметры таблицы
-      bordered: true добавляет отрисовку таблиц
-      pagination: false убирает возможность пагинации
-      sticky: true заголовки столбцов прилипают к верху страницы
-      size: 'small' указывает на размер строк, варианты: default | middle | small | large
-      selection: true позволяет выделять данные
-      filterSize: 'middle' принимает значения размера всех фильтров, варианты: small | middle | large
-      Дополнительные настройки колонок:
-      width: 140 задаёт ширину столбца
-      resizable: true позволяет пользователю менять ширину столбца
-      align: 'center'  позовляет выравнивать контент ячейки по ширирне, варианты: left | right | center
-      `,
-      infoTitle: 'Search',
+      <ul class="list-disc ml-5">
+        <li>bordered: true добавляет отрисовку таблиц</li>
+        <li>pagination: false убирает возможность пагинации</li>
+        <li>sticky: true заголовки столбцов прилипают к верху страницы</li>
+        <li>size: 'small' указывает на размер строк, варианты: default | middle | small | large</li>
+        <li>selection: true позволяет выделять данные</li>
+        <li>filterSize: 'middle' принимает значения размера всех фильтров, варианты: small | middle | large</li>
+        <li>customRow: true при клике на строку, добовляет query параметр с id, можно расширить функционал</li>
+        <li>hideHeaderFilters: скрывает все фильтры в header не зависимо от того указано ли свойство filterType, или headerFilter</li>
+        <li>
+          Дополнительные настройки колонок:
+          <ul class="list-circle ml-5">
+            <li>width: 140 задаёт ширину столбца</li>
+            <li>resizable: true позволяет пользователю менять ширину столбца</li>
+            <li>align: 'center'  позовляет выравнивать контент ячейки по ширирне, варианты: left | right | center</li>
+          </ul>
+        </li>
+      </ul>`,
+      infoTitle: 'Сonfig',
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['config_table'],
     },
@@ -1510,6 +1798,7 @@ export default {
         sticky: true,
         size: 'small',
         selection: true,
+        customRow: true,
       },
       data: [
         {
@@ -1592,19 +1881,22 @@ export default {
       name: 'button_table_block',
       type: 'code',
       info: `selection позволяет проводить различные операции с выбранными строками
-      refuse: специальное поле для таблицы офферов, устанавливает значение поля в 'отказано' и отправляет запрос с причиной отказа.
-      approve: специальное поле для таблицы офферов, устанавливает значение поля и 'одобрено' отправляет запрос о .
-      delete: позволяет удалить строку из таблицы
-      edit: переводит поля строк в режим редактирования
-      save: cохраняет выделенные строки после редактирования
-      setStatusColumn: ['select'] позволяет устанавливать для всех строк какое то опредленное значение select'a
-      active: true позволяет устанавливать значение checkbox с параметром text в определенные значения.
-      column actions добавляет столбец с отдельными действиями для каждой строки
-      delete: true, удаляет строку
-      edit: true, переводит поля строки в режим редактирования
-      onCopy: true, создаёт новую строку с такими же значениями
-      deactivate: 'active', позволяет менять значение checkbox с определенным именем поля.
-      `,
+      <ul class="list-disc ml-5">
+        <li>refuse: специальное поле для таблицы офферов, устанавливает значение поля в 'отказано' и отправляет запрос с причиной отказа.</li>
+        <li>approve: специальное поле для таблицы офферов, устанавливает значение поля и 'одобрено' отправляет запрос.</li>
+        <li>delete: позволяет удалить строку из таблицы</li>
+        <li>edit: переводит поля строк в режим редактирования</li>
+        <li>save: cохраняет выделенные строки после редактирования</li>
+        <li>sendSingleRow: true отправляется запрос на сохранение одной строки (при клике на Сохранить в дропдауне Actions)</li>
+        <li>notImmediateUpdate: true, при редактировании одиночного поля в выбранных строках позволяет обновлять данные в сторе, не обновляя их на странице (по умолчанию false)</li>
+        <li>setStatusColumn: ['select'] позволяет устанавливать для всех строк какое то опредленное значение select'a</li>
+        <li>active: true позволяет устанавливать значение checkbox с параметром text в определенные значения.</li>
+        <li>column actions добавляет столбец с отдельными действиями для каждой строки</li>
+        <li>delete: true, удаляет строку</li>
+        <li>edit: true, переводит поля строки в режим редактирования</li>
+        <li>onCopy: true, создаёт новую строку с такими же значениями</li>
+        <li>deactivate: 'active', позволяет менять значение checkbox с определенным именем поля.</li>
+      </ul>`,
       infoTitle: 'Button',
       cssClass: ['flex', 'items-center', 'gap-2'],
       fields: ['button_table'],
@@ -1619,7 +1911,8 @@ export default {
           delete: true,
           save: true,
           edit: true,
-          setStatusColumn: ['select'],
+          notImmediateUpdate: true,
+          setStatusColumn: ['select', 'status'],
           active: true,
         },
       },
@@ -1631,6 +1924,7 @@ export default {
           date: 1670349600,
           active: true,
           select: 1,
+          status: 0,
         },
         {
           text: 'text',
@@ -1639,6 +1933,7 @@ export default {
           date: 1670263200,
           active: false,
           select: 0,
+          status: 1,
         },
       ],
       columns: [
@@ -1652,6 +1947,7 @@ export default {
           edit: true,
           onCopy: true,
           deactivate: 'active',
+          sendSingleRow: true,
         },
         {
           title: 'number',
@@ -1682,6 +1978,193 @@ export default {
             ],
           },
         },
+        {
+          title: 'Статус',
+          dataIndex: 'status',
+          key: 'status',
+          widget: {
+            name: 'select',
+            type: 'status',
+            params: [
+              { id: 0, value: 'Активен', color: '#87D068' },
+              { id: 1, value: 'Отключен', color: '#FF4D4F' },
+            ],
+          },
+          width: 150,
+          resizable: true,
+        },
+      ],
+    },
+    {
+      name: 'tree_table_block',
+      type: 'code',
+      info: `
+      <ul class="list-disc ml-5">
+        <li>Вложенные строки необходимо указывать в родительском объекте параметром children</li>
+        <li>Так же при создании таблицы с вложенными записями необходимо указывать в config tree: true, это позволит корректно работать поиску</li>
+        <li>Из поиска и фильтрации корректно, сейчас работает только поиск при помощи input</li>
+        <li>Деактивация и удаление работает с верхними и вложенными записями через action меню строки</li>
+      </ul>`,
+      infoTitle: 'tree таблицы',
+      fields: ['tree_table'],
+    },
+    {
+      name: 'tree_table',
+      type: 'table',
+      config: {
+        tree: true,
+        hideFilterBtn: true,
+        search: [
+          {
+            name: 'Поиск по товарам',
+            type: 'input',
+            fields: ['name'],
+          },
+        ],
+      },
+      data: [
+        {
+          active: true,
+          name: 'Электроника',
+          products_count: 20,
+          children: [
+            {
+              key: '1-1',
+              link: '/main/catalog_edit?id=1-1',
+              active: true,
+              products_count: 10,
+              name: 'Смартфоны и гаджеты',
+              children: [
+                {
+                  key: '1-1-1',
+                  active: true,
+                  products_count: 5,
+                  name: 'Samsung',
+                },
+                {
+                  key: '1-1-2',
+                  active: true,
+                  products_count: 5,
+                  name: 'Iphone',
+                },
+              ],
+            },
+            {
+              key: '1-2',
+              link: '/main/catalog_edit?id=1-2',
+              active: true,
+              products_count: 10,
+              name: 'Портативные цифровые плееры',
+              children: [
+                {
+                  key: '1-2-1',
+                  active: true,
+                  products_count: 5,
+                  name: 'Phillips',
+                },
+                {
+                  key: '1-2-2',
+                  active: true,
+                  products_count: 5,
+                  name: 'Apple',
+                },
+              ],
+            },
+          ],
+          key: '1',
+          link: '/main/catalog_edit?id=1',
+        },
+        {
+          active: true,
+          name: 'Мебель',
+          products_count: 20,
+          children: [
+            {
+              key: '2-1',
+              link: '/main/catalog_edit?id=1-1',
+              active: true,
+              name: 'Посуда',
+              products_count: 10,
+              children: [
+                {
+                  key: '2-1-1',
+                  active: true,
+                  products_count: 5,
+                  name: 'Кофеварка',
+                },
+                {
+                  key: '2-1-2',
+                  active: true,
+                  products_count: 5,
+                  name: 'Заварник',
+                },
+              ],
+            },
+            {
+              key: '2-2',
+              link: '/main/catalog_edit?id=1-2',
+              active: true,
+              name: 'Столы',
+              products_count: 10,
+              children: [
+                {
+                  key: '2-2-1',
+                  active: true,
+                  products_count: 5,
+                  name: 'Компьютерные',
+                },
+                {
+                  key: '2-2-2',
+                  active: true,
+                  products_count: 5,
+                  name: 'Кухонные',
+                },
+              ],
+            },
+          ],
+          key: '2',
+          link: '/main/catalog_edit?id=2',
+        },
+      ],
+      columns: [
+        {
+          title: '',
+          dataIndex: 'name',
+          key: 'name',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'Товаров',
+          dataIndex: 'products_count',
+          key: 'products_count',
+          widget: {
+            name: 'text',
+          },
+        },
+        {
+          title: 'Активность',
+          dataIndex: 'active',
+          width: 100,
+          widget: {
+            name: 'checkbox',
+            type: 'text',
+          },
+        },
+        {
+          title: 'Действие',
+          widget: {
+            name: 'actions',
+          },
+          delete: true,
+          edit: {
+            type: 'link',
+            link_field: 'link',
+          },
+          deactivate: 'active',
+          view: 'link',
+        },
       ],
     },
     // SELECT Block
@@ -1704,8 +2187,8 @@ export default {
     {
       name: 'select_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
-      fields: ['select_col_1', 'select_col_2', 'select_col_3'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['select_col_1', 'select_col_2'],
     },
     {
       name: 'select_col_1',
@@ -1715,7 +2198,8 @@ export default {
         'select_disabled_block',
         'select_styleClass_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-1/2', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'select_basic_usage_block',
@@ -1851,6 +2335,7 @@ export default {
         'select_mode_tags_block',
         'select_mode_multiple_block',
       ],
+      parentClass: ['w-1/2'],
       cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
@@ -1936,7 +2421,7 @@ export default {
     {
       name: 'textarea_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['textarea_col_1', 'textarea_col_2'],
     },
     {
@@ -1947,7 +2432,8 @@ export default {
         'textarea_style_css_block',
         'textarea_placeholder_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-1/2', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'textarea_basic_usage_block',
@@ -2001,6 +2487,7 @@ export default {
         'textarea_max_rows_block',
         'textarea_min_max_rows_block',
       ],
+      parentClass: ['w-1/2'],
       cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
@@ -2071,7 +2558,7 @@ export default {
     {
       name: 'boolean_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['boolean_col_1', 'boolean_col_2', 'boolean_col_3'],
     },
     {
@@ -2084,7 +2571,8 @@ export default {
         'boolean_checkbox_css_style_usage_block',
         'boolean_switch_css_style_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'boolean_checkbox_basic_usage_block',
@@ -2237,7 +2725,8 @@ export default {
         'boolean_switch_title_usage_block',
         'boolean_groupСheckbox_title_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'boolean_checkbox_title_usage_block',
@@ -2406,7 +2895,8 @@ export default {
         'boolean_switch_disabled_usage_block',
         'boolean_groupСheckbox_options_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-2/6'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'boolean_checkbox_label_usage_block',
@@ -2514,7 +3004,7 @@ export default {
     {
       name: 'radio_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['radio_col_1', 'radio_col_2'],
     },
     {
@@ -2525,13 +3015,15 @@ export default {
         'radio_button_basic_usage_block',
         'radio_subtitle_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-1/2', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'radio_col_2',
       type: 'div',
       fields: ['radio_options_usage_block', 'radio_style_css_usage_block'],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-1/2'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'radio_default_basic_usage_block',
@@ -2786,7 +3278,7 @@ export default {
     {
       name: 'link_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['link_col_1', 'link_col_2'],
     },
     {
@@ -2796,13 +3288,15 @@ export default {
         'link_default_basic_usage_block',
         'link_mode_router_basic_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-1/2', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'link_col_2',
       type: 'div',
       fields: ['link_style_css_basic_usage_block'],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-1/2'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'link_default_basic_usage_block',
@@ -2838,7 +3332,7 @@ export default {
       type: 'code',
       info: '"cssClass" - классы для самого поля. "style" - обьект с описанием css inline стилей. "parentClass" - классы для родительского контейнера.',
       infoTitle: 'Style, cssClass and parentClass',
-      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col', 'w-[450px]'],
+      cssClass: ['flex', 'items-start', 'gap-4', 'flex-col'],
       fields: ['link_style_css_basic_usage_field'],
     },
     {
@@ -2873,7 +3367,7 @@ export default {
     {
       name: 'label_body',
       type: 'div',
-      cssClass: ['flex', 'gap-4', 'flex-wrap', 'my-[20px]'],
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
       fields: ['label_col_1', 'label_col_2', 'label_col_3'],
     },
     {
@@ -2884,7 +3378,8 @@ export default {
         'label_style_css_usage_block',
         'label_external_value_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'label_col_2',
@@ -2894,7 +3389,8 @@ export default {
         'label_tooltip_show_icon_usage_block',
         'label_tooltip_position_icon_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'label_col_3',
@@ -2903,7 +3399,8 @@ export default {
         'label_tooltip_icon_text_usage_block',
         'label_tooltip_trigger_color_usage_block',
       ],
-      cssClass: ['flex', 'gap-4', 'flex-col', 'w-[500px]'],
+      parentClass: ['w-2/6'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
     },
     {
       name: 'label_basic_usage_block',

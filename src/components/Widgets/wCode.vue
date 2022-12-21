@@ -1,5 +1,5 @@
 <template>
-  <div class="main" :class="item.parentClass">
+  <div class="main">
     <div class="item-block" :style="item.style" :class="item.cssClass">
       <template v-for="(el, index) in item.fieldsData" :key="el.name + index">
         <WidgetSwitch :item="el" />
@@ -10,7 +10,7 @@
         <span class="absolute top-[-24px] bg-white font-medium">
           {{ item.infoTitle }}
         </span>
-        <p v-for="(el, index) in info" :key="el + index">{{ el }}</p>
+        <div v-html="getFormattedInfo(item.info)"></div>
       </div>
       <div class="buttons-block">
         <a-button
@@ -58,6 +58,10 @@ onMounted(() => {
 })
 const copyCode = () => {
   navigator.clipboard.writeText(JSON.stringify(code.value, null, 4))
+}
+const getFormattedInfo = () => {
+  const infoIncludesMarkup = info.some((item) => item.includes('</'))
+  return info.join(infoIncludesMarkup ? '' : '<br>')
 }
 </script>
 

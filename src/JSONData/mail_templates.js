@@ -231,6 +231,7 @@ export default {
       name: 'template__add_button',
       buttonType: 'primary',
       disabled: false,
+      showLoading: true,
       handlers: [
         {
           name: 'validateHandler',
@@ -250,6 +251,10 @@ export default {
               active: 'active_input',
               sender: 'sender_input',
               recipient: 'recipient_input',
+            },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
             },
           },
         },

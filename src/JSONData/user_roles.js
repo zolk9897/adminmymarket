@@ -2,6 +2,24 @@ export default {
   page: 'user_roles',
   useTitle: {
     title: 'Настройка ролей',
+    operations: [
+      {
+        name: 'add_role_btn',
+        text: 'Добавить роль',
+        type: 'primary',
+        handlers: [
+          {
+            name: 'editField',
+            params: {
+              pageName: 'user_roles',
+              blockName: 'user_roles_add_modal',
+              fieldName: 'style',
+              value: { display: 'flex' },
+            },
+          },
+        ],
+      },
+    ],
     breadcrumbs: [
       {
         title: 'Главная',
@@ -34,26 +52,6 @@ export default {
       type: 'div',
       cssClass: ['w-full', 'p-6'],
       fields: ['user_roles_table', 'user_roles_add_modal'],
-    },
-    {
-      type: 'button',
-      value: 'Добавить роль',
-      name: 'user_role_add_modal_btn',
-      buttonType: 'primary',
-      icon: {
-        name: 'fa-solid fa-plus',
-      },
-      handlers: [
-        {
-          name: 'editField',
-          params: {
-            pageName: 'user_roles',
-            blockName: 'user_roles_add_modal',
-            fieldName: 'style',
-            value: { display: 'flex' },
-          },
-        },
-      ],
     },
     {
       name: 'user_roles_add_modal',
@@ -92,12 +90,32 @@ export default {
       fields: ['block_modal_added_content'],
     },
     {
-      title: 'Добавление роли',
-      titleClass: ['font-medium', 'mb-4'],
       name: 'block_modal_added_content',
       type: 'div',
-      containerClass: ['bg-white', 'p-6', 'gap-4', 'w-480'],
-      fields: ['access_name', 'check_boxes_block', 'buttons_block_footer'],
+      cssClass: ['bg-white', 'p-6', 'gap-4', 'w-480'],
+      fields: ['block_modal_added_title', 'role_name', 'buttons_block_footer'],
+    },
+    {
+      name: 'block_modal_added_title',
+      text: 'Добавление роли',
+      cssClass: ['font-bold'],
+      type: 'label',
+    },
+    {
+      title: 'Название роли',
+      name: 'role_name',
+      format: 'text',
+      value: '',
+      type: 'input',
+      excludeSend: true,
+      containerClass: ['mt-6', 'mb-4'],
+      validation: {
+        rules: [
+          {
+            type: 'required',
+          },
+        ],
+      },
     },
     {
       title: 'Право доступа',
@@ -123,7 +141,7 @@ export default {
         'roleId_admin',
         'roleId_manager',
         'roleId_redactor',
-        'roleId_seo_spicialyst',
+        'roleId_seo_specialist',
       ],
     },
     {
@@ -153,7 +171,7 @@ export default {
     {
       title: 'SEO-специалист',
       titleClass: ['font-medium'],
-      name: 'roleId_seo_spicialyst',
+      name: 'roleId_seo_specialist',
       value: false,
       type: 'boolean',
       viewType: 'checkbox',
@@ -192,6 +210,7 @@ export default {
       value: 'Добавить',
       name: 'user_roles__add_button',
       buttonType: 'primary',
+      showLoading: true,
       handlers: [
         {
           name: 'validateHandler',
@@ -201,16 +220,16 @@ export default {
           },
         },
         {
-          name: 'addDataToTableField',
+          name: 'addColumnToTable',
           params: {
             pageName: 'user_roles',
             tableName: 'user_roles_table',
             data: {
-              access_name: 'access_name',
-              roleId_admin: 'roleId_admin',
-              roleId_manager: 'roleId_manager',
-              roleId_redactor: 'roleId_redactor',
-              roleId_seo_spicialyst: 'roleId_seo_spicialyst',
+              role_name: 'role_name',
+            },
+            request: {
+              method: 'post',
+              endpoint: '/add/role',
             },
           },
         },
@@ -251,7 +270,7 @@ export default {
           accessID: 12314,
           roleId_manager: false,
           roleId_redactor: true,
-          roleId_seo_spicialyst: false,
+          roleId_seo_specialist: false,
         },
         {
           access_name: 'Сео параметры',
@@ -259,7 +278,7 @@ export default {
           roleId_admin: true,
           roleId_manager: false,
           roleId_redactor: true,
-          roleId_seo_spicialyst: true,
+          roleId_seo_specialist: true,
         },
         {
           access_name: 'Работа с каталогом',
@@ -267,7 +286,7 @@ export default {
           roleId_admin: true,
           roleId_manager: false,
           roleId_redactor: true,
-          roleId_seo_spicialyst: false,
+          roleId_seo_specialist: false,
         },
         {
           access_name: 'Сео параметры',
@@ -275,7 +294,7 @@ export default {
           roleId_admin: true,
           roleId_manager: false,
           roleId_redactor: true,
-          roleId_seo_spicialyst: true,
+          roleId_seo_specialist: true,
         },
       ],
       columns: [
@@ -345,8 +364,8 @@ export default {
         },
         {
           title: 'SEO-специалист',
-          dataIndex: 'roleId_seo_spicialyst',
-          key: 'roleId_seo_spicialyst',
+          dataIndex: 'roleId_seo_specialist',
+          key: 'roleId_seo_specialist',
           widget: {
             name: 'checkbox',
           },

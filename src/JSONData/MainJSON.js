@@ -4,6 +4,7 @@ import banner_groups from './banner_groups'
 import base_settings from './base_settings'
 import blog_page from './blog_page'
 import blog_page_edit from './blog_page_edit'
+import catalog from './catalog'
 import catalog_edit from './catalog_edit'
 import complaints from './complaints'
 import complaint_form_edit from './complaint_form_edit'
@@ -38,9 +39,14 @@ import banner_types from './banner_types'
 import selections_groups from './selections_groups'
 import edit_selection from './edit_selection'
 import test_tree from './test_tree'
-
+import test_select from './test_select'
 export default {
   data: [
+    {
+      name: 'test_select',
+      title: 'test_select',
+      data: test_select,
+    },
     {
       name: 'about_company',
       title: 'О компании',
@@ -50,6 +56,11 @@ export default {
       name: 'ui_kit',
       title: 'Ui-Kit',
       data: ui_kit,
+    },
+    {
+      name: 'catalog',
+      title: 'Каталог',
+      data: catalog,
     },
     {
       name: 'catalog_edit',
@@ -260,7 +271,7 @@ export default {
       icon: 'fa-solid fa-file-lines',
       subMenu: [
         {
-          name: 'catalog_edit',
+          name: 'catalog',
           title: 'Основной',
           main: true,
           subMenuParents: ['catalog'],

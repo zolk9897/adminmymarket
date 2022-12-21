@@ -39,6 +39,9 @@ module.exports = {
       minHeight: {
         56: '14rem',
       },
+      listStyleType: {
+        circle: 'circle',
+      },
     },
   },
   plugins: [],

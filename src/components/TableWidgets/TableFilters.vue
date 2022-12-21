@@ -162,7 +162,9 @@
             placeholder="Поиск"
             :size="config.filterSize || 'large'"
             :class="
-              searchInputFields.length > 1 ? 'short-search' : 'long-search'
+              searchInputFields.length || config.title > 1
+                ? 'short-search'
+                : 'long-search'
             "
             :allow-clear="
               filter.filterAllowClear !== undefined
@@ -240,6 +242,7 @@
 import { computed, onBeforeMount, ref } from 'vue'
 import locale from 'ant-design-vue/es/date-picker/locale/ru_RU'
 import { VueMaskDirective } from 'v-mask'
+import { getFormattedFilterData } from '@/utils/filters.js'
 
 const props = defineProps({
   columns: Array,
@@ -331,6 +334,11 @@ onBeforeMount(() => {
       if (el.filterType) filtersData.value.push(el)
     })
   }
+
+  filtersData.value = filtersData.value.filter(
+    (el) => el.headerFilter || el.headerFilter === undefined
+  )
+
   const select = searchConfig?.value?.find((config) => config.type === 'select')
   if (select) {
     if (!select.defaultValue) searchSelect.value = null
@@ -339,31 +347,11 @@ onBeforeMount(() => {
 })
 
 const runFilter = () => {
-  const formattedFilterData = getFormattedFilterData()
+  const formattedFilterData = getFormattedFilterData(filterField.value)
   emits('update:filteredInfo', JSON.parse(JSON.stringify(formattedFilterData)))
 }
 const runSearch = (value, field) => {
   emits('update:searchData', { value, field })
-}
-const getFormattedFilterData = () => {
-  const filterData = Object.assign({}, filterField.value)
-  for (var key in filterData) {
-    if (filterData[key]) {
-      if (filterData[key].length === 2) {
-        if (!filterData[key][0] && !filterData[key][1]) filterData[key] = null
-      } else {
-        if (
-          filterData[key][0] === null ||
-          filterData[key][0] === '' ||
-          filterData[key][0] === undefined ||
-          (Array.isArray(filterData[key][0]) && !filterData[key][0].length)
-        ) {
-          filterData[key] = []
-        }
-      }
-    }
-  }
-  return filterData
 }
 </script>
 <style lang="scss" scoped>

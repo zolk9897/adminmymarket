@@ -5,7 +5,7 @@ import { noFormWidgetsNames } from '@/utils/widgetsTypesNames.js'
 import { defineStore } from 'pinia'
 import * as yup from 'yup'
 import mainData from '../JSONData/MainJSON'
-import { findField } from '@/utils/global-json-helpers.js'
+import { findField, getValueFromNode } from '@/utils/global-json-helpers.js'
 
 export const useGlobalJsonDataStore = defineStore({
   id: 'global-json',
@@ -198,10 +198,12 @@ export const useGlobalJsonDataStore = defineStore({
       return data
     },
 
-    setSendDataPageName(page, data) {
-      this.$patch((state) => {
-        state.sendData[page] = Object.assign(state.sendData[page], data)
-      })
+    async setSendDataPageName(page, data) {
+      setTimeout(() => {
+        this.$patch((state) => {
+          state.sendData[page] = Object.assign(state.sendData[page], data)
+        })
+      }, 300)
     },
 
     //VALIDATION FUNCTIONS
@@ -293,14 +295,46 @@ export const useGlobalJsonDataStore = defineStore({
     setFieldValue({ pageName, fieldName, value }) {
       this.sendData[pageName][fieldName] = value
     },
-    addDataToTableField({ pageName, tableName, data }) {
-      let resData = {}
-      Object.keys(data).forEach((el) => {
-        if (typeof data[el] === 'object') {
-          resData[el] = data[el].value
-        } else resData[el] = this.sendData[pageName][data[el]]
-      })
-      this.sendData[pageName][tableName].push(resData)
+    async addDataToTableField({ pageName, tableName, data, request }) {
+      const API = useApiStore()
+      const resData = getValueFromNode(data, this.sendData, pageName)
+      const requestData = { ...request, value: resData }
+
+      try {
+        const response = await API.sendOneField(requestData)
+        const keyIndex = this.sendData[pageName][tableName].push(response) - 1
+        this.sendData[pageName][tableName][keyIndex].key = keyIndex
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    async addColumnToTable({ pageName, tableName, data, request }) {
+      const API = useApiStore()
+      const stack = [this.formattingData[pageName]]
+      const resData = getValueFromNode(data, this.sendData, pageName)
+
+      let foundTable = null
+
+      // Find target table
+      while (stack.length > 0) {
+        const node = stack.pop()
+        for (const table of node) {
+          if (table.name === tableName) {
+            foundTable = table
+          }
+          if (table.fieldsData?.length) {
+            stack.push(table.fieldsData)
+          }
+        }
+      }
+
+      const requestData = { ...request, value: resData }
+      try {
+        const response = await API.sendOneField(requestData)
+        foundTable.columns.push(response)
+      } catch (e) {
+        console.error(e)
+      }
     },
     async validateHandler({ pageName, blockName }) {
       await this.validateData(pageName, blockName)

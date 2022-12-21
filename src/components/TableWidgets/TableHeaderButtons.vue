@@ -10,7 +10,7 @@
       @click="callHandlers(btn)"
     >
       <template #icon>
-        <fa v-if="item.icon" class="mr-2" :icon="item.icon.name" />
+        <fa v-if="btn.icon" class="mr-2" :icon="btn.icon.name" />
       </template>
       {{ btn.label }}
     </a-button>

@@ -3,7 +3,6 @@
     v-if="editableData[item.key]"
     v-model:value="editableData[item.key][column.dataIndex]"
     allow-clear
-    show-search
     :placeholder="`${column.title}`"
     :options="column.widget.params"
     :field-names="{ label: 'value', value: 'id' }"
@@ -13,7 +12,6 @@
     v-if="isEditableItem"
     v-model:value="itemValue"
     :allow-clear="widget.allowClear"
-    show-search
     :placeholder="`${column.title}`"
     :options="column.widget.params"
     :field-names="{ label: 'value', value: 'id' }"
@@ -95,7 +93,7 @@ const value = computed(() => {
 watch(
   props,
   () => {
-    if (props.config.selection?.updateOnSave) {
+    if (props.config.selection?.notImmediateUpdate) {
       // отменить реактивность value
       value.effect.stop()
     }

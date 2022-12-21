@@ -280,6 +280,7 @@ export default {
       value: 'Добавить',
       name: 'template__add_button',
       buttonType: 'primary',
+      showLoading: true,
       handlers: [
         {
           name: 'validateHandler',
@@ -302,6 +303,10 @@ export default {
               user_email: 'user_email',
               last_date: 'last_date',
               user_id: 'user_id',
+            },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
             },
           },
         },

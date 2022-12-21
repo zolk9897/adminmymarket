@@ -186,6 +186,10 @@ export default {
                 link: '#',
               },
             },
+            request: {
+              method: 'post',
+              endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+            },
           },
         },
         {
