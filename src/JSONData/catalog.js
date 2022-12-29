@@ -79,7 +79,7 @@ export default {
         ],
         scroll: { y: '50vh' },
         noAutokey: true,
-        customRow: true,
+        customRow: 'changeRouteIdRow',
         buttons: [
           {
             name: 'add',

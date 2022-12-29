@@ -75,7 +75,6 @@ export const useGlobalJsonDataStore = defineStore({
                   } else {
                     defaultSendData[mainEl.page][find.name] = find.value || null
                   }
-
                   // Дополнительные изменения для комопонента tree что бы иметь 2 стора в одном
                   if (find.type === 'tree') {
                     const data = {
@@ -127,7 +126,7 @@ export const useGlobalJsonDataStore = defineStore({
             handlers[i].params[handlers[i].dynamicParam] = value
           }
           try {
-            await this[handlers[i].name](handlers[i].params, otherParams)
+            await this[handlers[i].name](handlers[i].params, otherParams, value)
           } catch (e) {
             this.showNoty({
               component: 'notification',
@@ -153,7 +152,7 @@ export const useGlobalJsonDataStore = defineStore({
       const sendData = async () => {
         const data = await this.getBlockData(pageName, blockName)
         const res = await axios[method](endpoint, data)
-        console.log('-> Успешно отправлено', data)
+        console.warn('-> Успешно отправлено', data)
         this.showNoty({
           component: 'notification',
           type: 'success',
@@ -197,7 +196,6 @@ export const useGlobalJsonDataStore = defineStore({
 
       return data
     },
-
     async setSendDataPageName(page, data) {
       setTimeout(() => {
         this.$patch((state) => {
@@ -295,6 +293,155 @@ export const useGlobalJsonDataStore = defineStore({
     setFieldValue({ pageName, fieldName, value }) {
       this.sendData[pageName][fieldName] = value
     },
+    async validateHandler({ pageName, blockName }) {
+      await this.validateData(pageName, blockName)
+    },
+    async resetBlockData({ pageName, blockName }) {
+      const data = await this.getBlockData(pageName, blockName)
+      Object.keys(data).forEach((el) => {
+        if (!this.excludeReset[pageName][el])
+          this.sendData[pageName][el] = this.defaultSendData[pageName][el]
+      })
+      this.resetValidationErrors()
+    },
+    async createNewPageFromId({ endpoint, jsonPage }) {
+      const API = useApiStore()
+      const { data } = await API.createNewPageFromId(endpoint)
+      await new Promise((resolve, reject) => setTimeout(resolve, 2000))
+      this.router.push({
+        path: `/main/${jsonPage}`,
+        query: { id: data.id },
+      })
+    },
+    deleteFromId({ endpoint, redirect }) {
+      const id = this.router.currentRoute._value.query.id
+      if (!id) {
+        this.showNoty({
+          component: 'notification',
+          type: 'error',
+          title: 'Id не найден!',
+        })
+      } else {
+        const API = useApiStore()
+        API.deleteFromId(endpoint, id)
+        this.router.push(redirect)
+      }
+    },
+    setValueFromField(
+      { pageName, fieldName, glue = false },
+      otherParams,
+      value
+    ) {
+      if (glue) {
+        this.sendData[pageName][fieldName] += String(value)
+      } else this.sendData[pageName][fieldName] = value
+    },
+    goRoute({ name, query }) {
+      this.router.push({ path: `/main/${name}`, query })
+    },
+
+    //OTHER
+    goBack(params) {
+      this.router.go(`-${params?.step ? params.step : 1}`)
+    },
+    async getJsonCode({ pageName, blockName }) {
+      const groups = this.formattingData[pageName]
+      const findBlock = await findField(groups, blockName)
+      const jsonCode = findBlock.fields.map((block) => findField(groups, block))
+      return jsonCode
+    },
+    showNoty(params) {
+      if (params.component === 'message') {
+        const type = params.type || 'info'
+        this.message[type]({
+          content: () => params.title || 'Message',
+          class: params.class,
+          style: params.style,
+          duration: params.duration || 2,
+        })
+      } else {
+        const type = params.type || 'open'
+        this.notification[type]({
+          message: params.title || 'Message',
+          description: params.description,
+          duration: params.duration || 4,
+          class: params.class,
+          style: params.style,
+          placement: params.placement,
+        })
+      }
+    },
+
+    //TABLE HANDLERS
+    async sendOneFieldFromTable(params, { key, rowItem }) {
+      const {
+        endpoint,
+        pageName = '',
+        tableName = '',
+        method = 'post',
+        queryParams = null,
+        fullRow = false,
+      } = params
+      const API = useApiStore()
+
+      const cellData = {
+        rowId: rowItem.key,
+        columnId: key,
+        value: rowItem[key],
+      }
+
+      let value = {}
+
+      if (!fullRow) value = cellData
+      else value = rowItem
+      try {
+        const response = await API.sendOneField({
+          endpoint,
+          value,
+          queryParams,
+          method,
+        })
+        console.warn('-> Успешно отправлено', value.value)
+        this.showNoty({
+          component: 'notification',
+          type: 'success',
+          title: response.data?.message,
+        })
+      } catch (error) {
+        this.showNoty({
+          component: 'notification',
+          type: 'error',
+          title: error,
+        })
+        this.resetTableData({
+          pageName: pageName,
+          tableName: tableName,
+          rowId: fullRow ? rowItem.key : null,
+          columnId: key || null,
+        })
+      }
+    },
+    async getTableData(pageName, item, query) {
+      const API = useApiStore()
+      this.sendData[pageName][item.name] =
+        typeof item.data === 'string'
+          ? await API.getDataForTable(item.data, query)
+          : item.data
+    },
+    resetTableData({ pageName, tableName, rowId, columnId }) {
+      let sendData = this.sendData[pageName][tableName]
+      const defaultData = this.defaultSendData[pageName][tableName]
+      if ((rowId || rowId === 0) && columnId) {
+        // reset cell
+        sendData[rowId][columnId] = defaultData[rowId][columnId]
+      } else if ((rowId || rowId === 0) && !columnId) {
+        // reset row
+        sendData[rowId] = defaultData[rowId]
+      } else {
+        // reset table
+        sendData = defaultData
+      }
+    },
     async addDataToTableField({ pageName, tableName, data, request }) {
       const API = useApiStore()
       const resData = getValueFromNode(data, this.sendData, pageName)
@@ -334,147 +481,6 @@ export const useGlobalJsonDataStore = defineStore({
         foundTable.columns.push(response)
       } catch (e) {
         console.error(e)
-      }
-    },
-    async validateHandler({ pageName, blockName }) {
-      await this.validateData(pageName, blockName)
-    },
-    async resetBlockData({ pageName, blockName }) {
-      const data = await this.getBlockData(pageName, blockName)
-      Object.keys(data).forEach((el) => {
-        if (!this.excludeReset[pageName][el])
-          this.sendData[pageName][el] = this.defaultSendData[pageName][el]
-      })
-      this.resetValidationErrors()
-    },
-    resetTableData({ pageName, tableName, rowId, columnId }) {
-      let sendData = this.sendData[pageName][tableName]
-      const defaultData = this.defaultSendData[pageName][tableName]
-      if ((rowId || rowId === 0) && columnId) {
-        // reset cell
-        sendData[rowId][columnId] = defaultData[rowId][columnId]
-      } else if ((rowId || rowId === 0) && !columnId) {
-        // reset row
-        sendData[rowId] = defaultData[rowId]
-      } else {
-        // reset table
-        sendData = defaultData
-      }
-    },
-    async createNewPageFromId({ endpoint, jsonPage }) {
-      const API = useApiStore()
-      const { data } = await API.createNewPageFromId(endpoint)
-      await new Promise((resolve, reject) => setTimeout(resolve, 2000))
-      this.router.push({
-        path: `/main/${jsonPage}`,
-        query: { id: data.id },
-      })
-    },
-    deleteFromId({ endpoint, redirect }) {
-      const id = this.router.currentRoute._value.query.id
-      if (!id) {
-        this.showNoty({
-          component: 'notification',
-          type: 'error',
-          title: 'Id не найден!',
-        })
-      } else {
-        const API = useApiStore()
-        API.deleteFromId(endpoint, id)
-        this.router.push(redirect)
-      }
-    },
-
-    goRoute({ name, query }) {
-      this.router.push({ path: `/main/${name}`, query })
-    },
-
-    //OTHER
-    goBack(params) {
-      this.router.go(`-${params?.step ? params.step : 1}`)
-    },
-    getJsonCode({ pageName, blockName }) {
-      const groups = this.formattingData[pageName]
-      const findBlock = findField(groups, blockName)
-      const jsonCode = findBlock.fields.map((block) => findField(groups, block))
-      return jsonCode
-    },
-
-    //TABLE HANDLERS
-    async sendOneFieldFromTable(params, { key, rowItem }) {
-      const {
-        endpoint,
-        pageName = '',
-        tableName = '',
-        method = 'post',
-        queryParams = null,
-        fullRow = false,
-      } = params
-      const API = useApiStore()
-
-      const cellData = {
-        rowId: rowItem.key,
-        columnId: key,
-        value: rowItem[key],
-      }
-
-      let value = {}
-
-      if (!fullRow) value = cellData
-      else value = rowItem
-      try {
-        const response = await API.sendOneField({
-          endpoint,
-          value,
-          queryParams,
-          method,
-        })
-        console.log('-> Успешно отправлено', value.value)
-        this.showNoty({
-          component: 'notification',
-          type: 'success',
-          title: response.data.message,
-        })
-      } catch (error) {
-        this.showNoty({
-          component: 'notification',
-          type: 'error',
-          title: error,
-        })
-        this.resetTableData({
-          pageName: pageName,
-          tableName: tableName,
-          rowId: fullRow ? rowItem.key : null,
-          columnId: key || null,
-        })
-      }
-    },
-    async getTableData(pageName, item, query) {
-      const API = useApiStore()
-      this.sendData[pageName][item.name] =
-        typeof item.data === 'string'
-          ? await API.getDataForTable(item.data, query)
-          : item.data
-    },
-    showNoty(params) {
-      if (params.component === 'message') {
-        const type = params.type || 'info'
-        this.message[type]({
-          content: () => params.title,
-          class: params.class,
-          style: params.style,
-          duration: params.duration || 2,
-        })
-      } else {
-        const type = params.type || 'open'
-        this.notification[type]({
-          message: params.title,
-          description: params.description,
-          duration: params.duration || 4,
-          class: params.class,
-          style: params.style,
-          placement: params.placement,
-        })
       }
     },
   },

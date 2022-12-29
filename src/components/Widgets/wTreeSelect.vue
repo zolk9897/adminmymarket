@@ -2,11 +2,13 @@
   <a-tree-select
     v-model:value="store.sendData[pageName][item.name]"
     tree-default-expand-all
+    tree-checkable
+    :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
     multiple
     :tree-data="item.options"
     :style="item.style"
     :placeholder="item.description ? item.description.substring(0, 40) : null"
-    :class="[item.cssClass, errors && 'error']"
+    :class="[item.cssClass]"
     :show-checked-strategy="SHOW_PARENT"
   >
   </a-tree-select>

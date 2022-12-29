@@ -28,7 +28,7 @@
       :pagination="item.config.pagination"
       :row-selection="rowSelection"
       :size="item.config.size"
-      :custom-row="item.config.customRow ? customRow : null"
+      :custom-row="item.config.customRow ? getCustomRow : null"
       :scroll="item.config.scroll || null"
       @resize-column="handleResizeColumn"
     >
@@ -71,20 +71,30 @@
         <template v-if="column.widget.name === 'text'">
           <TableText
             v-model:editData="editableData"
+            v-model:dataSource="dataSource"
             :widget="column.widget"
             :item="record"
             :column="column"
             :text="text"
+            :set-data="setData"
+            @change="
+              store.callHandler(column.changeHandlers, null, {
+                key: column.key,
+                rowItem: record,
+              })
+            "
           />
         </template>
 
         <template v-if="column.widget.name === 'date'">
           <TableDate
             v-model:editData="editableData"
+            v-model:dataSource="dataSource"
             :widget="column.widget"
             :item="record"
             :column="column"
             :text="text"
+            :set-data="setData"
             @change="
               store.callHandler(column.changeHandlers, null, {
                 key: column.key,
@@ -163,6 +173,16 @@
             :text="text"
           />
         </template>
+        <template v-if="column.widget.name === 'html'">
+          <TableHTML
+            v-model:editData="editableData"
+            v-model:dataSource="dataSource"
+            :item="record"
+            :column="column"
+            :widget="column.widget"
+            :text="text"
+          />
+        </template>
       </template>
       <template
         #customFilterDropdown="{
@@ -218,6 +238,7 @@ import { useRoute, useRouter } from 'vue-router'
 import ru_RU from 'ant-design-vue/es/locale/ru_RU'
 import { useApiStore } from '@/stores/api.js'
 import { SearchOutlined, FilterOutlined } from '@ant-design/icons-vue'
+import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 
 import TableFilters from '../TableWidgets/TableFilters.vue'
 import TableLink from '../TableWidgets/TableLink.vue'
@@ -230,8 +251,8 @@ import TableSelect from '../TableWidgets/TableSelect.vue'
 import TableInput from '../TableWidgets/TableInput.vue'
 import TablePopover from '../TableWidgets/TablePopover.vue'
 import TableHeaderButtons from '../TableWidgets/TableHeaderButtons.vue'
+import TableHTML from '../TableWidgets/TableHTML.vue'
 import BottomButtons from '../TableWidgets/BottomButtons.vue'
-import { useGlobalJsonDataStore } from '@/stores/global-json.js'
 import TableColumnFilter from '../TableWidgets/TableColumnFilter.vue'
 
 const props = defineProps({
@@ -264,6 +285,7 @@ const loading = ref(true)
 const editableData = ref({})
 const filteredInfo = ref({})
 const columnFilterFocus = ref(false)
+const lastSelectedRow = ref(null)
 
 const handlers = {
   sendRow: [
@@ -363,12 +385,22 @@ onMounted(async () => {
   renderColumns()
 })
 
-const customRow = (record) => {
-  return {
-    onClick: (event) => {
-      router.replace({ path: route.path, query: { id: record.key } })
+const getCustomRow = (record) => {
+  const rowsList = {
+    changeRouteIdRow: {
+      onClick: (event) => {
+        if (lastSelectedRow.value) {
+          lastSelectedRow.value.classList.toggle('active')
+        }
+        const selectedRow = event.path.find((item) => item.localName === 'tr')
+        selectedRow.classList.toggle('active')
+        router.replace({ path: route.path, query: { id: record.key } })
+        lastSelectedRow.value = selectedRow
+      },
+      class: 'clickable-row selectable-row',
     },
   }
+  return rowsList[props.item.config.customRow]
 }
 
 const onSelectChange = (selectedRowKeys) => {
@@ -423,7 +455,7 @@ const getFilter = (filterType) => {
 
 //Изменение данных любой ячейки по индексу и ключу объекта
 const setData = (index, key, value) => {
-  dataSource.value[index][key] = value.value
+  dataSource.value[index][key] = value.value || value
 }
 
 const saveRow = async (rowItem) => {
@@ -507,5 +539,21 @@ const search = () => {
 .hidden {
   display: none;
   width: 0;
+}
+
+:deep(.selectable-row:hover) {
+  cursor: pointer;
+}
+
+:deep(.selectable-row.active) {
+  background-color: #bae7ff !important;
+}
+
+:deep(.selectable-row.active:hover > td) {
+  background-color: #bae7ff !important;
+}
+
+:deep(tr.active.selectable-row > td.ant-table-cell-row-hover) {
+  background-color: #bae7ff !important;
 }
 </style>

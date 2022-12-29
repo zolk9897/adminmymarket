@@ -6,11 +6,11 @@
       </template>
     </div>
     <div class="code-block">
-      <div v-if="sendData.ui_kit.info_switch" class="relative">
-        <span class="absolute top-[-24px] bg-white font-medium">
+      <div v-if="sendData['ui_kit']['info_switch']" class="relative mt-2">
+        <span class="absolute top-[-30px] bg-white font-medium">
           {{ item.infoTitle }}
         </span>
-        <div v-html="getFormattedInfo(item.info)"></div>
+        <div v-html="getFormattedInfo()"></div>
       </div>
       <div class="buttons-block">
         <a-button
@@ -42,26 +42,29 @@ import WidgetSwitch from './WidgetSwitch.vue'
 import { useGlobalJsonDataStore } from '../../stores/global-json'
 import { onMounted, ref } from 'vue'
 
-const { sendData, getJsonCode } = useGlobalJsonDataStore()
-const visibleCode = ref(false)
-const info = props.item.info.split('\n')
-
 const props = defineProps({
   item: {
     type: Object,
     default: () => {},
   },
 })
+
+const { sendData, getJsonCode } = useGlobalJsonDataStore()
+const visibleCode = ref(false)
+const info = ref(props.item.info.split('\n'))
 const code = ref('')
-onMounted(() => {
-  code.value = getJsonCode({ pageName: 'ui_kit', blockName: props.item.name })
+onMounted(async () => {
+  code.value = await getJsonCode({
+    pageName: 'ui_kit',
+    blockName: props.item.name,
+  })
 })
 const copyCode = () => {
   navigator.clipboard.writeText(JSON.stringify(code.value, null, 4))
 }
 const getFormattedInfo = () => {
-  const infoIncludesMarkup = info.some((item) => item.includes('</'))
-  return info.join(infoIncludesMarkup ? '' : '<br>')
+  const infoIncludesMarkup = info.value.some((item) => item.includes('</'))
+  return info.value.join(infoIncludesMarkup ? '' : '<br>')
 }
 </script>
 

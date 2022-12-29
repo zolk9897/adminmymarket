@@ -50,6 +50,7 @@ export default {
         'border-neutral-100',
       ],
       fields: [
+        'navigation_block',
         'buttons_block',
         'inputs_block',
         'handlers_block',
@@ -60,17 +61,56 @@ export default {
         'radio_block',
         'link_block',
         'label_block',
+        'dropdownMenu_block',
+        'div_block',
+        'file_block',
+        'breadcrumbs_block',
+        'datetime_block',
+        'editor_block',
+        'timeline_block',
+        'tree_block',
+        'tree_select_block',
+        'tabs_block',
+      ],
+    },
+    // NAVIGATIONS Block
+    {
+      name: 'navigation_block',
+      type: 'navigation',
+      fields: [
+        { text: 'Buttons block', id: 'buttons_block' },
+        { text: 'Inputs block', id: 'inputs_block' },
+        { text: 'Handlers block', id: 'handlers_block' },
+        { text: 'Tabels block', id: 'tables_block' },
+        { text: 'Select block', id: 'select_block' },
+        { text: 'Textarea block', id: 'textarea_block' },
+        { text: 'Boolean block', id: 'boolean_block' },
+        { text: 'Radio block', id: 'radio_block' },
+        { text: 'Link block', id: 'link_block' },
+        { text: 'Label block', id: 'label_block' },
+        { text: 'Div block', id: 'div_block' },
+        { text: 'File block', id: 'file_block' },
+        { text: 'Breadcrumbs block', id: 'breadcrumbs_block' },
+        { text: 'Datetime block', id: 'datetime_block' },
+        { text: 'Editor block', id: 'editor_block' },
+        { text: 'Timeline block', id: 'timeline_block' },
+        { text: 'Tree block', id: 'tree_block_for_scroll' },
+        { text: 'Tabs block', id: 'tabs_block' },
+        { text: 'Tree Select block', id: 'tree_select_block' },
+        { text: 'DropDown Menu', id: 'dropdownMenu_block' },
       ],
     },
     // BUTTONS Block
     {
       name: 'buttons_block',
+      id: 'buttons_block',
       type: 'div',
       fields: ['buttons_title_block', 'buttons_body'],
     },
     {
       name: 'buttons_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['buttons_title'],
     },
     {
@@ -405,12 +445,14 @@ export default {
     // INPUTS Block
     {
       name: 'inputs_block',
+      id: 'inputs_block',
       type: 'div',
       fields: ['inputs_title_block', 'inputs_body'],
     },
     {
       name: 'inputs_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['inputs_title'],
     },
     {
@@ -602,12 +644,14 @@ export default {
     // HANDLERS Block
     {
       name: 'handlers_block',
+      id: 'handlers_block',
       type: 'div',
       fields: ['handlers_title_block', 'handlers_body'],
     },
     {
       name: 'handlers_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['handlers_title'],
     },
     {
@@ -716,6 +760,7 @@ export default {
       fields: [
         'validate_handler_block',
         'handler_go_back_block',
+        'setValueFromField_block',
         'handler_add_column_to_table_field_block',
       ],
       parentClass: ['w-2/6', 'pr-2'],
@@ -786,6 +831,82 @@ export default {
           },
         ],
       },
+    },
+    {
+      name: 'setValueFromField_block',
+      type: 'code',
+      info: `Данный обработчик позволяет брать значение из handler компонента и присваевать его в sendData другого компонента.(он берет значение не из sendData а из самого компонента в котором вызвается handler)
+       <ul class="list-disc ml-5">
+      <li>Параметр pageName  страница на которой находится компонент в который мы присваеваем значение</li>
+      <li>Параметр fieldName компонент в который добавляются данные</li>
+      <li>Параметр glue(Boolean) склеивает значения с уже существующим, вместо того что бы его заменять</li>
+      `,
+      infoTitle: 'validateHandler',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['setValueFromField_menu', 'setValueFromField_input'],
+    },
+    {
+      name: 'setValueFromField_input',
+      format: 'text',
+      value: '',
+      type: 'input',
+      size: 'large',
+      parentClass: ['w-200 -mt-4 ml-2'],
+    },
+    {
+      name: 'setValueFromField_menu',
+      format: 'text',
+      cssClass: 'w-1/3',
+      description: 'Выбери что-то',
+      type: 'dropdownMenu',
+      button: {
+        type: 'button',
+        buttonType: 'primary',
+        ghost: true,
+        title: 'ShortCode',
+        icon: 'fa-user',
+      },
+      handlers: [
+        {
+          name: 'setValueFromField',
+          params: {
+            pageName: 'ui_kit',
+            fieldName: 'setValueFromField_input',
+            glue: true,
+          },
+        },
+      ],
+      options: [
+        {
+          title: '1',
+          value: 1,
+        },
+        {
+          title: '2',
+          value: 2,
+          subMenu: [
+            {
+              title: '2-1',
+              value: 21,
+            },
+            {
+              title: '2-2',
+              value: 22,
+              subMenu: [
+                {
+                  title: '2-2-1',
+                  value: 221,
+                },
+                {
+                  title: '2-2-2',
+                  value: 222,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      parentClass: ['pb-9'],
     },
     {
       name: 'handler_go_back_block',
@@ -1041,12 +1162,14 @@ export default {
     // TABLES Block
     {
       name: 'tables_block',
+      id: 'tables_block',
       type: 'div',
       fields: ['tables_title_block', 'tables_body'],
     },
     {
       name: 'tables_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['tables_title'],
     },
     {
@@ -1125,7 +1248,11 @@ export default {
       type: 'code',
       info: `widget содержит в себе описание способа отображения столбца.
       <ul class="list-disc ml-5">
-      <li>Параметр 'name: text' отображает данные в качестве текста, так же принимает параметры class и style</li>
+      <li>Параметр 'name: text' отображает данные в качестве текста, так же принимает параметры class и style<br/>
+          Дополнительные параметры:
+            <ul class="list-circle ml-5">
+              <li>isEditable поле становится редактируемым по двойному клику (по умолчанию false)</li>
+            </ul></li>
       <li>Параметр 'name: link' отображает данные в качестве ссылки, так же может принимать 'type: external'</li>
       <li>Параметр 'name: checkbox' отображает данные в качестве checkbox, в случае доополнительного параметра 'type: text' отображает в качестве надписи Да/Нет</li>
       <li>
@@ -1139,7 +1266,11 @@ export default {
       </ul>
       <li>Параметр 'name: popover' отображает всплывающее окно при наведении, поддерживает 'type: column" и 'type: text'</li>
       <li>Параметр 'name: image' отображает изображение по ссылке, поддерживает 'width: 150px',</li>
-      <li>Параметр 'name: date' отбражает unixtime в качестве даты в заданном формате, поддерживает 'format: "YYYY.MM.DD"'</li>
+      <li>Параметр 'name: date' отбражает unixtime в качестве даты в заданном формате, поддерживает 'format: "YYYY.MM.DD"'<br/>
+          Дополнительные параметры:
+          <ul class="list-circle ml-5">
+            <li>isEditable поле становится редактируемым по двойному клику (по умолчанию false)</li>
+          </ul></li>
       <li>Параметр 'name: input' создаёт поле ввода, поддерживает 'suffix: "%" и 'prefix: "%"'</li>`,
       infoTitle: 'widget',
       cssClass: ['flex', 'items-center', 'gap-2'],
@@ -1167,7 +1298,7 @@ export default {
           },
           popover_columns: {
             title: 'Iphone',
-            link: '/mikes',
+            link: '/#',
             offerInfo: [
               { param: 'Экран', value: '6.7 (2778х1284) OLED 120Гц' },
               { param: 'Встроенная память', value: '128 гБ' },
@@ -1201,7 +1332,7 @@ export default {
           },
           popover_columns: {
             title: 'Iphone',
-            link: '/mikes',
+            link: '/#',
             offerInfo: [
               { param: 'Экран', value: '6.7 (2778х1284) OLED 120Гц' },
               { param: 'Встроенная память', value: '128 гБ' },
@@ -1226,7 +1357,18 @@ export default {
           key: 'text',
           widget: {
             name: 'text',
+            isEditable: true,
           },
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+                pageName: 'ui_kit',
+                tableName: 'all_widget_table',
+              },
+            },
+          ],
         },
         {
           title: 'link',
@@ -1355,8 +1497,19 @@ export default {
           widget: {
             name: 'date',
             format: 'DD.MM.YYYY',
+            isEditable: true,
           },
           width: 100,
+          changeHandlers: [
+            {
+              name: 'sendOneFieldFromTable',
+              params: {
+                endpoint: 'https://ekat.sergeivl.ru/api/tests/request',
+                pageName: 'ui_kit',
+                tableName: 'all_widget_table',
+              },
+            },
+          ],
         },
         {
           title: 'input',
@@ -1896,6 +2049,10 @@ export default {
         <li>edit: true, переводит поля строки в режим редактирования</li>
         <li>onCopy: true, создаёт новую строку с такими же значениями</li>
         <li>deactivate: 'active', позволяет менять значение checkbox с определенным именем поля.</li>
+        <li>onlyIcon параметр который будет показывать заместо дропдоуна иконки</li>
+        <li>iconsDirectionColumn сделать эти иконки в столбик</li>
+        <li>gap расстояние между  иконками (по умолчанию 2)</li>
+
       </ul>`,
       infoTitle: 'Button',
       cssClass: ['flex', 'items-center', 'gap-2'],
@@ -1941,6 +2098,21 @@ export default {
           dataIndex: 'actions',
           widget: {
             name: 'actions',
+          },
+          width: 10,
+          delete: true,
+          edit: true,
+          onCopy: true,
+          deactivate: 'active',
+          sendSingleRow: true,
+        },
+        {
+          dataIndex: 'actionsIcon',
+          widget: {
+            name: 'actions',
+            onlyIcon: true,
+            iconsDirectionColumn: true,
+            gap: 3,
           },
           width: 10,
           delete: true,
@@ -2170,12 +2342,14 @@ export default {
     // SELECT Block
     {
       name: 'select_block',
+      id: 'select_block',
       type: 'div',
       fields: ['select_title_block', 'select_body'],
     },
     {
       name: 'select_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['select_title'],
     },
     {
@@ -2404,12 +2578,14 @@ export default {
     // TEXTAREA block
     {
       name: 'textarea_block',
+      id: 'textarea_block',
       type: 'div',
       fields: ['textarea_title_block', 'textarea_body'],
     },
     {
       name: 'textarea_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['textarea_title'],
     },
     {
@@ -2541,12 +2717,14 @@ export default {
     // BOOLEAN block
     {
       name: 'boolean_block',
+      id: 'boolean_block',
       type: 'div',
       fields: ['boolean_title_block', 'boolean_body'],
     },
     {
       name: 'boolean_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['boolean_title'],
     },
     {
@@ -2987,12 +3165,14 @@ export default {
     // RADIO block
     {
       name: 'radio_block',
+      id: 'radio_block',
       type: 'div',
       fields: ['radio_title_block', 'radio_body'],
     },
     {
       name: 'radio_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['radio_title'],
     },
     {
@@ -3261,12 +3441,14 @@ export default {
     // LINK block
     {
       name: 'link_block',
+      id: 'link_block',
       type: 'div',
       fields: ['link_title_block', 'link_body'],
     },
     {
       name: 'link_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['link_title'],
     },
     {
@@ -3350,12 +3532,14 @@ export default {
     // LABEL block
     {
       name: 'label_block',
+      id: 'label_block',
       type: 'div',
       fields: ['label_title_block', 'label_body'],
     },
     {
       name: 'label_title_block',
       type: 'div',
+      cssClass: ['border-b'],
       fields: ['label_title'],
     },
     {
@@ -3653,6 +3837,1243 @@ export default {
         trigger: 'hover',
         color: '#0077',
       },
+    },
+    // DIV block
+    {
+      name: 'div_block',
+      id: 'div_block',
+      type: 'div',
+      fields: ['div_title_block', 'div_body'],
+    },
+    {
+      name: 'div_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['div_title'],
+    },
+    {
+      text: 'Div',
+      name: 'div_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'div_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['div_col_1', 'div_col_2'],
+    },
+    {
+      name: 'div_col_1',
+      type: 'div',
+      fields: ['div_basic_usage_block', 'div_style_css_usage_block'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'div_col_2',
+      type: 'div',
+      fields: ['div_param_id_usage_block', 'div_handlers_usage_block'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'div_basic_usage_block',
+      type: 'code',
+      info: `Базовое использование widget Div.
+      <ul class="list-disc ml-5">
+        <li>Параметр 'title' - отображает текстовый заголовок для блока. (по-умолчанию может отсутствовать.)</li>
+        <li>Параметр 'name' - уникальное имя поля/блока в json-структуре.</li>
+        <li>Параметр 'fields' - массив ('name') полей которые будут находиться внутри блока.</li>
+        <li>Параметр 'fieldsData' - массив объектов. Отображает полное содержание поле, которые находиться внутри блока.</li>
+      </ul>`,
+      infoTitle: 'Div base usage',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: ['div_base_usage_field'],
+    },
+    {
+      title: 'Пример div block',
+      titleClass: ['font-medium'],
+      name: 'div_base_usage_field',
+      type: 'div',
+      cssClass: ['w-full', 'h-[80px]', 'border'],
+      fields: ['example_filed_into_div'],
+    },
+    {
+      text: 'Пример field внутри Div',
+      name: 'example_filed_into_div',
+      type: 'label',
+    },
+    {
+      name: 'div_style_css_usage_block',
+      type: 'code',
+      info: `Описание стилей для widget Div.
+      <ul class="list-disc ml-5">
+      <li>Параметр 'cssClass': массив классов, для стилизации блока (использовать tailwindcss classes)</li>
+      <li>Параметр 'style': объект описывает inline стили css для блока.</li>
+      </ul>`,
+      infoTitle: 'Style, cssClass for widget Div',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: ['div_style_css_usage_field'],
+    },
+    {
+      title: 'Пример style, cssClass',
+      titleClass: ['font-medium'],
+      name: 'div_style_css_usage_field',
+      type: 'div',
+      cssClass: ['w-full', 'border', 'bg-[#0022]'],
+      style: {
+        borderRadius: '8px',
+        height: '90px',
+      },
+      fields: ['example_filed_into_div'],
+    },
+    {
+      name: 'div_param_id_usage_block',
+      type: 'code',
+      info: `Id.
+      <ul class="list-disc ml-5">
+        <li>Параметр 'id' - отображает уникальный id для блока div в DOM-дереве. (по-умолчанию отсутствует.)</li>
+      </ul>`,
+      infoTitle: 'Id for widget Div',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: ['div_param_id_usage_field'],
+    },
+    {
+      title: 'Пример использования id',
+      titleClass: ['font-medium'],
+      name: 'div_param_id_usage_field',
+      id: 'example_id',
+      type: 'div',
+      cssClass: ['w-full', 'h-[80px]', 'border'],
+      fields: ['example_filed'],
+    },
+    {
+      name: 'div_handlers_usage_block',
+      type: 'code',
+      info: `
+      <ul class="list-disc ml-5">
+        <li>Параметр 'handlers' - отображает уникальный id для блока div в DOM-дереве. (по-умолчанию отсутствует.)</li>
+      </ul>`,
+      infoTitle: 'Handlers for widget Div',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: ['div_handlers_usage_field'],
+    },
+    {
+      title: 'Пример использования handlers (клик по блоку)',
+      titleClass: ['font-medium'],
+      name: 'div_handlers_usage_field',
+      type: 'div',
+      cssClass: ['w-full', 'h-[80px]', 'border', 'cursor-pointer'],
+      fields: ['example_filed_for_handlers_div'],
+      handlers: [
+        {
+          name: 'editField',
+          params: {
+            pageName: 'ui_kit',
+            blockName: 'example_filed_for_handlers_div',
+            fieldName: 'style',
+            value: { fontSize: '16px', backgroundColor: '#0022' },
+          },
+        },
+        {
+          name: 'editField',
+          params: {
+            pageName: 'ui_kit',
+            blockName: 'example_filed_for_handlers_div',
+            fieldName: 'text',
+            value: 'Handler сработал!',
+          },
+        },
+      ],
+    },
+    {
+      text: 'Filed внутри Div',
+      name: 'example_filed_for_handlers_div',
+      type: 'label',
+      style: {
+        fontSize: '12px',
+      },
+    },
+    // FILE block
+    {
+      name: 'file_block',
+      id: 'file_block',
+      type: 'div',
+      fields: ['file_title_block', 'file_body'],
+    },
+    {
+      name: 'file_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['file_title'],
+    },
+    {
+      text: 'File',
+      name: 'file_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'file_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['file_col_1', 'file_col_2', 'file_col_3'],
+    },
+    {
+      name: 'file_col_1',
+      type: 'div',
+      fields: ['file_basic_usage_block', 'file_filetype_usage_block'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'file_basic_usage_block',
+      type: 'code',
+      info: `Базовое использование widget File.
+      <ul class="list-disc ml-5">
+        <li>Параметр 'name' - уникальное имя поля в json-структуре (обязательное поле).</li>
+        <li>Параметр 'maxCount' - лимит ограничивающий количество файлов для загрузки.</li>
+      </ul>`,
+      infoTitle: 'File base usage',
+      cssClass: ['flex', 'gap-4'],
+      fields: ['file_base_usage_field_1', 'file_base_usage_field_2'],
+    },
+    {
+      name: 'file_base_usage_field_1',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+    },
+    {
+      name: 'file_base_usage_field_2',
+      value:
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      type: 'file',
+      fileType: 'image',
+      maxCount: 1,
+    },
+    {
+      name: 'file_filetype_usage_block',
+      type: 'code',
+      info: `Использование параметра filetype для widget File.
+      <ul class="list-disc ml-5">
+        <li>Параметр 'fileType' - тип файла, которое будет загружаться (image/text).</li>
+      </ul>`,
+      infoTitle: 'File base usage',
+      cssClass: ['flex', 'gap-4'],
+      fields: [
+        'file_filetype_usage_field_image',
+        'file_filetype_usage_field_text',
+      ],
+    },
+    {
+      title: 'fileType: image',
+      titleClass: ['font-medium'],
+      name: 'file_filetype_usage_field_image',
+      value: '',
+      type: 'file',
+      fileType: 'image',
+      maxCount: 1,
+    },
+    {
+      title: 'fileType: text',
+      titleClass: ['font-medium'],
+      name: 'file_filetype_usage_field_text',
+      value: '',
+      type: 'file',
+      fileType: 'text',
+      maxCount: 1,
+    },
+    {
+      name: 'file_col_2',
+      type: 'div',
+      fields: [
+        'file_accept_param_usage_block',
+        'file_style_css_usage_block',
+        'file_button_usage_block',
+      ],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'file_accept_param_usage_block',
+      type: 'code',
+      info: `Использование параметра accept для widget File.
+      <ul class="list-disc ml-5">
+        <li>Параметр 'accept' - типы файлов (mime-типы), доступные для загрузки.</li>
+      </ul>`,
+      infoTitle: 'accept usage params',
+      cssClass: ['flex', 'gap-4'],
+      fields: ['file_accept_usage_field_image', 'file_accept_usage_field_text'],
+    },
+    {
+      title: 'accept: image/png, image/jpeg',
+      titleClass: ['font-medium'],
+      name: 'file_accept_usage_field_image',
+      value: '',
+      type: 'file',
+      fileType: 'image',
+      accept: 'image/png, image/jpeg',
+      maxCount: 1,
+    },
+    {
+      title: 'accept: image/png, image/jpeg',
+      titleClass: ['font-medium'],
+      name: 'file_accept_usage_field_text',
+      value: '',
+      type: 'file',
+      accept: 'image/jpeg',
+      maxCount: 1,
+    },
+    {
+      name: 'file_style_css_usage_block',
+      type: 'code',
+      info: `Использование параметров style, cssClass.
+      <ul class="list-disc ml-5">
+        <li>Параметр 'style' - объект описывающий inline-стили css для поля виджета.</li>
+        <li>Параметр 'cssClass' - массив классов описывающие стили css для поля виджета (использование tailwind css).</li>
+      </ul>`,
+      infoTitle: 'Style, cssClass for File widget',
+      cssClass: ['flex', 'gap-4'],
+      fields: ['file_style_css_field_image', 'file_style_css_field_text'],
+    },
+    {
+      title: 'Style, cssClass',
+      titleClass: ['font-medium'],
+      name: 'file_style_css_field_image',
+      value: '',
+      type: 'file',
+      fileType: 'image',
+      maxCount: 1,
+      style: {
+        backgroundColor: '#0032',
+      },
+      cssClass: ['font-medium', 'p-4', 'bg-[#0021]'],
+    },
+    {
+      name: 'file_button_usage_block',
+      type: 'code',
+      info: `Использование параметров для button: (внутри объекта button).
+      <ul class="list-disc ml-5">
+        <li>Параметр 'text' - текстовый параметр, отображает текст для кнопки виджета.</li>
+        <li>Параметр 'type' - строковый параметр, отображает тип кнопки виджета (primary/danger/dashed и тп.).</li>
+        <li>Параметр 'block' - boolean параметр, отображает возможность подогнать ширину кнопки к ее родительской ширине.</li>
+        <li>Параметр 'ghost' - boolean параметр, отображает заполнение цветом внутри кнопки виджета.</li>
+      </ul>`,
+      infoTitle: 'Button for File widget',
+      cssClass: ['flex', 'gap-4'],
+      fields: [
+        'file_button_field_1',
+        'file_button_field_2',
+        'file_button_field_3',
+      ],
+    },
+    {
+      title: 'Button text',
+      titleClass: ['font-medium'],
+      name: 'file_button_field_1',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+      button: {
+        text: 'Пример текста',
+      },
+    },
+    {
+      title: 'Button type',
+      titleClass: ['font-medium'],
+      name: 'file_button_field_2',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+      button: {
+        type: 'danger',
+        block: true,
+      },
+    },
+    {
+      title: 'Button ghost',
+      titleClass: ['font-medium'],
+      name: 'file_button_field_3',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+      button: {
+        ghost: true,
+      },
+    },
+    {
+      name: 'file_col_3',
+      type: 'div',
+      fields: ['file_button_full_usage_block', 'file_subtitle_usage_block'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'file_button_full_usage_block',
+      type: 'code',
+      info: `Использование параметров для button: (внутри объекта button).
+      <ul class="list-disc ml-5">
+        <li>Параметр 'icon' - строковый параметр, отображает FA иконки для кнопки виджета.</li>
+        <li>Параметр 'text' - текстовый параметр, отображает текст для кнопки виджета.</li>
+        <li>Параметр 'type' - строковый параметр, отображает тип кнопки виджета (primary/danger/dashed и тп.).</li>
+        <li>Параметр 'block' - boolean параметр, отображает возможность подогнать ширину кнопки к ее родительской ширине.</li>
+        <li>Параметр 'ghost' - boolean параметр, отображает заполнение цветом внутри кнопки виджета.</li>
+      </ul>
+        Параметр 'disabled' - boolean параметр, блокирует кнопку виджета.`,
+      infoTitle: 'Button for File widget',
+      cssClass: ['flex', 'gap-4'],
+      fields: ['file_button_full_field_1', 'file_button_full_field_2'],
+    },
+    {
+      title: 'Button icon and full options',
+      titleClass: ['font-medium'],
+      name: 'file_button_full_field_1',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+      button: {
+        icon: 'fa-regular fa-circle',
+        text: 'Example icon',
+        type: 'primary',
+        block: true,
+        ghost: true,
+      },
+    },
+    {
+      title: 'Button disabled',
+      titleClass: ['font-medium'],
+      name: 'file_button_full_field_2',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+      disabled: true,
+      button: {
+        icon: 'fa-regular fa-circle',
+        text: 'Example icon',
+        type: 'primary',
+        block: true,
+        ghost: true,
+      },
+    },
+    {
+      name: 'file_subtitle_usage_block',
+      type: 'code',
+      info: `Использование параметров для subtitle: (внутри объекта subtitle).
+        Параметр 'subtitle' - объект, отображает вспомогательный текст под виджетом.
+      <ul class="list-disc ml-5">
+      <li>Параметр 'text' - отображает содержание текста для subtitle.</li>
+      <li>Параметр 'style' - объект, отображает inline-стили css для subtitle.</li>
+      <li>Параметр 'cssClass' - массив строк, отображает css классы для subtitle.</li>
+      </ul>`,
+      infoTitle: 'Subtitle for File widget',
+      cssClass: ['flex', 'gap-4'],
+      fields: ['file_subtitle_field_1', 'file_subtitle_field_2'],
+    },
+    {
+      title: 'Subtitle 1',
+      titleClass: ['font-medium'],
+      name: 'file_subtitle_field_1',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+      subtitle: {
+        text: 'Example subtitle',
+        style: {
+          color: '#007',
+        },
+        cssClass: ['font-meduim', 'text-xs'],
+      },
+    },
+    {
+      title: 'Subtitle 2',
+      titleClass: ['font-medium'],
+      name: 'file_subtitle_field_2',
+      value: '',
+      type: 'file',
+      maxCount: 1,
+      fileType: 'image',
+      subtitle: {
+        text: 'Example subtitle',
+        style: {
+          color: 'red',
+        },
+        cssClass: ['font-meduim', 'text-lg', 'bg-[#0022]'],
+      },
+    },
+    // BREADCRUMBS Block
+    {
+      name: 'breadcrumbs_block',
+      id: 'breadcrumbs_block',
+      type: 'div',
+      fields: ['breadcrumbs_title_block', 'breadcrumbs_body'],
+    },
+    {
+      name: 'breadcrumbs_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['breadcrumbs_title'],
+    },
+    {
+      text: 'Breadcrumbs',
+      name: 'breadcrumbs_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'breadcrumbs_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['breadcrumbs_col_1'],
+    },
+    {
+      name: 'breadcrumbs_col_1',
+      type: 'div',
+      fields: ['breadcrumbs_basic_usage_block'],
+      parentClass: ['w-2/6', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'breadcrumbs_basic_usage_block',
+      type: 'code',
+      info: `Breadcrumbs:
+      <ul class="list-disc ml-5">
+        <li>Параметр 'options' - массив объектов, в котром описываются все элементы breadcrumbs.</li>
+        <ul class="list-circle ml-5">
+          <li> 'title': текст отображаемы для одного элемента breadcrumbs.
+          <li> 'path': URL путь на который ссылается элемент breadcrumbs.
+        </ul>
+      </ul>
+      `,
+      infoTitle: 'Basic breadcrumbs usage',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['breadcrumbs_basic_usage_field'],
+    },
+    {
+      name: 'breadcrumbs_basic_usage_field',
+      type: 'breadcrumbs',
+      options: [
+        {
+          title: 'Главная',
+          path: '/',
+        },
+        {
+          title: 'Сервисы',
+        },
+        {
+          title: 'Beб-формы',
+        },
+        {
+          title: 'Тикеты',
+          path: '/main/about_company',
+        },
+        {
+          title: 'Жалобы на товар',
+          path: '/main/complaints',
+        },
+      ],
+    },
+    // DATETIME Block
+    {
+      name: 'datetime_block',
+      id: 'datetime_block',
+      type: 'div',
+      fields: ['datetime_title_block', 'datetime_body'],
+    },
+    {
+      name: 'datetime_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['datetime_title'],
+    },
+    {
+      text: 'Datetime',
+      name: 'datetime_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'datetime_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['datetime_col_1', 'datetime_col_2'],
+    },
+    {
+      name: 'datetime_col_1',
+      type: 'div',
+      fields: [
+        'datetime_basic_range_usage_block',
+        'datetime_basic_single_usage_block',
+      ],
+      parentClass: ['w-2/6', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'datetime_col_2',
+      type: 'div',
+      fields: ['datetime_params_usage_block'],
+      parentClass: ['w-2/6', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'datetime_basic_range_usage_block',
+      type: 'code',
+      info: `Datetime:
+      <ul class="list-disc ml-5">
+        <li>Параметр 'range' - boolean, отображает диапазон или одиночный выбор дату.</li>
+      </ul>
+      `,
+      infoTitle: 'Datetime range basic usage',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: ['datetime_basic_range_usage_field_1'],
+    },
+    {
+      name: 'datetime_basic_single_usage_block',
+      type: 'code',
+      info: ``,
+      infoTitle: 'Datetime single basic usage',
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+      fields: ['datetime_basic_single_usage_field'],
+    },
+    {
+      title: 'Диапазон дат',
+      titleClass: ['font-medium'],
+      name: 'datetime_basic_range_usage_field_1',
+      value: [],
+      type: 'datetime',
+      range: true,
+      displayFormat: 'YYYY-MM-DD',
+      format: 'YYYY-MM-DD',
+      mode: 'date',
+    },
+    {
+      title: 'Одиночная дата',
+      titleClass: ['font-medium'],
+      name: 'datetime_basic_single_usage_field',
+      value: '',
+      type: 'datetime',
+      displayFormat: 'YYYY-MM-DD',
+      format: 'YYYY-MM-DD',
+      mode: 'date',
+    },
+    {
+      name: 'datetime_params_usage_block',
+      type: 'code',
+      info: `Datetime:
+      <ul class="list-disc ml-5">
+        <li>Параметр 'value' - значение выбраной даты (для диапазона дат является массивом).</li>
+        <li>Параметр 'displayFormat' - формат даты для отображения.</li>
+        <li>Параметр 'format' - уставливает формат даты для поля (формат должет поддерживать текущий mode отображения).</li>
+        <li>Параметр 'mode' - режим панели выбора даты (time | date | month | year | decade).</li>
+        <li>Параметр 'time' - boolean, режим дополнительно выбрать время. </li>
+      </ul>
+      `,
+      infoTitle: 'Datetime params usage',
+      cssClass: ['flex', 'items-center', 'gap-2', 'flex-col'],
+      fields: [
+        'datetime_params_usage_field_1',
+        'datetime_params_usage_field_2',
+      ],
+    },
+    {
+      title: 'Описание полей datetime',
+      titleClass: ['font-medium'],
+      name: 'datetime_params_usage_field_1',
+      value: '',
+      type: 'datetime',
+      displayFormat: 'MM/DD',
+      format: 'YYYY-MM-DD',
+      mode: 'date',
+      time: true,
+      style: {
+        fontWeight: 600,
+      },
+      cssClass: ['p-2', 'bg-[#0022]'],
+    },
+    {
+      title: 'Описание полей datetime range',
+      titleClass: ['font-medium'],
+      name: 'datetime_params_usage_field_2',
+      value: [],
+      range: true,
+      type: 'datetime',
+      displayFormat: 'MM/DD',
+      format: 'YYYY-MM-DD',
+      mode: 'date',
+      style: {
+        backgroundColor: '#0022',
+      },
+      cssClass: ['p-2', 'border-b'],
+    },
+    // EDITOR Block
+    {
+      name: 'editor_block',
+      id: 'editor_block',
+      type: 'div',
+      fields: ['editor_title_block', 'editor_body'],
+    },
+    {
+      name: 'editor_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['editor_title'],
+    },
+    {
+      text: 'Editor',
+      name: 'editor_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'editor_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['editor_col_1'],
+    },
+    {
+      name: 'editor_col_1',
+      type: 'div',
+      fields: ['editor_basic_usage_block'],
+      parentClass: ['w-full', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'editor_basic_usage_block',
+      type: 'code',
+      info: `Editor ckeditor5 <a href="https://ckeditor.com/docs/ckeditor5/latest/index.html"> Doc link </a>:
+      <ul class="list-disc ml-5">
+        <li>Параметр 'value' - текст/html-код.</li>
+        <li>Параметр 'cssClass' - массив классов css для стилизация поля (реком. использование tailwind css).</li>
+        <li style="color: red;">Параметр 'config' - в разработке! Параметр необходим для описание свойств и настройки ckeditor.</li>
+        <li style="color: red;">Параметр 'label' - не актуален! Вместо него использовать 'title'.</li>
+      </ul>
+      `,
+      infoTitle: 'Editor basic usage',
+      cssClass: ['flex', 'items-center', 'gap-2', 'flex-col'],
+      fields: ['editor_basic_usage_field_1'],
+    },
+    {
+      title: 'Пример визуально редактора кода',
+      titleClass: ['font-medium'],
+      name: 'editor_basic_usage_field_1',
+      type: 'editor',
+      value: `<h1>Пример h1 Заголовок</h1><p>p1 Example text</p><p>p2 Example text</p>`,
+      cssClass: ['w-[150px]'],
+      config: {
+        height: '500px',
+      },
+    },
+    // TIMELINE Block
+    {
+      name: 'timeline_block',
+      id: 'timeline_block',
+      type: 'div',
+      fields: ['timeline_title_block', 'timeline_body'],
+    },
+    {
+      name: 'timeline_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['timeline_title'],
+    },
+    {
+      text: 'Timeline',
+      name: 'timeline_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'timeline_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['timeline_col_1'],
+    },
+    {
+      name: 'timeline_col_1',
+      type: 'div',
+      fields: ['timeline_basic_usage_block'],
+      parentClass: ['pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'timeline_basic_usage_block',
+      type: 'code',
+      info: `
+        Timeline:
+        <ul class="list-disc ml-5">
+          <li>Параметр 'items' - массив объектов, элементы для отображения в виджете timeline.</li>
+            Параметры элемента (item):
+            <ul class="list-circle ml-5">
+              <li>'date' - строка, отображает дату (временной промежуток) у одного элемента виджета</li>
+              <li>'action' - отображает действия/комментарии/сообщения относящиеся к данной дате.</li>
+            </ul>
+        </ul>
+      `,
+      infoTitle: 'Timeline basic usage',
+      cssClass: ['flex', 'gap-2'],
+      fields: ['timeline_basic_usage_field'],
+    },
+    {
+      name: 'timeline_basic_usage_field',
+      type: 'timeline',
+      items: [
+        {
+          date: '2022-15-10 12:22',
+          action:
+            'отредактировал(а) h1, text, image, source_published, для vxbvf ',
+        },
+        {
+          date: '2022-20-10 15:22',
+          action:
+            'отредактировал(а) h1, text, image, source_published, для vxbvf ',
+        },
+        {
+          date: '2022-30-10 13:33',
+          action:
+            'отредактировал(а) h1, text, image, source_published, для vxbvf ',
+        },
+      ],
+    },
+    // TABS Block
+    {
+      name: 'tabs_block',
+      id: 'tabs_block',
+      type: 'div',
+      fields: ['tabs_title_block', 'tabs_body'],
+    },
+    {
+      name: 'tabs_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['tabs_title'],
+    },
+    {
+      text: 'Tabs',
+      name: 'tabs_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'tabs_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['tabs_col_1', 'tabs_col_2'],
+    },
+    {
+      name: 'tabs_col_1',
+      type: 'div',
+      fields: ['tabs_basic_usage_block', 'tabs_type_card_usage_block'],
+      parentClass: ['w-3/6', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'tabs_col_2',
+      type: 'div',
+      fields: [
+        'tabs_radio_basic_usage_block',
+        'tabs_type_radio_button_usage_block',
+      ],
+      parentClass: ['w-3/6', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'tabs_basic_usage_block',
+      type: 'code',
+      info: `
+      <ul class="list-disc ml-5">
+        <li>'view': режим отображения табов (tabs | radio).</li>
+        <li>'tabType': режим изменения отображения кнопок таба.
+          <ul class="list-circle ml-5">
+          <li>Если 'view: tabs' - доступные значения line | card | editable-card.</li>
+          <li>Если 'view: radio' - доступный значения default | button.</li>
+          </ul>
+        </li>
+        <li>'size': размер применяемый к кнопкам переключения табов (small | large | default).</li>
+        <li>'defaultActive': индекс таба который будет отображаться активным по-умолчанию (при первой загрузке).</li>
+        <li>'titles': массив заголовков для табов, применяются к кнопкам переключения. Нужно учитывать порядок заголовков.</li>
+        <li>'fields': массив названия ('name') полей которые будут являться содержанием (контентом) для табов.</li>
+        <li>'style': объект в котором описываются inline-стили css для панели таба (применяются ко всем табам).</li>
+        <li>'cssClass': массив tailwind css классов для стилизации панели табов (применяются ко всем табам).</li>
+      </ul>
+      `,
+      infoTitle: 'Tabs basic usage',
+      cssClass: ['flex', 'gap-2'],
+      fields: ['tabs_basic_usage_field'],
+    },
+    {
+      name: 'tabs_basic_usage_field',
+      type: 'tabs',
+      view: 'tabs', // tabs | radio
+      tabType: 'default', // if tabs = line | card | editable-card  if radio = default | button
+      size: 'large',
+      defaultActive: 0,
+      style: {
+        backgroundColor: '#0031',
+      },
+      cssClass: ['text-red-500'],
+      titles: ['Первый таб', 'Второй таб'],
+      fields: ['tabs_1_field', 'tabs_2_field'],
+    },
+    {
+      title: 'Содержание первого таба',
+      titleClass: ['font-medium'],
+      text: 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн.',
+      name: 'tabs_1_field',
+      type: 'label',
+      parentClass: ['w-500', 'mb-6', 'p-4'],
+    },
+    {
+      title: 'Содержание второго таба',
+      titleClass: ['font-medium'],
+      text: 'Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст.',
+      name: 'tabs_2_field',
+      type: 'label',
+      parentClass: ['w-500', 'mb-6', 'p-4'],
+    },
+    {
+      name: 'tabs_radio_basic_usage_block',
+      type: 'code',
+      info: `
+      <ul class="list-disc ml-5">
+        <li>'view': режим отображения табов (tabs | radio).</li>
+        <li>'tabType': режим изменения отображения кнопок таба.
+          <ul class="list-circle ml-5">
+          <li>Если 'view: tabs' - доступные значения line | card | editable-card.</li>
+          <li>Если 'view: radio' - доступный значения default | button.</li>
+          </ul>
+        </li>
+        <li>'size': размер применяемый к кнопкам переключения табов (small | large | default).</li>
+        <li>'defaultActive': индекс таба который будет отображаться активным по-умолчанию (при первой загрузке).</li>
+        <li>'titles': массив заголовков для табов, применяются к кнопкам переключения. Нужно учитывать порядок заголовков.</li>
+        <li>'fields': массив названия ('name') полей которые будут являться содержанием (контентом) для табов.</li>
+        <li>'style': объект в котором описываются inline-стили css для панели таба (применяются ко всем табам).</li>
+        <li>'cssClass': массив tailwind css классов для стилизации панели табов (применяются ко всем табам).</li>
+      </ul>
+      `,
+      infoTitle: 'Radio Tabs basic usage',
+      cssClass: ['flex', 'gap-2'],
+      fields: ['tabs_radio_basic_usage_field'],
+    },
+    {
+      name: 'tabs_radio_basic_usage_field',
+      type: 'tabs',
+      view: 'radio', // tabs | radio
+      tabType: 'default', // if tabs = line | card | editable-card  if radio = default | button
+      size: 'large',
+      defaultActive: 0,
+      titles: ['Первый таб', 'Второй таб'],
+      fields: ['tabs_1_field', 'tabs_2_field'],
+    },
+    {
+      name: 'tabs_type_card_usage_block',
+      type: 'code',
+      info: 'Tabs view, tabType:card',
+      infoTitle: 'Tab type card usage',
+      cssClass: ['flex', 'gap-2'],
+      fields: ['tabs_type_card_usage_field'],
+    },
+    {
+      name: 'tabs_type_card_usage_field',
+      type: 'tabs',
+      view: 'tabs', // tabs | radio
+      tabType: 'card', // if tabs = line | card | editable-card  if radio = default | button
+      size: 'small',
+      defaultActive: 0,
+      titles: ['Первый таб', 'Второй таб'],
+      fields: ['tabs_1_field', 'tabs_2_field'],
+    },
+    {
+      name: 'tabs_type_radio_button_usage_block',
+      type: 'code',
+      info: 'Radio view, tabType:button',
+      infoTitle: 'Radio tab type button usage',
+      cssClass: ['flex', 'gap-2'],
+      fields: ['tabs_type_radio_button_usage_field'],
+    },
+    {
+      name: 'tabs_type_radio_button_usage_field',
+      type: 'tabs',
+      view: 'radio', // tabs | radio
+      tabType: 'button', // if tabs = line | card | editable-card  if radio = default | button
+      size: 'small',
+      defaultActive: 0,
+      titles: ['Первый таб', 'Второй таб'],
+      fields: ['tabs_1_field', 'tabs_2_field'],
+    },
+    // TREESELECT Block
+    {
+      name: 'tree_block',
+      id: 'tree_block_for_scroll',
+      type: 'div',
+      fields: ['tree_title_block', 'tree_body'],
+    },
+    {
+      name: 'tree_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['tree_title'],
+    },
+    {
+      text: 'Tree',
+      name: 'tree_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'tree_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['tree_col_1'],
+    },
+    {
+      name: 'tree_col_1',
+      type: 'div',
+      fields: ['tree_basic_usage_block'],
+      parentClass: ['w-full', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'tree_basic_usage_block',
+      type: 'code',
+      info: `
+      <ul class="list-disc ml-5">
+        <li>'showIcon': режим отображения иконок (true | false).</li>
+        <li>'checkable': режим отображения чекбокса для элемента дерева (true | false).</li>
+        <li>'search': режим отображения поля поиска, поиск происходит по всей структуре дерева (true | false).</li>
+        <li>'checkHandlers': события которые будут выполнены после клика по чекбоксу элемента дерева.</li>
+        <li>'selectHandlers': события которые будут выполнены после выбора (клика по элементу) элемента дерева.</li>
+        <li>'fieldNames': параметр позволяет заменить поля заголовка, ключа и дочерних элементов в treeNode (tree item) соответствующими полями в treeData (data).</li>
+        <li>'data': в массиве перечисляются узлы дерева tree nodes (tree items), данные для отображения.
+          Параметры для узлов дерева (tree item, элементов data) :
+          <ul class="list-circle ml-5">
+            <li>'title': текст отображаемый для узла дерева</li>
+            <li>'id': уникальный идентификатор для узла дерева</li>
+            <li>'titleColor': цвет в который будет окрашен текст узла</li>
+            <li>'children': массив, дочерние элементы узла дерева</li>
+            <li>'selectColor': цвет фона узла при выборе данного элемента дерева</li>
+            <li>'disableCheckbox': boolean, режим блокировки узла дерева. Если true - то у элемента не отрабатывают handlers при клике или выборе через checkbox. (по-умолчанию false, можно не передавать.) </li>
+            <li>'ico': иконка которая будет отображаться для узла дерева (FA Icons).</li>
+          </ul>
+        </li>
+
+        </ul>
+      `,
+      infoTitle: 'Tree basic usage',
+      cssClass: ['flex', 'gap-2'],
+      fields: ['tree_basic_usage_field'],
+    },
+    {
+      name: 'tree_basic_usage_field',
+      type: 'tree',
+      showIcon: true,
+      checkable: true,
+      search: true,
+      checkHandlers: [
+        {
+          name: 'showNoty',
+          params: {
+            title: 'Checkbox click from tree item',
+          },
+        },
+      ],
+      selectHandlers: [
+        {
+          name: 'showNoty',
+          params: {
+            title: 'Select tree item',
+          },
+        },
+      ],
+      fieldNames: {
+        children: 'children',
+        title: 'title',
+        key: 'id',
+      },
+      data: [
+        {
+          title: 'one',
+          id: 'one',
+          titleColor: '#29a665',
+          children: [
+            {
+              title: 'two',
+              selectColor: '#8e0eb9',
+              titleColor: '#000',
+              id: 'two',
+              children: [
+                { title: 'leaf', id: 'leaf', disableCheckbox: true },
+                { title: 'beaf', id: 'beaf' },
+              ],
+            },
+            {
+              title: 'trip',
+              id: 'trip',
+              ico: 'fa-tree',
+              children: [
+                { id: 'sss', title: 'sss' },
+                { id: 'ddd', title: 'ddd' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    // TREESELECT Block
+    {
+      name: 'tree_select_block',
+      id: 'tree_select_block',
+      type: 'div',
+      fields: ['tree_select_title_block', 'tree_select_body'],
+    },
+    {
+      name: 'tree_select_title_block',
+      type: 'div',
+      cssClass: ['border-b'],
+      fields: ['tree_select_title'],
+    },
+    {
+      text: 'Tree Select',
+      name: 'tree_select_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'tree_select_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['tree_select_col_1'],
+    },
+    {
+      name: 'tree_select_col_1',
+      type: 'div',
+      fields: ['tree_select_basic_usage_block'],
+      parentClass: ['w-full', 'pr-2'],
+      cssClass: ['flex', 'gap-2', 'flex-col'],
+    },
+    {
+      name: 'tree_select_basic_usage_block',
+      type: 'code',
+      info: 'Tree Select',
+      infoTitle: 'Tree Select',
+      cssClass: ['flex', 'items-center', 'gap-2'],
+      fields: ['tree_select_basic_usage_field'],
+    },
+    {
+      name: 'tree_select_basic_usage_field',
+      type: 'treeSelect',
+      cssClass: ['w-[500px]', 'mb-6'],
+      description: 'Выбрать правила..',
+      value: [],
+      options: [
+        {
+          title: 'one',
+          value: 'one',
+          children: [
+            {
+              title: 'two',
+              value: 'two',
+              children: [
+                { title: 'leaf', value: 'leaf' },
+                { title: 'beaf', value: 'beaf' },
+              ],
+            },
+            {
+              title: 'trip',
+              value: 'trip',
+              children: [
+                { value: 'sss', title: 'sss' },
+                { value: 'ddd', title: 'ddd' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    // DROPDOWNMENU BLOCK
+    {
+      name: 'dropdownMenu_block',
+      id: 'dropdownMenu_block',
+      type: 'div',
+      fields: ['dropdown_title_block', 'dropdown_body'],
+    },
+    {
+      name: 'dropdown_title_block',
+      type: 'div',
+      fields: ['dropdown_title'],
+    },
+    {
+      text: 'DropDown Menu',
+      name: 'dropdown_title',
+      type: 'label',
+      cssClass: ['font-medium', 'text-xl'],
+    },
+    {
+      name: 'dropdown_body',
+      type: 'div',
+      cssClass: ['flex', 'flex-wrap', 'my-[20px]'],
+      fields: ['dropdown_body_col_1'],
+    },
+    {
+      name: 'dropdown_body_col_1',
+      type: 'code',
+      info: `
+      button:
+          <ul class="list-disc ml-5">
+      <li>type: вид кнопка или текст (button, link)</li>
+      <li>buttonType: стнадартные типы для кнопки</li>
+      <li>title надпись на кнпоке или ссылке</li>
+      <li>icon иконка для кнопки (font awesome)</li>
+      </ul>
+      options: набор значений title, value и subMenu : [{title, value}]
+      `,
+      infoTitle: 'Параметры',
+      fields: ['dropdownMenu_basic_usage_block'],
+      parentClass: ['w-2/6', 'pr-4'],
+      cssClass: ['flex', 'gap-4', 'flex-col'],
+    },
+    {
+      name: 'dropdownMenu_basic_usage_block',
+      format: 'text',
+      cssClass: 'w-1/3',
+      type: 'dropdownMenu',
+      button: {
+        type: 'button',
+        buttonType: 'primary',
+        ghost: true,
+        title: 'ShortCode',
+        icon: 'fa-user',
+      },
+      options: [
+        {
+          title: '1',
+          value: 1,
+        },
+        {
+          title: '2',
+          value: 2,
+          subMenu: [
+            {
+              title: '2-1',
+              value: 21,
+            },
+            {
+              title: '2-2',
+              value: 22,
+              subMenu: [
+                {
+                  title: '2-2-1',
+                  value: 221,
+                },
+                {
+                  title: '2-2-2',
+                  value: 222,
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   ],
 }

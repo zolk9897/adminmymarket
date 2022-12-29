@@ -43,5 +43,6 @@ module.exports = {
     'vue/no-v-html': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
   },
 }

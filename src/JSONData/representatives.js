@@ -182,6 +182,19 @@ export default {
       type: 'div',
       cssClass: ['bg-white', 'p-6'],
       fields: ['select_user_block', 'checkbox_form', 'added_button'],
+      otherHandlers: {
+        end: [
+          {
+            name: 'editField',
+            params: {
+              pageName: 'representatives',
+              blockName: 'blockModal_1',
+              fieldName: 'style',
+              value: { display: 'none' },
+            },
+          },
+        ],
+      },
     },
     {
       description: 'Select User Block',

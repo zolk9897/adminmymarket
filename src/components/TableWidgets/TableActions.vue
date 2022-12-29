@@ -12,7 +12,7 @@
         Отмена
       </a-popconfirm>
     </span>
-    <a-dropdown v-else>
+    <a-dropdown v-else-if="!column.widget.onlyIcon">
       <a class="ant-dropdown-link" @click.prevent>
         <fa icon="fa-solid fa-ellipsis" />
       </a>
@@ -53,6 +53,69 @@
         </a-menu>
       </template>
     </a-dropdown>
+    <div
+      v-else
+      class="flex"
+      :class="[
+        column.widget.iconsDirectionColumn && 'flex-col items-center',
+        column.widget.gap ? `gap-${column.widget.gap}` : 'gap-2',
+      ]"
+    >
+      <div v-if="column.edit">
+        <a-tooltip title="Редактировать">
+          <a
+            v-if="column.edit.type === 'action' || !column.edit.type"
+            @click="onEdit(item.key)"
+          >
+            <fa size="lg" icon="fa-solid fa-pen-to-square" />
+          </a>
+          <router-link v-else :to="item[column.edit.link_field]">
+            <fa size="lg" icon="fa-solid fa-pen-to-square" />
+          </router-link>
+        </a-tooltip>
+      </div>
+
+      <a-tooltip v-if="column.delete" title="Удалить">
+        <a-popconfirm
+          title="Действительно хотите удалить?"
+          ok-text="Удалить"
+          cancel-text="Отмена"
+          @confirm="onDelete(item.key)"
+        >
+          <a>
+            <fa size="lg" icon="fa-solid fa-trash" />
+          </a>
+        </a-popconfirm>
+      </a-tooltip>
+
+      <a v-if="column.copy" @click="onCopy(item)">
+        <a-tooltip title="Копировать">
+          <fa size="lg" icon="fa-solid fa-copy" />
+        </a-tooltip>
+      </a>
+
+      <a
+        v-if="column.deactivate"
+        @click="onDeactivate(item, column.deactivate)"
+      >
+        <a-tooltip
+          :title="item[column.deactivate] ? 'Деактивировать' : 'Активировать'"
+        >
+          <fa
+            v-if="item[column.deactivate]"
+            size="lg"
+            icon="fa-solid fa-circle-check"
+          />
+          <fa v-else icon="fa-regular fa-circle-check" size="lg" />
+        </a-tooltip>
+      </a>
+
+      <a v-if="column.view" :href="item[column.view]" target="_blank">
+        <a-tooltip title="Просмотр">
+          <fa icon="fa-solid fa-eye" size="lg" />
+        </a-tooltip>
+      </a>
+    </div>
   </div>
 </template>
 

@@ -328,23 +328,6 @@ a {
   }
 }
 
-.table_context {
-  border: 1px solid var(--ag-border-color, #bdc3c7);
-
-  .ant-menu-item {
-    font-size: 12px;
-    height: 20px;
-    line-height: 20px;
-
-    .title {
-      padding-right: 10px;
-    }
-
-    .key {
-      color: var(--gray);
-    }
-  }
-}
 
 .vs--single .vs__selected {
   white-space: nowrap;

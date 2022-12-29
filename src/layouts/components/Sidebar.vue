@@ -1,5 +1,11 @@
 <template>
-  <a-layout-sider width="250" style="background: #fff">
+  <a-layout-sider
+    v-model:collapsed="configStore.collapsedMenu"
+    width="250"
+    collapsible
+    theme="light"
+    collapsed-width="50"
+  >
     <a-menu
       v-model:selectedKeys="selectedKeys"
       v-model:openKeys="openedKeys"
@@ -17,10 +23,7 @@
           :key="item.name"
           @click="menuClick(item)"
         >
-          {{ item.title }}
-          <template #icon>
-            <fa v-if="item.icon" :icon="item.icon" />
-          </template>
+          <TitleComponent :item="item" />
         </a-menu-item>
         <SubMenuItem v-else :item="item" />
       </div>
@@ -33,6 +36,8 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SubMenuItem from './SubMenuItem.vue'
 import mainJSON from '@/JSONData/MainJSON'
+import TitleComponent from './TitleComponent.vue'
+import { useConfigStore } from '@/stores/config.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -43,6 +48,8 @@ const defaultRoutes = []
 
 const selectedKeys = ref([])
 const openedKeys = ref([])
+
+const configStore = useConfigStore()
 
 onMounted(() => {
   setActiveItem()

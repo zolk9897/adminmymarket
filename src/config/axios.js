@@ -13,7 +13,7 @@ instance.interceptors.response.use(
   (response) => response,
   ({ response: { status, data } }) => {
     if (status === 401) {
-      console.log(401)
+      console.error(401)
     }
     throw data
   }

@@ -100,7 +100,7 @@ const handleChange = (info) => {
   }
   if (info.file.status === 'error') {
     loading.value = false
-    console.log('upload error')
+    console.error('upload error')
   }
 }
 

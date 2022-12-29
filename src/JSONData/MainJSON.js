@@ -28,8 +28,8 @@ import requisites from './requisites'
 import settings_logs from './settings_logs'
 import shops from './shops.js'
 import shop_template from './shop_template.js'
-import tabs_test from './tab_test'
-import test_table from './test_table'
+import tabs_test from './testPages/tab_test.js'
+import test_table from './testPages/test_table.js'
 import users_edit from './users_edit'
 import users_list_table from './users_list_table'
 import user_roles from './user_roles'
@@ -38,14 +38,21 @@ import banner_list from './banner_list'
 import banner_types from './banner_types'
 import selections_groups from './selections_groups'
 import edit_selection from './edit_selection'
-import test_tree from './test_tree'
-import test_select from './test_select'
+import test_tree from './testPages/test_tree.js'
+import test_select from './testPages/test_select.js'
+import test_cascader from './testPages/test_cascader.js'
+import test_dropdownMenu from './testPages/test_dropdownMenu.js'
 export default {
   data: [
     {
       name: 'test_select',
       title: 'test_select',
       data: test_select,
+    },
+    {
+      name: 'test_dropdownMenu',
+      title: 'test_dropdownMenu',
+      data: test_dropdownMenu,
     },
     {
       name: 'about_company',
@@ -256,6 +263,11 @@ export default {
       name: 'test_tree',
       title: 'test_tree',
       data: test_tree,
+    },
+    {
+      name: 'test_cascader',
+      title: 'test_cascader',
+      data: test_cascader,
     },
   ],
   menu: [

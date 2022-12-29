@@ -103,6 +103,40 @@ const emulateResponse = async (endpoint, id, data = {}) => {
       create_field_label: new Date().toLocaleDateString('ru'),
       updated_field_label: new Date().toLocaleDateString('ru'),
     },
+    getCascaderOptions: [
+      {
+        value: 'zhejiang',
+        label: 'Zhejiang',
+        children: [
+          {
+            value: 'hangzhou',
+            label: 'Hangzhou',
+            children: [
+              {
+                value: 'xihu',
+                label: 'West Lake',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        value: 'jiangsu',
+        label: 'Jiangsu',
+        children: [
+          {
+            value: 'nanjing',
+            label: 'Nanjing',
+            children: [
+              {
+                value: 'zhonghuamen',
+                label: 'Zhong Hua Men',
+              },
+            ],
+          },
+        ],
+      },
+    ],
   }
 
   if (complexRoutes.includes(endpoint)) {
@@ -175,6 +209,12 @@ export const useApiStore = defineStore({
       return res
     },
     async getSelectOptionsFromSearch(endpoint, value) {
+      const res = await emulateResponse(endpoint)
+      axios.get(endpoint)
+      await new Promise((resolve, reject) => setTimeout(resolve, 1000))
+      return res
+    },
+    async getCascaderOptions(endpoint) {
       const res = await emulateResponse(endpoint)
       axios.get(endpoint)
       await new Promise((resolve, reject) => setTimeout(resolve, 1000))

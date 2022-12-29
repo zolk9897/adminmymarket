@@ -53,7 +53,7 @@ const save = async () => {
       store.save()
     })
     .catch((error) => {
-      console.log('error', error)
+      console.error('error', error)
     })
 }
 

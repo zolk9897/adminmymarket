@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <a-layout>
-      <Header />
-    </a-layout>
-    <a-layout>
-      <Sidebar />
-      <main class="main_layout">
-        <router-view />
-      </main>
-    </a-layout>
-  </div>
+  <a-layout>
+    <Header />
+  </a-layout>
+  <a-layout>
+    <Sidebar />
+    <main class="main_layout">
+      <router-view />
+    </main>
+  </a-layout>
 </template>
 
 <script setup>

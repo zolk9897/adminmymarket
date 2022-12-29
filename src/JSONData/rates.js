@@ -296,6 +296,8 @@ export default {
           delete: true,
           edit: true,
           copy: true,
+          view: true,
+          deactivate: true,
         },
       ],
     },
